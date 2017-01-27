@@ -1,0 +1,7 @@
+.vs/
+Binary/
+bin/
+obj/
+packages/
+*.lock.json
+*.csproj.user

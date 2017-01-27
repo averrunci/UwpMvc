@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>UwpMvc</id>
+    <version>1.0.0</version>
+    <title>UWP MVC</title>
+    <authors>averrunci</authors>
+    <owners>averrunci</owners>
+    <projectUrl>https://github.com/averrunci/UwpMvc</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The class library for Universal Windows Platform app with Model View Controller</description>
+    <language>en-US</language>
+    <copyright>Copyright (C) 2017 Fievus</copyright>
+    <tags>uwp mvc</tags>
+  </metadata>
+  <files>
+    <file src="..\LICENSE"/>
+    <file src="..\Binary\Release\UwpMvc.dll" target="lib\uap10.0"/>
+    <file src="..\Binary\Release\UwpMvc.pri" target="lib\uap10.0"/>
+    <file src="..\Binary\Release\UwpMvc.XML" target="lib\uap10.0"/>
+  </files>
+</package>

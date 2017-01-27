@@ -1,0 +1,60 @@
+﻿<!--
+Copyright (C) 2017 Fievus
+
+This software may be modified and distributed under the terms
+of the MIT license.  See the LICENSE file for details.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:u="using:Fievus.Windows.Mvc">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../../Styles/Login/LoginStyle.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <DataTemplate x:Key="LoginContent">
+        <Grid>
+            <u:UwpController.Controllers>
+                <u:UwpController ControllerType="Fievus.Windows.Samples.SimpleLoginDemo.Presentation.Login.LoginController,SimpleLoginDemo.Presentation"/>
+            </u:UwpController.Controllers>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Style="{StaticResource MessageStyle}"
+                       Text="{Binding Message.Value}"/>
+
+            <Border Grid.Row="1"
+                    Style="{StaticResource BorderStyle}">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource InputGroupStyle}">
+                        <TextBlock x:Uid="/SimpleLoginDemo.Presentation/Resources/UserId"/>
+                        <ContentControl Style="{StaticResource ValidationContentControlStyle}"
+                                        DataContext="{Binding UserId}">
+                            <TextBox Style="{StaticResource ControlBorderStyle}"
+                                     Text="{Binding Value,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        </ContentControl>
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource InputGroupStyle}">
+                        <TextBlock x:Uid="/SimpleLoginDemo.Presentation/Resources/Password"/>
+                        <Grid>
+                            <ContentControl Style="{StaticResource ValidationContentControlStyle}"
+                                            DataContext="{Binding Password}">
+                                <PasswordBox Name="PasswordBox"
+                                             Style="{StaticResource ControlBorderStyle}"/>
+                            </ContentControl>
+                        </Grid>
+                    </StackPanel>
+
+                    <Button x:Uid="/SimpleLoginDemo.Presentation/Resources/LoginButton"
+                            Name="LoginButton"
+                            Style="{StaticResource LoginButtonStyle}"
+                            IsEnabled="{Binding IsValid.Value}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>
