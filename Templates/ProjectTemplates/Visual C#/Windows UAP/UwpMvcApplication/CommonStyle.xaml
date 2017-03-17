@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:u="using:Fievus.Windows.Mvc">
+    <u:DataTypeDataTemplateSelector x:Key="DataTemplateSelector"/>
+
+    <Style TargetType="ContentControl">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="ContentTemplateSelector" Value="{StaticResource DataTemplateSelector}"/>
+        <Setter Property="IsTabStop" Value="False"/>
+    </Style>
+</ResourceDictionary>

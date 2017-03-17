@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:u="using:Fievus.Windows.Mvc">
+    <DataTemplate x:Key="ApplicationHost">
+        <Grid>
+            <u:UwpController.Controllers>
+                <u:UwpController ControllerType="$safeprojectname$.ApplicationHostController,$safeprojectname$"/>
+            </u:UwpController.Controllers>
+            
+            
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>
