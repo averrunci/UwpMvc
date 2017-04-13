@@ -207,6 +207,150 @@ namespace Fievus.Windows.Mvc.Bindings.ObservablePropertyTest
         }
     }
 
+    public class ObservableProperty_MultiBinding
+    {
+        [Fact]
+        public void BindsSpecifiedObservableProperties()
+        {
+            var property = ObservableProperty<string>.Of("Test1");
+            var property1 = ObservableProperty<int>.Of(1);
+            var property2 = ObservableProperty<int>.Of(2);
+            var property3 = ObservableProperty<int>.Of(3);
+
+            property.Bind(
+                c => (c.GetValueAt<int>(0) + c.GetValueAt<int>(1) + c.GetValueAt<int>(2)).ToString(),
+                property1, property2, property3
+            );
+            Assert.Equal("6", property.Value);
+            Assert.Equal(1, property1.Value);
+            Assert.Equal(2, property2.Value);
+            Assert.Equal(3, property3.Value);
+
+            property1.Value = 7;
+            Assert.Equal("12", property.Value);
+            Assert.Equal(7, property1.Value);
+            Assert.Equal(2, property2.Value);
+            Assert.Equal(3, property3.Value);
+
+            property2.Value = 8;
+            Assert.Equal("18", property.Value);
+            Assert.Equal(7, property1.Value);
+            Assert.Equal(8, property2.Value);
+            Assert.Equal(3, property3.Value);
+
+            property3.Value = 9;
+            Assert.Equal("24", property.Value);
+            Assert.Equal(7, property1.Value);
+            Assert.Equal(8, property2.Value);
+            Assert.Equal(9, property3.Value);
+
+            property.Value = "Test";
+            Assert.Equal("Test", property.Value);
+            Assert.Equal(7, property1.Value);
+            Assert.Equal(8, property2.Value);
+            Assert.Equal(9, property3.Value);
+        }
+
+        [Fact]
+        public void UnbindsBoundObservableProperties()
+        {
+            var property = ObservableProperty<string>.Of("Test1");
+            var property1 = ObservableProperty<int>.Of(1);
+            var property2 = ObservableProperty<int>.Of(2);
+            var property3 = ObservableProperty<int>.Of(3);
+
+            property.Bind(
+                c => (c.GetValueAt<int>(0) + c.GetValueAt<int>(1) + c.GetValueAt<int>(2)).ToString(),
+                property1, property2, property3
+            );
+            Assert.Equal("6", property.Value);
+            Assert.Equal(1, property1.Value);
+            Assert.Equal(2, property2.Value);
+            Assert.Equal(3, property3.Value);
+
+            property.Unbind();
+
+            property1.Value = 7;
+            Assert.Equal("6", property.Value);
+            Assert.Equal(7, property1.Value);
+            Assert.Equal(2, property2.Value);
+            Assert.Equal(3, property3.Value);
+
+            property2.Value = 8;
+            Assert.Equal("6", property.Value);
+            Assert.Equal(7, property1.Value);
+            Assert.Equal(8, property2.Value);
+            Assert.Equal(3, property3.Value);
+
+            property3.Value = 9;
+            Assert.Equal("6", property.Value);
+            Assert.Equal(7, property1.Value);
+            Assert.Equal(8, property2.Value);
+            Assert.Equal(9, property3.Value);
+        }
+
+        [Fact]
+        public void ThrowsExceptionWhenObservablePropertyWhichIsBoundBinds()
+        {
+            var property = ObservableProperty<string>.Of("Test1");
+            var property1 = ObservableProperty<int>.Of(1);
+            var property2 = ObservableProperty<int>.Of(2);
+            var property3 = ObservableProperty<int>.Of(3);
+
+            property.Bind(
+                c => (c.GetValueAt<int>(0) + c.GetValueAt<int>(1) + c.GetValueAt<int>(2)).ToString(),
+                property1, property2, property3
+            );
+
+            Assert.Throws<InvalidOperationException>(() => property.Bind(
+                c => (c.GetValueAt<int>(0) + c.GetValueAt<int>(1) + c.GetValueAt<int>(2)).ToString(),
+                property1, property2, property3
+            ));
+        }
+
+        [Fact]
+        public void BindsSpecifiedObservablePropertiesWithDifferenceValueType()
+        {
+            var property = ObservableProperty<string>.Of("Test1");
+            var property1 = ObservableProperty<int>.Of(1);
+            var property2 = ObservableProperty<string>.Of("#");
+            var property3 = ObservableProperty<bool>.Of(false);
+
+            property.Bind(
+                c => c.GetValueAt<bool>(2) ? $"[{c.GetValueAt<string>(1)}{c.GetValueAt<int>(0)}]" : $"{c.GetValueAt<string>(1)}{c.GetValueAt<int>(0)}",
+                property1, property2, property3
+            );
+            Assert.Equal("#1", property.Value);
+            Assert.Equal(1, property1.Value);
+            Assert.Equal("#", property2.Value);
+            Assert.Equal(false, property3.Value);
+
+            property1.Value = 7;
+            Assert.Equal("#7", property.Value);
+            Assert.Equal(7, property1.Value);
+            Assert.Equal("#", property2.Value);
+            Assert.Equal(false, property3.Value);
+
+            property2.Value = "## ";
+            Assert.Equal("## 7", property.Value);
+            Assert.Equal(7, property1.Value);
+            Assert.Equal("## ", property2.Value);
+            Assert.Equal(false, property3.Value);
+
+            property3.Value = true;
+            Assert.Equal("[## 7]", property.Value);
+            Assert.Equal(7, property1.Value);
+            Assert.Equal("## ", property2.Value);
+            Assert.Equal(true, property3.Value);
+
+            property.Value = "Test";
+            Assert.Equal("Test", property.Value);
+            Assert.Equal(7, property1.Value);
+            Assert.Equal("## ", property2.Value);
+            Assert.Equal(true, property3.Value);
+        }
+    }
+
     public class ObservableProperty_TwoWayBinding
     {
         [Fact]

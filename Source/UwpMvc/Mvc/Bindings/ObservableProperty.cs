@@ -56,8 +56,7 @@ namespace Fievus.Windows.Mvc.Bindings
         private string displayName;
         private bool cancelValueChangedIfInvalid;
 
-        private INotifyPropertyChanged observable;
-        private PropertyChangedEventHandler propertyChangedHandler;
+        private readonly List<BindingSourceContext> bindingSources = new List<BindingSourceContext>();
 
         /// <summary>
         /// Gets or sets the property value.
@@ -187,25 +186,25 @@ namespace Fievus.Windows.Mvc.Bindings
         /// <summary>
         /// Binds the specified observable property.
         /// </summary>
-        /// <param name="observable">The observable property that is bound.</param>
+        /// <param name="source">The observable property that is bound.</param>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="observable"/> is <c>null</c>.
+        /// <paramref name="source"/> is <c>null</c>.
         /// </exception>
-        public void Bind(ObservableProperty<T> observable)
+        public void Bind(ObservableProperty<T> source)
         {
-            Bind<T>(observable.RequireNonNull(nameof(observable)), t => t);
+            Bind<T>(source.RequireNonNull(nameof(source)), t => t);
         }
 
         /// <summary>
         /// Binds the specified observable property with the specified converter
-        /// that converts the property value from the observable property value to
-        /// the observed property value.
+        /// that converts the property value from the source observable property value to
+        /// the target observable property value.
         /// </summary>
         /// <typeparam name="E">The type of the value of the observable property.</typeparam>
-        /// <param name="observable">The observable property that is bound.</param>
+        /// <param name="source">The observable property that is bound.</param>
         /// <param name="converter">The converter that converts the property value.</param>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="observable"/> is <c>null</c>.
+        /// <paramref name="source"/> is <c>null</c>.
         /// </exception>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="converter"/> is <c>null</c>.
@@ -213,23 +212,53 @@ namespace Fievus.Windows.Mvc.Bindings
         /// <exception cref="InvalidOperationException">
         /// The property has already bound another property.
         /// </exception>
-        public void Bind<E>(ObservableProperty<E> observable, Func<E, T> converter)
+        public void Bind<E>(ObservableProperty<E> source, Func<E, T> converter)
         {
-            observable.RequireNonNull(nameof(observable));
+            source.RequireNonNull(nameof(source));
             converter.RequireNonNull(nameof(converter));
-            if (this.observable != null) { throw new InvalidOperationException(); }
+            if (bindingSources.Any()) { throw new InvalidOperationException(); }
 
-            this.observable = observable;
-            propertyChangedHandler = (s, e) =>
+            bindingSources.Add(new BindingSourceContext(source, (s, e) =>
             {
                 var sourceProperty = s as ObservableProperty<E>;
                 if (sourceProperty == null) { return; }
                 if (e.PropertyName != valueChangedEventArgs.PropertyName) { return; }
 
                 Value = converter(sourceProperty.Value);
-            };
-            this.observable.PropertyChanged += propertyChangedHandler;
-            Value = converter(observable.Value);
+            }));
+            bindingSources.ForEach(o => o.Register());
+            Value = converter(source.Value);
+        }
+
+        /// <summary>
+        /// Binds the specified observable properties with the specified converter
+        /// that converts the property value from the source observable property values to
+        /// the target observable property value.
+        /// </summary>
+        /// <param name="converter">The converter that converts the property values.</param>
+        /// <param name="sources">The observable properties that are bound.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="converter"/> is <c>null</c>.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="sources"/> is <c>null</c>.
+        /// </exception>
+        public void Bind(Func<MultiBindingContext, T> converter, params INotifyPropertyChanged[] sources)
+        {
+            converter.RequireNonNull(nameof(converter));
+            sources.RequireNonNull(nameof(sources));
+            if (bindingSources.Any()) { throw new InvalidOperationException(); }
+
+            var context = new MultiBindingContext(sources);
+            bindingSources.AddRange(sources.Select(observable => new BindingSourceContext(observable, (s, e) =>
+            {
+                if (e.PropertyName != valueChangedEventArgs.PropertyName) { return; }
+
+                Value = converter(context);
+            })));
+
+            bindingSources.ForEach(observable => observable.Register());
+            Value = converter(context);
         }
 
         /// <summary>
@@ -240,49 +269,48 @@ namespace Fievus.Windows.Mvc.Bindings
         /// </exception>
         public void Unbind()
         {
-            if (observable == null) { throw new InvalidOperationException(); }
+            if (!bindingSources.Any()) { throw new InvalidOperationException(); }
 
-            observable.PropertyChanged -= propertyChangedHandler;
-            observable = null;
-            propertyChangedHandler = null;
+            bindingSources.ForEach(observable => observable.Unregister());
+            bindingSources.Clear();
         }
 
         /// <summary>
         /// Binds the specified observable property to update the other when
         /// either the property value is changed.
         /// </summary>
-        /// <param name="observable">The observable property that is boud.</param>
+        /// <param name="source">The observable property that is boud.</param>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="observable"/> is <c>null</c>.
+        /// <paramref name="source"/> is <c>null</c>.
         /// </exception>
         /// <exception cref="InvalidOperationException">
         /// The property has already bound another property.
         /// </exception>
-        public void BindTwoWay(ObservableProperty<T> observable)
+        public void BindTwoWay(ObservableProperty<T> source)
         {
-            observable.RequireNonNull(nameof(observable));
-            if (this.observable != null) { throw new InvalidOperationException(); }
+            source.RequireNonNull(nameof(source));
+            if (bindingSources.Any()) { throw new InvalidOperationException(); }
 
-            Bind(observable);
-            observable.Bind(this);
+            Bind(source);
+            source.Bind(this);
         }
 
         /// <summary>
         /// Unbinds the specified observable property.
         /// </summary>
-        /// <param name="observable">The observable property that is unbound.</param>
+        /// <param name="source">The observable property that is unbound.</param>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="observable"/> is <c>null</c>.
+        /// <paramref name="source"/> is <c>null</c>.
         /// </exception>
         /// <exception cref="InvalidOperationException">
         /// The property has not bound a property yet.
         /// </exception>
-        public void UnbindTwoWay(ObservableProperty<T> observable)
+        public void UnbindTwoWay(ObservableProperty<T> source)
         {
-            observable.RequireNonNull(nameof(observable));
-            if (this.observable == null) { throw new InvalidOperationException(); }
+            source.RequireNonNull(nameof(source));
+            if (!bindingSources.Any()) { throw new InvalidOperationException(); }
 
-            observable.Unbind();
+            source.Unbind();
             Unbind();
         }
 
@@ -492,6 +520,50 @@ namespace Fievus.Windows.Mvc.Bindings
             {
                 IsValidated = true;
             }
+        }
+
+        /// <summary>
+        /// Represents a context of the binding source.
+        /// </summary>
+        protected class BindingSourceContext
+        {
+            /// <summary>
+            /// Gets a binding source.
+            /// </summary>
+            protected INotifyPropertyChanged Source { get; }
+
+            /// <summary>
+            /// Gets <see cref="PropertyChangedEventHandler"/> of the binding source.
+            /// </summary>
+            protected PropertyChangedEventHandler PropertyChangedHandler { get; }
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="BindingSourceContext"/> class
+            /// with the specified binding source and <see cref="PropertyChangedEventHandler"/>.
+            /// </summary>
+            /// <param name="source">The binding source.</param>
+            /// <param name="propertyChangedHandler"><see cref="PropertyChangedEventHandler"/> of the binding source.</param>
+            /// <exception cref="ArgumentNullException">
+            /// <paramref name="source"/> is <c>null</c>.
+            /// </exception>
+            /// <exception cref="ArgumentNullException">
+            /// <paramref name="propertyChangedHandler"/> is <c>null</c>.
+            /// </exception>
+            public BindingSourceContext(INotifyPropertyChanged source, PropertyChangedEventHandler propertyChangedHandler)
+            {
+                Source = source.RequireNonNull(nameof(source));
+                PropertyChangedHandler = propertyChangedHandler.RequireNonNull(nameof(propertyChangedHandler));
+            }
+
+            /// <summary>
+            /// Registers <see cref="PropertyChangedEventHandler"/> to the binding source.
+            /// </summary>
+            public void Register() => Source.PropertyChanged += PropertyChangedHandler;
+
+            /// <summary>
+            /// Unregisters <see cref="PropertyChangedEventHandler"/> from the binding source.
+            /// </summary>
+            public void Unregister() => Source.PropertyChanged -= PropertyChangedHandler;
         }
     }
 
