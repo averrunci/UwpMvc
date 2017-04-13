@@ -58,7 +58,7 @@
   </WizardExtension>
   <WizardData>
     <packages repository="registry" keyName="NETCoreSDK" isPreunzipped="true">
-      <package id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.2.2" skipAssemblyReferences="false" />
+      <package id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.3.2" skipAssemblyReferences="false" />
     </packages>
     <packages>
       <package id="UwpMvc" version="1.0.0"/>
