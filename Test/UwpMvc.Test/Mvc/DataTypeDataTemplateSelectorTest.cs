@@ -28,6 +28,7 @@ namespace Fievus.Windows.Mvc
 
         private class TestData { }
         private class TestContainer : DependencyObject { }
+        private class DerivedTestData : TestData { }
 
         [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedDataTypeName()
@@ -75,6 +76,40 @@ namespace Fievus.Windows.Mvc
 
                 template = selector.SelectTemplate(new TestData(), new TestContainer());
                 Assert.Null(template);
+            });
+        }
+
+        [Fact]
+        public async Task SelectsDataTemplateThatHasKeyOfSpecifiedBaseDataTypeName()
+        {
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                Application.Current.Resources["TestData"] = new DataTemplate();
+
+                var selector = new DataTypeDataTemplateSelector();
+
+                var template = selector.SelectTemplate(new DerivedTestData());
+                Assert.NotNull(template);
+
+                template = selector.SelectTemplate(new DerivedTestData(), new TestContainer());
+                Assert.NotNull(template);
+            });
+        }
+
+        [Fact]
+        public async Task SelectsDataTemplateThatHasKeyOfSpecifiedBaseDataTypeNameTheSuffixOfWhichIsTemplate()
+        {
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                Application.Current.Resources["TestDataTemplate"] = new DataTemplate();
+
+                var selector = new DataTypeDataTemplateSelector();
+
+                var template = selector.SelectTemplate(new DerivedTestData());
+                Assert.NotNull(template);
+
+                template = selector.SelectTemplate(new DerivedTestData(), new TestContainer());
+                Assert.NotNull(template);
             });
         }
     }

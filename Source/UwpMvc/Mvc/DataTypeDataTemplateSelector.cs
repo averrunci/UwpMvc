@@ -2,6 +2,8 @@
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
+using System;
+using System.Reflection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -35,13 +37,15 @@ namespace Fievus.Windows.Mvc
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container) =>
             item == null ? base.SelectTemplateCore(item, container) : FindDataTemplate(item) ?? base.SelectTemplateCore(item, container);
 
-        private DataTemplate FindDataTemplate(object item)
-        {
-            var dataTypeName = item.GetType().Name;
-            return FindDataTemplate(dataTypeName) ?? FindDataTemplate($"{dataTypeName}Template");
-        }
+        private DataTemplate FindDataTemplate(object item) => FindDataTemplate(item.GetType());
 
-        private DataTemplate FindDataTemplate(string key) =>
+        private DataTemplate FindDataTemplate(Type dataType) =>
+            dataType == null ? null : FindDataTemplate(dataType.Name) ?? FindDataTemplate(dataType.GetTypeInfo().BaseType);
+
+        private DataTemplate FindDataTemplate(string dataTypeName) =>
+            FindDataTemplateByResourceKey(dataTypeName) ?? FindDataTemplateByResourceKey($"{dataTypeName}Template");
+
+        private DataTemplate FindDataTemplateByResourceKey(string key) =>
             Application.Current.Resources.ContainsKey(key) ? Application.Current.Resources[key] as DataTemplate : null;
     }
 }
