@@ -24,7 +24,7 @@ namespace Fievus.Windows.Mvc.Wrappers
         /// </summary>
         /// <param name="e">The requested <see cref="SizeChangedEventArgs"/>.</param>
         /// <returns>
-        /// The new size. The <see cref="Size"/> structure contains the new height and width.
+        /// The new size. The Size structure contains the new height and width.
         /// </returns>
         public static Size NewSize(this SizeChangedEventArgs e) => Resolver.NewSize(e);
 
@@ -61,7 +61,7 @@ namespace Fievus.Windows.Mvc.Wrappers
         /// </summary>
         /// <param name="e">The requested <see cref="SizeChangedEventArgs"/>.</param>
         /// <returns>
-        /// The new size. The <see cref="Size"/> structure contains the new height and width.
+        /// The new size. The Size structure contains the new height and width.
         /// </returns>
         Size NewSize(SizeChangedEventArgs e);
 

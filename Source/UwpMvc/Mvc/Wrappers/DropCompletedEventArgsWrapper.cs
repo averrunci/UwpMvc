@@ -43,6 +43,9 @@ namespace Fievus.Windows.Mvc.Wrappers
         }
     }
 
+    /// <summary>
+    /// Resolves data of the <see cref="DropCompletedEventArgsWrapper"/>.
+    /// </summary>
     public interface IDropCompletedEventArgsResolver
     {
         /// <summary>

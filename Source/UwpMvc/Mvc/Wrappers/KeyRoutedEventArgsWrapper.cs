@@ -15,7 +15,7 @@ namespace Fievus.Windows.Mvc.Wrappers
     public static class KeyRoutedEventArgsWrapper
     {
         /// <summary>
-        /// Gets or sets the <see cref="KeyIRoutedEventArgsResolver"/>
+        /// Gets or sets the <see cref="IKeyRoutedEventArgsResolver"/>
         /// that resolves data of the <see cref="KeyRoutedEventArgs"/>.
         /// </summary>
         public static IKeyRoutedEventArgsResolver Resolver { get; set; } = new DefaultKeyRoutedEventArgsResolver();

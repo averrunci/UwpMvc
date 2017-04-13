@@ -93,7 +93,7 @@ namespace Fievus.Windows.Mvc.Wrappers
         /// basic information on the pointer associated with the event.
         /// <para>
         /// The last item in the collection is equivalent to the <see cref="PointerPoint"/> object
-        /// returned by <see cref="GetCurrentPoint(PointerRoutedEventArgs, UIElement)"/>.
+        /// returned by <see cref="GetCurrentPointWrapped(PointerRoutedEventArgs, UIElement)"/>.
         /// </para>
         /// </summary>
         /// <param name="e">The requested <see cref="PointerRoutedEventArgs"/>.</param>

@@ -52,7 +52,7 @@ namespace Fievus.Windows.Mvc.Wrappers
         /// </summary>
         /// <param name="e">The requested <see cref="ContainerContentChangingEventArgs"/>.</param>
         /// <returns>
-        /// <c>true</c> if the container is in the recycle queue of the <see cref="ListviewBase"/>; otherwise, <c>false</c>.
+        /// <c>true</c> if the container is in the recycle queue of the <see cref="ListViewBase"/>; otherwise, <c>false</c>.
         /// </returns>
         public static bool InRecycleQueue(this ContainerContentChangingEventArgs e) => Resolver.InRecycleQueue(e);
 
@@ -156,7 +156,7 @@ namespace Fievus.Windows.Mvc.Wrappers
         /// </summary>
         /// <param name="e">The requested <see cref="ContainerContentChangingEventArgs"/>.</param>
         /// <returns>
-        /// <c>true</c> if the container is in the recycle queue of the <see cref="ListviewBase"/>; otherwise, <c>false</c>.
+        /// <c>true</c> if the container is in the recycle queue of the <see cref="ListViewBase"/>; otherwise, <c>false</c>.
         /// </returns>
         bool InRecycleQueue(ContainerContentChangingEventArgs e);
 

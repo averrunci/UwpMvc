@@ -55,7 +55,7 @@ namespace Fievus.Windows.Mvc.Wrappers
         /// Sets the rate of slowdown of expansion inertial movement.
         /// </summary>
         /// <param name="e">The requested <see cref="ManipulationInertiaStartingRoutedEventArgs"/>.</param>
-        /// <param name="behavior">the rate of slowdown expansion inertial movement.</param>
+        /// <param name="expansionBehavior">the rate of slowdown expansion inertial movement.</param>
         public static void ExpansionBehavior(this ManipulationInertiaStartingRoutedEventArgs e, InertiaExpansionBehavior expansionBehavior) => Resolver.ExpansionBehavior(e, expansionBehavior);
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace Fievus.Windows.Mvc.Wrappers
         /// Sets the rate of slowdown of expansion inertial movement.
         /// </summary>
         /// <param name="e">The requested <see cref="ManipulationInertiaStartingRoutedEventArgs"/>.</param>
-        /// <param name="behavior">the rate of slowdown expansion inertial movement.</param>
+        /// <param name="expansionBehavior">the rate of slowdown expansion inertial movement.</param>
         void ExpansionBehavior(ManipulationInertiaStartingRoutedEventArgs e, InertiaExpansionBehavior expansionBehavior);
 
         /// <summary>

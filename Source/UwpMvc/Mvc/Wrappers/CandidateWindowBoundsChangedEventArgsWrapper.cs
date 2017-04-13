@@ -20,11 +20,11 @@ namespace Fievus.Windows.Mvc.Wrappers
         public static ICandidateWindowBoundsChangedEventArgsResolver Resolver { get; set; } = new DefaultCandidateWindowBoundsChangedEventArgsResolver();
 
         /// <summary>
-        /// Gets the <see cref="Rect"/> that defines the size and location of the Input Method Editor (IME)
+        /// Gets the Rect that defines the size and location of the Input Method Editor (IME)
         /// window, in the coordinate space of the text edit control.
         /// </summary>
         /// <param name="e">The requested <see cref="CandidateWindowBoundsChangedEventArgs"/>.</param>
-        /// <returns>The <see cref="Rect"/> that defines the size and location of the IME window.</returns>
+        /// <returns>The Rect that defines the size and location of the IME window.</returns>
         public static Rect Bounds(this CandidateWindowBoundsChangedEventArgs e) => Resolver.Bounds(e);
 
         private sealed class DefaultCandidateWindowBoundsChangedEventArgsResolver : ICandidateWindowBoundsChangedEventArgsResolver
@@ -39,11 +39,11 @@ namespace Fievus.Windows.Mvc.Wrappers
     public interface ICandidateWindowBoundsChangedEventArgsResolver
     {
         /// <summary>
-        /// Gets the <see cref="Rect"/> that defines the size and location of the Input Method Editor (IME)
+        /// Gets the Rect that defines the size and location of the Input Method Editor (IME)
         /// window, in the coordinate space of the text edit control.
         /// </summary>
         /// <param name="e">The requested <see cref="CandidateWindowBoundsChangedEventArgs"/>.</param>
-        /// <returns>The <see cref="Rect"/> that defines the size and location of the IME window.</returns>
+        /// <returns>The Rect that defines the size and location of the IME window.</returns>
         Rect Bounds(CandidateWindowBoundsChangedEventArgs e);
     }
 }

@@ -86,21 +86,21 @@ namespace Fievus.Windows.Mvc.Wrappers
         /// Gets the <see cref="global::Windows.Devices.Input.PointerDeviceType"/> for the pointer device
         /// involved in the manipulation.
         /// </summary>
-        /// <param name="e">The requested <see cref="ManipulationCompletedRoutedEventArgs"s/>.</param>
+        /// <param name="e">The requested <see cref="ManipulationCompletedRoutedEventArgs"/>.</param>
         /// <returns>A value of the <see cref="global::Windows.Devices.Input.PointerDeviceType"/> enumeration.</returns>
         public static PointerDeviceType PointerDeviceType(this ManipulationCompletedRoutedEventArgs e) => Resolver.PointerDeviceType(e);
 
         /// <summary>
         /// Gets the x- and y- screen coordinates of the touch input at completed position.
         /// </summary>
-        /// <param name="e">The requested <see cref="ManipulationCompletedRoutedEventArgs"s/>.</param>
+        /// <param name="e">The requested <see cref="ManipulationCompletedRoutedEventArgs"/>.</param>
         /// <returns>The x- and y- screen coordinates of the touch input at completed position.</returns>
         public static Point Position(this ManipulationCompletedRoutedEventArgs e) => Resolver.Position(e);
 
         /// <summary>
         /// Gets the velocities that are used for the manipulation.
         /// </summary>
-        /// <param name="e">The requested <see cref="ManipulationCompletedRoutedEventArgs"s/>.</param>
+        /// <param name="e">The requested <see cref="ManipulationCompletedRoutedEventArgs"/>.</param>
         /// <returns>The velocities that are used for the manipulation.</returns>
         public static ManipulationVelocities Velocities(this ManipulationCompletedRoutedEventArgs e) => Resolver.Velocities(e);
 
@@ -187,21 +187,21 @@ namespace Fievus.Windows.Mvc.Wrappers
         /// Gets the <see cref="global::Windows.Devices.Input.PointerDeviceType"/> for the pointer device
         /// involved in the manipulation.
         /// </summary>
-        /// <param name="e">The requested <see cref="ManipulationCompletedRoutedEventArgs"s/>.</param>
+        /// <param name="e">The requested <see cref="ManipulationCompletedRoutedEventArgs"/>.</param>
         /// <returns>A value of the <see cref="global::Windows.Devices.Input.PointerDeviceType"/> enumeration.</returns>
         PointerDeviceType PointerDeviceType(ManipulationCompletedRoutedEventArgs e);
 
         /// <summary>
         /// Gets the x- and y- screen coordinates of the touch input at completed position.
         /// </summary>
-        /// <param name="e">The requested <see cref="ManipulationCompletedRoutedEventArgs"s/>.</param>
+        /// <param name="e">The requested <see cref="ManipulationCompletedRoutedEventArgs"/>.</param>
         /// <returns>The x- and y- screen coordinates of the touch input at completed position.</returns>
         Point Position(ManipulationCompletedRoutedEventArgs e);
 
         /// <summary>
         /// Gets the velocities that are used for the manipulation.
         /// </summary>
-        /// <param name="e">The requested <see cref="ManipulationCompletedRoutedEventArgs"s/>.</param>
+        /// <param name="e">The requested <see cref="ManipulationCompletedRoutedEventArgs"/>.</param>
         /// <returns>The velocities that are used for the manipulation.</returns>
         ManipulationVelocities Velocities(ManipulationCompletedRoutedEventArgs e);
     }

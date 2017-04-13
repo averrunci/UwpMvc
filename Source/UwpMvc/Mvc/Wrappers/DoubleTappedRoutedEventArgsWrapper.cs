@@ -76,7 +76,7 @@ namespace Fievus.Windows.Mvc.Wrappers
         /// use a <paramref name="relativeTo"/> value of <c>null</c>.
         /// </param>
         /// <returns>
-        /// A <see cref="Point"/> that represents the current x- and y-coordinates of the mouse pointer
+        /// A Point that represents the current x- and y-coordinates of the mouse pointer
         /// position. If <c>null</c> was passed as <paramref name="relativeTo"/>, this coordinate is for
         /// the overall window. If a <paramref name="relativeTo"/> value other than <c>null</c> was
         /// passed, this coordinate is relative to the object referenced by <paramref name="relativeTo"/>.
@@ -153,7 +153,7 @@ namespace Fievus.Windows.Mvc.Wrappers
         /// use a <paramref name="relativeTo"/> value of <c>null</c>.
         /// </param>
         /// <returns>
-        /// A <see cref="Point"/> that represents the current x- and y-coordinates of the mouse pointer
+        /// A Point that represents the current x- and y-coordinates of the mouse pointer
         /// position. If <c>null</c> was passed as <paramref name="relativeTo"/>, this coordinate is for
         /// the overall window. If a <paramref name="relativeTo"/> value other than <c>null</c> was
         /// passed, this coordinate is relative to the object referenced by <paramref name="relativeTo"/>.

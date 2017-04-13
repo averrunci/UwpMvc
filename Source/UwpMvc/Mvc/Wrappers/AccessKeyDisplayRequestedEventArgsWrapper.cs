@@ -21,7 +21,7 @@ namespace Fievus.Windows.Mvc.Wrappers
         /// <summary>
         /// Gets the keys that were pressed to start the access key sequence.
         /// </summary>
-        /// <param name="e">The requested <see cref="AccessKeyDisplayRequestedEventArgs"/>.<param>
+        /// <param name="e">The requested <see cref="AccessKeyDisplayRequestedEventArgs"/>.</param>
         /// <returns>The keys that were pressed to start the access key sequence.</returns>
         public static string PressedKeys(this AccessKeyDisplayRequestedEventArgs e) => Resolver.PressedKeys(e);
 

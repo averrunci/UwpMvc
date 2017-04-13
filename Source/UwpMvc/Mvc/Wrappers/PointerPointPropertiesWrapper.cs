@@ -259,7 +259,7 @@ namespace Fievus.Windows.Mvc.Wrappers
         /// the specified Human Interface Device (HID) usage information.
         /// </summary>
         /// <param name="properties">The requested <see cref="PointerPointProperties"/>.</param>
-        /// <param name="usagePgae">
+        /// <param name="usagePage">
         /// The HID usage page of the pointer device.
         /// Usage pages specify the class of device. For example, touch digitizer (0x0D) and
         /// generic input (0x01).
@@ -273,7 +273,7 @@ namespace Fievus.Windows.Mvc.Wrappers
         /// <returns>
         /// <c>true</c> if the input data includes usage information; otherwise, <c>false</c>.
         /// </returns>
-        public static bool HasUsageWrapped(PointerPointProperties properties, uint usagePgae, uint usageId) => Resolver.HasUsage(properties, usagePgae, usageId);
+        public static bool HasUsageWrapped(PointerPointProperties properties, uint usagePage, uint usageId) => Resolver.HasUsage(properties, usagePage, usageId);
 
         private sealed class DefaultPointerPointPropertiesResolver : IPointerPointPropertiesResolver
         {
