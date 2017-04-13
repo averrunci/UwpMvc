@@ -2,10 +2,11 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>UwpMvc</id>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <title>UWP MVC</title>
     <authors>averrunci</authors>
     <owners>averrunci</owners>
+    <licenseUrl>https://github.com/averrunci/UwpMvc/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/averrunci/UwpMvc</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The class library for Universal Windows Platform app with Model View Controller</description>
