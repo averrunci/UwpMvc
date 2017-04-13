@@ -226,7 +226,7 @@ namespace Fievus.Windows.Mvc.Bindings
 
                 Value = converter(sourceProperty.Value);
             }));
-            bindingSources.ForEach(o => o.Register());
+            bindingSources.ForEach(s => s.Register());
             Value = converter(source.Value);
         }
 
@@ -257,7 +257,7 @@ namespace Fievus.Windows.Mvc.Bindings
                 Value = converter(context);
             })));
 
-            bindingSources.ForEach(observable => observable.Register());
+            bindingSources.ForEach(source => source.Register());
             Value = converter(context);
         }
 
@@ -271,7 +271,7 @@ namespace Fievus.Windows.Mvc.Bindings
         {
             if (!bindingSources.Any()) { throw new InvalidOperationException(); }
 
-            bindingSources.ForEach(observable => observable.Unregister());
+            bindingSources.ForEach(source => source.Unregister());
             bindingSources.Clear();
         }
 
