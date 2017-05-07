@@ -2,6 +2,8 @@
 
 UWP MVC is a class library for Universal Windows Platform app with Model View Controller architecture.
 
+![UWP MVC overview](Images/mvcsummary.png)
+
 In UWP MVC, the roles of a model, view, and controller are redefined as follows.
 
 ### Model
@@ -38,8 +40,8 @@ This library provides a feature to specify a controller with an attached propert
 ```
 <Grid xmlns:u="using:Fievus.Windows.Mvc">
     <u:UwpController.Controllers>
-	    <local:Controller/>
-	</u:UwpController.Controllers>
+        <local:Controller/>
+    </u:UwpController.Controllers>
 </Grid>
 ```
 
@@ -56,8 +58,8 @@ UwpController.Factory = new ControllerFactory();
 ```
 <Grid xmlns:u="using:Fievus.Windows.Mvc">
     <u:UwpController.Controllers>
-	    <u:UwpController ControllerType="TargetNamespace.Controller,TargetAssembly"/>
-	</u:UwpController.Controllers>
+        <u:UwpController ControllerType="TargetNamespace.Controller,TargetAssembly"/>
+    </u:UwpController.Controllers>
 </Grid>
 ```
 
@@ -120,7 +122,7 @@ public DataContexType Context { get; set; }
 [DataContext]
 public void SetContext(DataContexType context)
 {
-	this.context = context;
+    this.context = context;
 }
 private DataContexType context;
 ```
