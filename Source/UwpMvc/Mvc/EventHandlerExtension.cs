@@ -93,7 +93,7 @@ namespace Fievus.Windows.Mvc
 
         private delegate void Handler(object sender, object e);
 
-        private class EventHandlerAction
+        public class EventHandlerAction
         {
             private MethodInfo Method { get; }
             private object Target { get; }
@@ -106,17 +106,19 @@ namespace Fievus.Windows.Mvc
 
             public void OnHandled(object sender, object e)
             {
+                Handle(sender, e);
+            }
+
+            public object Handle(object sender, object e)
+            {
                 switch (Method.GetParameters().Length)
                 {
                     case 0:
-                        Method.Invoke(Target, null);
-                        break;
+                        return Method.Invoke(Target, null);
                     case 1:
-                        Method.Invoke(Target, new object[] { e });
-                        break;
+                        return Method.Invoke(Target, new object[] { e });
                     case 2:
-                        Method.Invoke(Target, new object[] { sender, e });
-                        break;
+                        return Method.Invoke(Target, new object[] { sender, e });
                     default:
                         throw new InvalidOperationException("The length of the method parameters must be less than 3.");
                 }

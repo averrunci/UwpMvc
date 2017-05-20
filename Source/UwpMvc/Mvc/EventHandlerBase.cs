@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
 namespace Fievus.Windows.Mvc
@@ -124,6 +125,18 @@ namespace Fievus.Windows.Mvc
             /// </summary>
             /// <param name="eventName">The name of the event.</param>
             public void Raise(string eventName) => items.ForEach(i => i.Raise(eventName, sender, e));
+
+            /// <summary>
+            /// Raises the event of the specified name.
+            /// </summary>
+            /// <param name="eventName">The name of the event.</param>
+            public async Task RaiseAsync(string eventName)
+            {
+                foreach (var item in items)
+                {
+                    await item.RaiseAsync(eventName, sender, e);
+                }
+            }
         }
 
         /// <summary>
@@ -226,6 +239,27 @@ namespace Fievus.Windows.Mvc
                     case 2:
                         Handler.DynamicInvoke(new object[] { sender, e });
                         break;
+                }
+            }
+
+            /// <summary>
+            /// Raises the event of the specified name asynchronously.
+            /// </summary>
+            /// <param name="eventName">The name of the event.</param>
+            /// <param name="sender">The object where the event handler is attached.</param>
+            /// <param name="e">The event data.</param>
+            /// <returns>A task that represents the asynchronous raise operation.</returns>
+            public async Task RaiseAsync(string eventName, object sender, object e)
+            {
+                if (EventName != eventName || Handler == null) { return; }
+
+                var action = Handler.Target as EventHandlerExtension.EventHandlerAction;
+                if (action == null) { return; }
+
+                var task = action.Handle(sender, e) as Task;
+                if (task != null)
+                {
+                    await task;
                 }
             }
         }

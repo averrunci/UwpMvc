@@ -3,6 +3,7 @@
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
 using System;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
@@ -53,6 +54,43 @@ namespace Fievus.Windows.Mvc
             public Action AssertionHandler { get; set; }
 
             public TestUwpController() { }
+        }
+
+        public class TestUwpControllerAsync
+        {
+            [DataContext]
+            public object Context { get; set; }
+
+            [Element]
+            public FrameworkElement Element { get; set; }
+
+            [EventHandler(ElementName = "Element", Event = "Tapped")]
+            private async Task OnElementTapped()
+            {
+                await Task.Run(() => AssertionHandler?.Invoke());
+            }
+
+            [EventHandler(ElementName = "Element", Event = "Loaded")]
+            private async Task OnElementLoaded()
+            {
+                await Task.Run(() => AssertionHandler?.Invoke());
+            }
+
+            [EventHandler(ElementName = "Element", Event = "Changed")]
+            private async Task OnElementChanged()
+            {
+                await Task.Run(() => AssertionHandler?.Invoke());
+            }
+
+            [EventHandler(ElementName = "Element", Event = "DataContextChanged")]
+            private async Task OnElementDataContextChanged()
+            {
+                await Task.Run(() => AssertionHandler?.Invoke());
+            }
+
+            public Action AssertionHandler { get; set; }
+
+            public TestUwpControllerAsync() { }
         }
 
         public class AttributedToField

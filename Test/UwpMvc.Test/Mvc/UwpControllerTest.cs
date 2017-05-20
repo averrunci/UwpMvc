@@ -268,6 +268,19 @@ namespace Fievus.Windows.Mvc.UwpControllerTest
 
             Assert.True(eventHandled);
         }
+
+        [Fact]
+        public async Task RetrievesEventHandlersAndExecutesThemThatAreAsyncHandlerWhenElementIsNotAttached()
+        {
+            var eventHandled = false;
+            var controller = new TestUwpControllers.TestUwpControllerAsync { AssertionHandler = () => eventHandled = true };
+
+            await UwpController.RetrieveEventHandlers(controller)
+                .GetBy("Element")
+                .RaiseAsync("Loaded");
+
+            Assert.True(eventHandled);
+        }
     }
 
     public class UwpController_UwpControllerExtension : DispatcherHarness
