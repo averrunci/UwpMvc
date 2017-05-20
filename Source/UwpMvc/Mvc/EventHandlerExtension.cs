@@ -28,7 +28,8 @@ namespace Fievus.Windows.Mvc
 
             var eventHandlers = RetrieveEventHandlers(element, controller);
             eventHandlers.RegisterEventHandler();
-            eventHandlers.GetBy(element.Name).From(element).With(new RoutedEventArgs()).Raise("Loaded");
+            eventHandlers.GetBy(element.Name).From(element).Raise(nameof(FrameworkElement.DataContextChanged));
+            eventHandlers.GetBy(element.Name).From(element).With(new RoutedEventArgs()).Raise(nameof(FrameworkElement.Loaded));
         }
 
         void IUwpControllerExtension.Detach(FrameworkElement element, object controller)
