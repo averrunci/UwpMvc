@@ -84,6 +84,24 @@ namespace Fievus.Windows.Mvc.UwpControllerTest
             await InitializeController(controller);
             await AssertController(controller);
         }
+
+        [Theory]
+        [MemberData("TestUwpControllers")]
+        public async Task SetsElement(TestUwpControllers.ITestUwpController controller)
+        {
+            await RunAsync(() =>
+            {
+                Context = new object();
+                ChildElement = new TestElement { Name = "childElement" };
+                Element = new TestElement { Name = "element" };
+
+                UwpController.SetElement(ChildElement, controller, true);
+                UwpController.SetElement(Element, controller, true);
+
+                Assert.Equal(Element, controller.Element);
+                Assert.Equal(ChildElement, controller.ChildElement);
+            });
+        }
     }
 
     public class UwpController_AttachingAndDetachingUwpController : DispatcherHarness
