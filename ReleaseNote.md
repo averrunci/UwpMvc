@@ -1,5 +1,12 @@
 # Release note
 
+## v1.2.1
+
+### Changes
+
+- Change the type of the element specified by ElementAttribute. Its type is not only FrameworkElement but also any object.
+- Change the way of selecting DataTemplate using DataTypeDataTemplateSelector. It selects one including the full name of the data type, too.
+
 ## v1.2.0
 
 ### Add
