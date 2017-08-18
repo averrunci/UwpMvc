@@ -23,6 +23,8 @@ namespace Fievus.Windows.Mvc
             {
                 Application.Current.Resources.Remove("TestData");
                 Application.Current.Resources.Remove("TestDataTemplate");
+                Application.Current.Resources.Remove(typeof(TestData).FullName);
+                Application.Current.Resources.Remove($"{typeof(TestData).FullName}Template");
             });
         }
 
@@ -102,6 +104,74 @@ namespace Fievus.Windows.Mvc
             await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 Application.Current.Resources["TestDataTemplate"] = new DataTemplate();
+
+                var selector = new DataTypeDataTemplateSelector();
+
+                var template = selector.SelectTemplate(new DerivedTestData());
+                Assert.NotNull(template);
+
+                template = selector.SelectTemplate(new DerivedTestData(), new TestContainer());
+                Assert.NotNull(template);
+            });
+        }
+
+        [Fact]
+        public async Task SelectsDataTemplateThatHasKeyOfSpecifiedDataTypeFullName()
+        {
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                Application.Current.Resources[typeof(TestData).FullName] = new DataTemplate();
+
+                var selector = new DataTypeDataTemplateSelector();
+
+                var template = selector.SelectTemplate(new TestData());
+                Assert.NotNull(template);
+
+                template = selector.SelectTemplate(new TestData(), new TestContainer());
+                Assert.NotNull(template);
+            });
+        }
+
+        [Fact]
+        public async Task SelectsDataTemplateThatHasKeyOfSpecifiedDataTypeFullNameTheSuffixOfWhichIsTemplate()
+        {
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                Application.Current.Resources[$"{typeof(TestData).FullName}Template"] = new DataTemplate();
+
+                var selector = new DataTypeDataTemplateSelector();
+
+                var template = selector.SelectTemplate(new TestData());
+                Assert.NotNull(template);
+
+                template = selector.SelectTemplate(new TestData(), new TestContainer());
+                Assert.NotNull(template);
+            });
+        }
+
+        [Fact]
+        public async Task SelectsDataTemplateThatHasKeyOfSpecifiedBaseDataTypeFullName()
+        {
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                Application.Current.Resources[typeof(TestData).FullName] = new DataTemplate();
+
+                var selector = new DataTypeDataTemplateSelector();
+
+                var template = selector.SelectTemplate(new DerivedTestData());
+                Assert.NotNull(template);
+
+                template = selector.SelectTemplate(new DerivedTestData(), new TestContainer());
+                Assert.NotNull(template);
+            });
+        }
+
+        [Fact]
+        public async Task SelectsDataTemplateThatHasKeyOfSpecifiedBaseDataTypeFullNameTheSuffixOfWhichIsTemplate()
+        {
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                Application.Current.Resources[$"{typeof(TestData).FullName}Template"] = new DataTemplate();
 
                 var selector = new DataTypeDataTemplateSelector();
 

@@ -40,7 +40,7 @@ namespace Fievus.Windows.Mvc
         private DataTemplate FindDataTemplate(object item) => FindDataTemplate(item.GetType());
 
         private DataTemplate FindDataTemplate(Type dataType) =>
-            dataType == null ? null : FindDataTemplate(dataType.Name) ?? FindDataTemplate(dataType.GetTypeInfo().BaseType);
+            dataType == null ? null : FindDataTemplate(dataType.Name) ?? FindDataTemplate(dataType.FullName) ?? FindDataTemplate(dataType.GetTypeInfo().BaseType);
 
         private DataTemplate FindDataTemplate(string dataTypeName) =>
             FindDataTemplateByResourceKey(dataTypeName) ?? FindDataTemplateByResourceKey($"{dataTypeName}Template");
