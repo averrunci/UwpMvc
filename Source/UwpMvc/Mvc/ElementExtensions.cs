@@ -21,7 +21,7 @@ namespace Fievus.Windows.Mvc
         /// <returns>
         /// The requested element. This can be null if an element was not found.
         /// </returns>
-        public static E FindElement<E>(this FrameworkElement element, string name) where E : FrameworkElement
+        public static E FindElement<E>(this FrameworkElement element, string name) where E : class
         {
             if (element == null) { return null; }
             if (string.IsNullOrEmpty(name)) { return element as E; }

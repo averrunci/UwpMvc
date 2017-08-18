@@ -224,7 +224,7 @@ namespace Fievus.Windows.Mvc
                 .Where(t => t.Attribute != null)
                 .ForEach(t =>
                 {
-                    var element = rootElement.FindElement<FrameworkElement>(t.Attribute.Name ?? t.Field.Name);
+                    var element = rootElement.FindElement<object>(t.Attribute.Name ?? t.Field.Name);
                     if (!foundElementOnly || element != null)
                     {
                         t.Field.SetValue(controller, element);
@@ -236,7 +236,7 @@ namespace Fievus.Windows.Mvc
                 .Where(t => t.Attribute != null)
                 .ForEach(t =>
                 {
-                    var element = rootElement.FindElement<FrameworkElement>(t.Attribute.Name ?? t.Property.Name);
+                    var element = rootElement.FindElement<object>(t.Attribute.Name ?? t.Property.Name);
                     if (!foundElementOnly || element != null)
                     {
                         t.Property.SetValue(controller, element, null);
@@ -248,7 +248,7 @@ namespace Fievus.Windows.Mvc
                 .Where(t => t.Attribute != null)
                 .ForEach(t =>
                 {
-                    var element = rootElement.FindElement<FrameworkElement>(ResolveElementMethodName(t.Method, t.Attribute));
+                    var element = rootElement.FindElement<object>(ResolveElementMethodName(t.Method, t.Attribute));
                     if (!foundElementOnly || element != null)
                     {
                         t.Method.Invoke(controller, new object[] { element });
