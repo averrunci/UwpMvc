@@ -5,8 +5,11 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
-
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
 using Xunit;
 
 namespace Fievus.Windows.Mvc.Bindings.ObservablePropertyTest
@@ -481,6 +484,11 @@ namespace Fievus.Windows.Mvc.Bindings.ObservablePropertyTest
         public ObservableProperty<string> RequiredProperty { get { return requiredProperty; } }
         private ObservableProperty<string> requiredProperty;
 
+        [Display(Name = nameof(Resources.LocalizablePropertyName), ResourceType = typeof(Resources))]
+        [StringLength(10, ErrorMessageResourceName = nameof(Resources.StringLengthErrorMessage), ErrorMessageResourceType = typeof(Resources))]
+        public ObservableProperty<string> LocalizablePropertyAnnotatedValidation { get { return localizablePropertyAnnotatedValidation; } }
+        private ObservableProperty<string> localizablePropertyAnnotatedValidation;
+
         private readonly PropertyValueValidateEventHandler<string> propertyValueValidate = (s, e) =>
         {
             if (e.Value != "Correct")
@@ -504,6 +512,7 @@ namespace Fievus.Windows.Mvc.Bindings.ObservablePropertyTest
             propertyAnnotatedValidation = new ObservableProperty<string>();
             propertyAnnotatedMultiValidations = new ObservableProperty<string>();
             requiredProperty = new ObservableProperty<string>();
+            localizablePropertyAnnotatedValidation = new ObservableProperty<string>();
 
             PropertyNotAnnotatedValidation.EnableValidation(() => PropertyNotAnnotatedValidation);
             PropertyAnnotatedValidation.EnableValidation(() => PropertyAnnotatedValidation);
@@ -517,6 +526,7 @@ namespace Fievus.Windows.Mvc.Bindings.ObservablePropertyTest
             PropertyAnnotatedValidation.DisableValidation();
             PropertyAnnotatedMultiValidations.DisableValidation();
             RequiredProperty.DisableValidation();
+            LocalizablePropertyAnnotatedValidation.DisableValidation();
         }
 
         private void SetValue<T>(T value, ObservableProperty<T> property)
@@ -564,6 +574,58 @@ namespace Fievus.Windows.Mvc.Bindings.ObservablePropertyTest
                 "Please enter String Expression within 10 characters."
             );
             Assert.True(errorsChangedOccurred);
+        }
+
+        [Fact]
+        public async Task GetsErrorMessageForInvalidPropertyWhenValidationAttributeThatIsLocalizableIsAnnotated()
+        {
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                var currentUICulture = CultureInfo.CurrentUICulture;
+                try
+                {
+                    CultureInfo.CurrentUICulture = new CultureInfo("en-US");
+                    LocalizablePropertyAnnotatedValidation.EnableValidation(() => LocalizablePropertyAnnotatedValidation);
+
+                    SetValue("ABCDEFGHIJK", LocalizablePropertyAnnotatedValidation);
+
+                    AssertValidationError(
+                        LocalizablePropertyAnnotatedValidation,
+                        "Please enter Localizable Property within 10 characters."
+                    );
+                    Assert.True(errorsChangedOccurred);
+                }
+                finally
+                {
+                    CultureInfo.CurrentUICulture = currentUICulture;
+                }
+            });
+        }
+
+        [Fact]
+        public async Task GetsLocalizedErrorMessageForInvalidPropertyWhenValidationAttributeThatIsLocalizableIsAnnotated()
+        {
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                var currentUICulture = CultureInfo.CurrentUICulture;
+                try
+                {
+                    CultureInfo.CurrentUICulture = new CultureInfo("ja-JP");
+                    LocalizablePropertyAnnotatedValidation.EnableValidation(() => LocalizablePropertyAnnotatedValidation);
+
+                    SetValue("ABCDEFGHIJK", LocalizablePropertyAnnotatedValidation);
+
+                    AssertValidationError(
+                            LocalizablePropertyAnnotatedValidation,
+                            "ローカライズ可能なプロパティは10文字以内で入力してください。"
+                        );
+                    Assert.True(errorsChangedOccurred);
+                }
+                finally
+                {
+                    CultureInfo.CurrentUICulture = currentUICulture;
+                }
+            });
         }
 
         [Fact]
