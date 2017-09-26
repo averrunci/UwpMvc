@@ -27,7 +27,7 @@ namespace Fievus.Windows.Mvc.Wrappers
 
         private sealed class DefaultAccessKeyDisplayRequestedEventArgsResolver : IAccessKeyDisplayRequestedEventArgsResolver
         {
-            string IAccessKeyDisplayRequestedEventArgsResolver.PressedKeys(AccessKeyDisplayRequestedEventArgs e) => Resolver.PressedKeys(e);
+            string IAccessKeyDisplayRequestedEventArgsResolver.PressedKeys(AccessKeyDisplayRequestedEventArgs e) => e.PressedKeys;
         }
     }
 
