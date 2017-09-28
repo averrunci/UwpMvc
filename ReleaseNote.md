@@ -1,5 +1,12 @@
 # Release note
 
+## v1.2.2
+
+### Bug fix
+
+- Fixed the name value of DisplayNameAttribute when it is retrieved from a resource.
+- Fixed the implementation of DefaultAccessKeyDisplayRequestedEventArgsResolver.
+
 ## v1.2.1
 
 ### Changes
