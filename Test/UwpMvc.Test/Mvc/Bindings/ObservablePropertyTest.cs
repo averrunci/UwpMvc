@@ -93,10 +93,10 @@ namespace Fievus.Windows.Mvc.Bindings.ObservablePropertyTest
         public void RaisesPropertyChangedEventWhenNotNullValueIsSetToItWhoseValueIsNull()
         {
             var propertyChangedOccurred = false;
-            var property = ObservableProperty<string>.Of("Changed");
+            var property = ObservableProperty<string>.Of(null);
             property.PropertyChanged += (s, e) => propertyChangedOccurred = (e.PropertyName == "Value");
 
-            property.Value = null;
+            property.Value = "Changed";
 
             Assert.True(propertyChangedOccurred);
         }
