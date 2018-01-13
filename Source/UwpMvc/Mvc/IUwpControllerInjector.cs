@@ -12,7 +12,7 @@ namespace Fievus.Windows.Mvc
         /// <summary>
         /// Injects dependency components to the specified UWP controller.
         /// </summary>
-        /// <param name="controller">The UWP controller injected dependency components.</param>
+        /// <param name="controller">The UWP controller to inject dependency components.</param>
         void Inject(object controller);
     }
 }

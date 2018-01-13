@@ -54,11 +54,11 @@ namespace Fievus.Windows.Mvc
         }
 
         /// <summary>
-        /// Gets event handlers by the specified name of the element.
+        /// Gets an executor that raises an event for the specified name of the element.
         /// </summary>
         /// <param name="elementName">The name of the element that has event handlers.</param>
         /// <returns>
-        /// <see cref="Executor"/> that raises event.
+        /// <see cref="Executor"/> that raises an event.
         /// </returns>
         public Executor GetBy(string elementName) => new Executor(items.Where(i => i.Has(elementName)));
 
@@ -73,7 +73,7 @@ namespace Fievus.Windows.Mvc
         public void UnregisterEventHandler() => items.ForEach(i => i.UnregisterEventHandler());
 
         /// <summary>
-        /// Provides an event execution functions.
+        /// Provides an event execution.
         /// </summary>
         public sealed class Executor
         {
@@ -127,9 +127,10 @@ namespace Fievus.Windows.Mvc
             public void Raise(string eventName) => items.ForEach(i => i.Raise(eventName, sender, e));
 
             /// <summary>
-            /// Raises the event of the specified name.
+            /// Raises the event of the specified name asynchronously.
             /// </summary>
             /// <param name="eventName">The name of the event.</param>
+            /// <returns>A task that represents the asynchronous raise operation.</returns>
             public async Task RaiseAsync(string eventName)
             {
                 foreach (var item in items)
