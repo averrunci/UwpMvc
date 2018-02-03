@@ -120,6 +120,7 @@
     <Compile Include="Mvc\DataTypeDataTemplateSelector.cs" />
     <Compile Include="Mvc\ElementAttribute.cs" />
     <Compile Include="Mvc\ElementExtensions.cs" />
+    <Compile Include="Mvc\EventHandlerAction.cs" />
     <Compile Include="Mvc\IUwpControllerExtension.cs" />
     <Compile Include="Mvc\IUwpControllerFactory.cs" />
     <Compile Include="Mvc\IUwpControllerInjector.cs" />

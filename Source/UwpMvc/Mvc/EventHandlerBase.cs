@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2017 Fievus
+﻿// Copyright (C) 2017-2018 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -254,7 +254,7 @@ namespace Fievus.Windows.Mvc
             {
                 if (EventName != eventName || Handler == null) { return; }
 
-                var action = Handler.Target as EventHandlerExtension.EventHandlerAction;
+                var action = Handler.Target as EventHandlerAction;
                 if (action == null) { return; }
 
                 var task = action.Handle(sender, e) as Task;

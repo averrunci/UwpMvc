@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2017 Fievus
+﻿// Copyright (C) 2017-2018 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -93,38 +93,6 @@ namespace Fievus.Windows.Mvc
         }
 
         private delegate void Handler(object sender, object e);
-
-        public class EventHandlerAction
-        {
-            private MethodInfo Method { get; }
-            private object Target { get; }
-
-            public EventHandlerAction(MethodInfo method, object target)
-            {
-                Target = target;
-                Method = method;
-            }
-
-            public void OnHandled(object sender, object e)
-            {
-                Handle(sender, e);
-            }
-
-            public object Handle(object sender, object e)
-            {
-                switch (Method.GetParameters().Length)
-                {
-                    case 0:
-                        return Method.Invoke(Target, null);
-                    case 1:
-                        return Method.Invoke(Target, new object[] { e });
-                    case 2:
-                        return Method.Invoke(Target, new object[] { sender, e });
-                    default:
-                        throw new InvalidOperationException("The length of the method parameters must be less than 3.");
-                }
-            }
-        }
 
         private void AddEventHandlers(MemberInfo member, FrameworkElement rootElement, Func<EventInfo, Delegate> createHandler, EventHandlerBase eventHandlers)
         {
