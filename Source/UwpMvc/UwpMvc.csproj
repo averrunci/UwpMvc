@@ -116,6 +116,7 @@
     <Compile Include="Mvc\Bindings\PropertyValueChangingEventArgs.cs" />
     <Compile Include="Mvc\Bindings\PropertyValueValidateEventArgs.cs" />
     <Compile Include="Mvc\DataContextAttribute.cs" />
+    <Compile Include="Mvc\DataContextInjectionException.cs" />
     <Compile Include="Mvc\DataContextInjector.cs" />
     <Compile Include="Mvc\DataTrigger.cs" />
     <Compile Include="Mvc\DataTypeDataTemplateSelector.cs" />
