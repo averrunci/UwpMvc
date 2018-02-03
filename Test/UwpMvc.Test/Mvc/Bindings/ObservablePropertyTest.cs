@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2017 Fievus
+﻿// Copyright (C) 2017-2018 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -410,6 +410,62 @@ namespace Fievus.Windows.Mvc.Bindings.ObservablePropertyTest
             var property2 = ObservableProperty<string>.Of("Test2");
 
             Assert.Throws<InvalidOperationException>(() => property1.UnbindTwoWay(property2));
+        }
+    }
+
+    public class ObservableProperty_TwoWayWithConverterBinding
+    {
+        [Fact]
+        public void BindsSpecifiedObservablePropertyWithConverterAsTwoWay()
+        {
+            var property1 = ObservableProperty<string>.Of("8");
+            var property2 = ObservableProperty<int>.Of(3);
+
+            property1.BindTwoWay(property2, p => p.ToString(), p => int.Parse(p));
+            Assert.Equal("3", property1.Value);
+            Assert.Equal(3, property2.Value);
+
+            property2.Value = 7;
+            Assert.Equal("7", property1.Value);
+            Assert.Equal(7, property2.Value);
+
+            property1.Value = "10";
+            Assert.Equal("10", property1.Value);
+            Assert.Equal(10, property2.Value);
+        }
+
+        [Fact]
+        public void UnbindsBoundObservablePropertyWithConverterAsTwoWay()
+        {
+            var property1 = ObservableProperty<string>.Of("8");
+            var property2 = ObservableProperty<int>.Of(3);
+
+            property1.BindTwoWay(property2, p => p.ToString(), p => int.Parse(p));
+            Assert.Equal("3", property1.Value);
+            Assert.Equal(3, property2.Value);
+
+            property1.UnbindTwoWay(property2);
+
+            property2.Value = 7;
+            Assert.Equal("3", property1.Value);
+            Assert.Equal(7, property2.Value);
+
+            property1.Value = "Test";
+            Assert.Equal("Test", property1.Value);
+            Assert.Equal(7, property2.Value);
+        }
+
+        [Fact]
+        public void ThrowsExceptionWhenObservablePropertyWhichIsBoundBindWithConverterAsTwoWay()
+        {
+            var property1 = ObservableProperty<string>.Of("8");
+            var property2 = ObservableProperty<int>.Of(3);
+
+            property1.BindTwoWay(property2, p => p.ToString(), p => int.Parse(p));
+
+            Assert.Throws<InvalidOperationException>(() =>
+                property1.BindTwoWay(ObservableProperty<int>.Of(8), p => p.ToString(), p => int.Parse(p))
+            );
         }
     }
 
