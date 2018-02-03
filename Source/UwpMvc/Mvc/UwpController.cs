@@ -16,8 +16,6 @@ namespace Fievus.Windows.Mvc
     /// </summary>
     public class UwpController
     {
-        private static readonly BindingFlags contextBindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
-
         private static readonly DependencyProperty ControllersProperty = DependencyProperty.RegisterAttached(
             "ShadowControllers", typeof(UwpControllerCollection), typeof(UwpController), new PropertyMetadata(null, OnControllersChanged)
         );
@@ -38,9 +36,14 @@ namespace Fievus.Windows.Mvc
         private static IUwpControllerFactory factory = new SimpleUwpControllerFactory();
 
         /// <summary>
-        /// Gets of sets the injector of elements.
+        /// Gets or sets the injector of elements.
         /// </summary>
         public static IElementInjector ElementInjector { get; set; } = new ElementInjector();
+
+        /// <summary>
+        /// Gets or sets the injector of a data context.
+        /// </summary>
+        public static IDataContextInjector DataContextInjector { get; set; } = new DataContextInjector();
 
         /// <summary>
         /// Gets or sets the type of UWP controller.
@@ -194,20 +197,7 @@ namespace Fievus.Windows.Mvc
         /// <param name="controller">The UWP controller to which the data context is set.</param>
         public static void SetDataContext(object dataContext, object controller)
         {
-            if (controller == null) { return; }
-
-            controller.GetType()
-                .GetFields(contextBindingFlags)
-                .Where(field => field.GetCustomAttribute<DataContextAttribute>(true) != null)
-                .ForEach(field => field.SetValue(controller, dataContext));
-            controller.GetType()
-                .GetProperties(contextBindingFlags)
-                .Where(property => property.GetCustomAttribute<DataContextAttribute>(true) != null)
-                .ForEach(property => property.SetValue(controller, dataContext, null));
-            controller.GetType()
-                .GetMethods(contextBindingFlags)
-                .Where(method => method.GetCustomAttribute<DataContextAttribute>(true) != null)
-                .ForEach(method => method.Invoke(controller, new object[] { dataContext }));
+            DataContextInjector?.Inject(dataContext, controller);
         }
 
         /// <summary>

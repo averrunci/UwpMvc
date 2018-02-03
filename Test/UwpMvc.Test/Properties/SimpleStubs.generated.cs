@@ -27,6 +27,50 @@ using Windows.Web;
 namespace Fievus.Windows.Mvc
 {
     [CompilerGenerated]
+    public class StubIDataContextInjector : IDataContextInjector
+    {
+        private readonly StubContainer<StubIDataContextInjector> _stubs = new StubContainer<StubIDataContextInjector>();
+
+        void global::Fievus.Windows.Mvc.IDataContextInjector.Inject(object dataContext, object controller)
+        {
+            _stubs.GetMethodStub<Inject_Object_Object_Delegate>("Inject").Invoke(dataContext, controller);
+        }
+
+        public delegate void Inject_Object_Object_Delegate(object dataContext, object controller);
+
+        public StubIDataContextInjector Inject(Inject_Object_Object_Delegate del, int count = Times.Forever, bool overwrite = false)
+        {
+            _stubs.SetMethodStub(del, count, overwrite);
+            return this;
+        }
+    }
+}
+
+namespace Fievus.Windows.Mvc
+{
+    [CompilerGenerated]
+    public class StubIElementInjector : IElementInjector
+    {
+        private readonly StubContainer<StubIElementInjector> _stubs = new StubContainer<StubIElementInjector>();
+
+        void global::Fievus.Windows.Mvc.IElementInjector.Inject(global::Windows.UI.Xaml.FrameworkElement rootElement, object controller, bool foundElementOnly)
+        {
+            _stubs.GetMethodStub<Inject_FrameworkElement_Object_Boolean_Delegate>("Inject").Invoke(rootElement, controller, foundElementOnly);
+        }
+
+        public delegate void Inject_FrameworkElement_Object_Boolean_Delegate(global::Windows.UI.Xaml.FrameworkElement rootElement, object controller, bool foundElementOnly);
+
+        public StubIElementInjector Inject(Inject_FrameworkElement_Object_Boolean_Delegate del, int count = Times.Forever, bool overwrite = false)
+        {
+            _stubs.SetMethodStub(del, count, overwrite);
+            return this;
+        }
+    }
+}
+
+namespace Fievus.Windows.Mvc
+{
+    [CompilerGenerated]
     public class StubIUwpControllerExtension : IUwpControllerExtension
     {
         private readonly StubContainer<StubIUwpControllerExtension> _stubs = new StubContainer<StubIUwpControllerExtension>();
