@@ -3,6 +3,7 @@
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
 using System;
+using System.Linq;
 using System.Reflection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -40,7 +41,13 @@ namespace Fievus.Windows.Mvc
         private DataTemplate FindDataTemplate(object item) => FindDataTemplate(item.GetType());
 
         private DataTemplate FindDataTemplate(Type dataType) =>
-            dataType == null ? null : FindDataTemplate(dataType.Name) ?? FindDataTemplate(dataType.ToString()) ?? FindDataTemplate(dataType.GetTypeInfo().BaseType);
+            dataType == null ? null : FindDataTemplate(dataType.Name) ??
+                FindDataTemplate(dataType.ToString()) ??
+                FindDataTemplate(dataType.GetTypeInfo().BaseType) ??
+                dataType.GetTypeInfo().ImplementedInterfaces
+                    .Select(t => FindDataTemplate(t))
+                    .Where(t => t != null)
+                    .FirstOrDefault();
 
         private DataTemplate FindDataTemplate(string dataTypeName) =>
             FindDataTemplateByResourceKey(dataTypeName) ?? FindDataTemplateByResourceKey($"{dataTypeName}Template");

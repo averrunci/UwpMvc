@@ -33,10 +33,15 @@ namespace Fievus.Windows.Mvc
                 Application.Current.Resources.Remove("Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+GenericTestData`1[System.String]Template");
                 Application.Current.Resources.Remove("Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+GenericTestData`1[Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+TestData]");
                 Application.Current.Resources.Remove("Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+GenericTestData`1[Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+TestData]Template");
+                Application.Current.Resources.Remove("ITestData");
+                Application.Current.Resources.Remove("ITestDataTemplate");
+                Application.Current.Resources.Remove("Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+ITestData");
+                Application.Current.Resources.Remove("Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+ITestDataTemplate");
             });
         }
 
-        private class TestData { }
+        private interface ITestData { }
+        private class TestData : ITestData { }
         private class TestContainer : DependencyObject { }
         private class DerivedTestData : TestData { }
         private class GenericTestData<T> { }
@@ -306,6 +311,74 @@ namespace Fievus.Windows.Mvc
                 Assert.NotNull(template);
 
                 template = selector.SelectTemplate(new GenericTestData<TestData>(), new TestContainer());
+                Assert.NotNull(template);
+            });
+        }
+
+        [Fact]
+        public async Task SelectsDataTemplateThatHasKeyOfSpecifiedNameOfInterfaceImplementedByDataType()
+        {
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                Application.Current.Resources["ITestData"] = new DataTemplate();
+
+                var selector = new DataTypeDataTemplateSelector();
+
+                var template = selector.SelectTemplate(new TestData());
+                Assert.NotNull(template);
+
+                template = selector.SelectTemplate(new TestData(), new TestContainer());
+                Assert.NotNull(template);
+            });
+        }
+
+        [Fact]
+        public async Task SelectsDataTemplateThatHasKeyOfSpecifiedNameTheSuffixOfWhichIsTemplateOfInterfaceImplementedByDataType()
+        {
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                Application.Current.Resources["ITestDataTemplate"] = new DataTemplate();
+
+                var selector = new DataTypeDataTemplateSelector();
+
+                var template = selector.SelectTemplate(new TestData());
+                Assert.NotNull(template);
+
+                template = selector.SelectTemplate(new TestData(), new TestContainer());
+                Assert.NotNull(template);
+            });
+        }
+
+        [Fact]
+        public async Task SelectsDataTemplateThatHasKeyOfSpecifiedFullNameOfInterfaceImplementedByDataType()
+        {
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                Application.Current.Resources["Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+ITestData"] = new DataTemplate();
+
+                var selector = new DataTypeDataTemplateSelector();
+
+                var template = selector.SelectTemplate(new TestData());
+                Assert.NotNull(template);
+
+                template = selector.SelectTemplate(new TestData(), new TestContainer());
+                Assert.NotNull(template);
+            });
+        }
+
+        [Fact]
+        public async Task SelectsDataTemplateThatHasKeyOfSpecifiedFullNameTheSuffixOfWhichIsTemplateOfInterfaceImplementedByDataType()
+        {
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                Application.Current.Resources["Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+ITestDataTemplate"] = new DataTemplate();
+
+                var selector = new DataTypeDataTemplateSelector();
+
+                var template = selector.SelectTemplate(new TestData());
+                Assert.NotNull(template);
+
+                template = selector.SelectTemplate(new TestData(), new TestContainer());
                 Assert.NotNull(template);
             });
         }
