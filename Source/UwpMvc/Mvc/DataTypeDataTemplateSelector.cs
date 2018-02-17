@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2017 Fievus
+﻿// Copyright (C) 2017-2018 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -40,7 +40,7 @@ namespace Fievus.Windows.Mvc
         private DataTemplate FindDataTemplate(object item) => FindDataTemplate(item.GetType());
 
         private DataTemplate FindDataTemplate(Type dataType) =>
-            dataType == null ? null : FindDataTemplate(dataType.Name) ?? FindDataTemplate(dataType.FullName) ?? FindDataTemplate(dataType.GetTypeInfo().BaseType);
+            dataType == null ? null : FindDataTemplate(dataType.Name) ?? FindDataTemplate(dataType.ToString()) ?? FindDataTemplate(dataType.GetTypeInfo().BaseType);
 
         private DataTemplate FindDataTemplate(string dataTypeName) =>
             FindDataTemplateByResourceKey(dataTypeName) ?? FindDataTemplateByResourceKey($"{dataTypeName}Template");
