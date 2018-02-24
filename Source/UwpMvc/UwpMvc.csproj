@@ -110,6 +110,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="Mvc\Bindings\EditableContentEventArgs.cs" />
+    <Compile Include="Mvc\Bindings\EditableContentProperty.cs" />
+    <Compile Include="Mvc\Bindings\EditableDisplayContent.cs" />
+    <Compile Include="Mvc\Bindings\EditableDisplayContentController.cs" />
+    <Compile Include="Mvc\Bindings\EditableEditContent.cs" />
+    <Compile Include="Mvc\Bindings\IEditableContent.cs" />
+    <Compile Include="Mvc\Bindings\IEditableDisplayContent.cs" />
+    <Compile Include="Mvc\Bindings\IEditableEditContent.cs" />
     <Compile Include="Mvc\Bindings\MultiBindingContext.cs" />
     <Compile Include="Mvc\Bindings\ObservableProperty.cs" />
     <Compile Include="Mvc\Bindings\PropertyValueChangedEventArgs.cs" />
@@ -233,6 +241,13 @@
     <Compile Include="Mvc\Wrappers\WebViewUnviewableContentIdentifiedEventArgsWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\UwpMvc.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -94,6 +94,9 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mvc\Bindings\EditableContentPropertyTest.cs" />
+    <Compile Include="Mvc\Bindings\EditableDisplayContentTest.cs" />
+    <Compile Include="Mvc\Bindings\EditableEditContentTest.cs" />
     <Compile Include="Mvc\Bindings\ObservablePropertyTest.cs" />
     <Compile Include="Mvc\DataTriggerTest.cs" />
     <Compile Include="Mvc\DataTypeDataTemplateSelectorTest.cs" />
