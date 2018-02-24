@@ -43,11 +43,18 @@ namespace Fievus.Windows.Mvc
         private DataTemplate FindDataTemplate(Type dataType) =>
             dataType == null ? null : FindDataTemplate(dataType.Name) ??
                 FindDataTemplate(dataType.ToString()) ??
+                (dataType.IsConstructedGenericType ? FindDataTemplate(RetrieveFullNameWithoutParameters(dataType.ToString())) : null) ??
                 FindDataTemplate(dataType.GetTypeInfo().BaseType) ??
                 dataType.GetTypeInfo().ImplementedInterfaces
                     .Select(t => FindDataTemplate(t))
                     .Where(t => t != null)
                     .FirstOrDefault();
+
+        private string RetrieveFullNameWithoutParameters(string dataTypeFullName)
+        {
+            var parameterStartIndex = dataTypeFullName.IndexOf('[');
+            return parameterStartIndex < 0 ? null : dataTypeFullName.Substring(0, parameterStartIndex);
+        }
 
         private DataTemplate FindDataTemplate(string dataTypeName) =>
             FindDataTemplateByResourceKey(dataTypeName) ?? FindDataTemplateByResourceKey($"{dataTypeName}Template");

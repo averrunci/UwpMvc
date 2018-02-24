@@ -11,13 +11,13 @@ using Xunit;
 
 namespace Fievus.Windows.Mvc
 {
-    public class DataTypeDataTemplateSelectorTest : IDisposable
+    public class DataTypeDataTemplateSelectorTest : DispatcherHarness
     {
         public DataTypeDataTemplateSelectorTest()
         {
         }
 
-        public async void Dispose()
+        protected override async void Dispose()
         {
             await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
@@ -29,6 +29,8 @@ namespace Fievus.Windows.Mvc
                 Application.Current.Resources.Remove("GenericTestData'1Template");
                 Application.Current.Resources.Remove("GenericTestData");
                 Application.Current.Resources.Remove("GenericTestDataTemplate");
+                Application.Current.Resources.Remove("Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+GenericTestData`1");
+                Application.Current.Resources.Remove("Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+GenericTestData`1Template");
                 Application.Current.Resources.Remove("Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+GenericTestData`1[System.String]");
                 Application.Current.Resources.Remove("Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+GenericTestData`1[System.String]Template");
                 Application.Current.Resources.Remove("Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+GenericTestData`1[Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+TestData]");
@@ -49,7 +51,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedDataTypeName()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["TestData"] = new DataTemplate();
 
@@ -66,7 +68,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedDataTypeNameTheSuffixOfWhichIsTemplate()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["TestDataTemplate"] = new DataTemplate();
 
@@ -83,7 +85,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task GetsNullWhenDataTemplateThatHasKeyOfSpecifiedDataTypeNameDoesNotExist()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 var selector = new DataTypeDataTemplateSelector();
 
@@ -98,7 +100,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedBaseDataTypeName()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["TestData"] = new DataTemplate();
 
@@ -115,7 +117,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedBaseDataTypeNameTheSuffixOfWhichIsTemplate()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["TestDataTemplate"] = new DataTemplate();
 
@@ -132,7 +134,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedDataTypeFullName()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+TestData"] = new DataTemplate();
 
@@ -149,7 +151,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedDataTypeFullNameTheSuffixOfWhichIsTemplate()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+TestDataTemplate"] = new DataTemplate();
 
@@ -166,7 +168,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedBaseDataTypeFullName()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+TestData"] = new DataTemplate();
 
@@ -183,7 +185,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedBaseDataTypeFullNameTheSuffixOfWhichIsTemplate()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+TestDataTemplate"] = new DataTemplate();
 
@@ -200,7 +202,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedGenericDataTypeName()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["GenericTestData`1"] = new DataTemplate();
 
@@ -223,7 +225,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedGenericDataTypeNameTheSuffixOfWhichIsTemplate()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["GenericTestData`1Template"] = new DataTemplate();
 
@@ -246,7 +248,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task GetsNullWhenDataTemplateThatHasKeyOfSpecifiedGenericDataTypeNameDoesNotExist()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["GenericTestData"] = new DataTemplate();
                 Application.Current.Resources["GenericTestDataTemplate"] = new DataTemplate();
@@ -270,7 +272,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedGenericDataTypeFullName()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+GenericTestData`1[System.String]"] = new DataTemplate();
                 Application.Current.Resources["Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+GenericTestData`1[Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+TestData]"] = new DataTemplate();
@@ -294,7 +296,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedGenericDataTypeFullNameTheSuffixOfWhichIsTemplate()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+GenericTestData`1[System.String]Template"] = new DataTemplate();
                 Application.Current.Resources["Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+GenericTestData`1[Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+TestData]Template"] = new DataTemplate();
@@ -316,9 +318,55 @@ namespace Fievus.Windows.Mvc
         }
 
         [Fact]
+        public async Task SelectsDataTemplateThatHasKeyOfSpecifiedGenericDataTypeFullNameWithoutTypeOfGenericParameter()
+        {
+            await RunAsync(() =>
+            {
+                Application.Current.Resources["Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+GenericTestData`1"] = new DataTemplate();
+
+                var selector = new DataTypeDataTemplateSelector();
+
+                var template = selector.SelectTemplate(new GenericTestData<string>());
+                Assert.NotNull(template);
+
+                template = selector.SelectTemplate(new GenericTestData<string>(), new TestContainer());
+                Assert.NotNull(template);
+
+                template = selector.SelectTemplate(new GenericTestData<TestData>());
+                Assert.NotNull(template);
+
+                template = selector.SelectTemplate(new GenericTestData<TestData>(), new TestContainer());
+                Assert.NotNull(template);
+            });
+        }
+
+        [Fact]
+        public async Task SelectsDataTemplateThatHasKeyOfSpecifiedGenericDataTypeFullNameTheSuffixOfWhichIsTemplateWithoutTypeOfGenericParameter()
+        {
+            await RunAsync(() =>
+            {
+                Application.Current.Resources["Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+GenericTestData`1Template"] = new DataTemplate();
+
+                var selector = new DataTypeDataTemplateSelector();
+
+                var template = selector.SelectTemplate(new GenericTestData<string>());
+                Assert.NotNull(template);
+
+                template = selector.SelectTemplate(new GenericTestData<string>(), new TestContainer());
+                Assert.NotNull(template);
+
+                template = selector.SelectTemplate(new GenericTestData<TestData>());
+                Assert.NotNull(template);
+
+                template = selector.SelectTemplate(new GenericTestData<TestData>(), new TestContainer());
+                Assert.NotNull(template);
+            });
+        }
+
+        [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedNameOfInterfaceImplementedByDataType()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["ITestData"] = new DataTemplate();
 
@@ -335,7 +383,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedNameTheSuffixOfWhichIsTemplateOfInterfaceImplementedByDataType()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["ITestDataTemplate"] = new DataTemplate();
 
@@ -352,7 +400,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedFullNameOfInterfaceImplementedByDataType()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+ITestData"] = new DataTemplate();
 
@@ -369,7 +417,7 @@ namespace Fievus.Windows.Mvc
         [Fact]
         public async Task SelectsDataTemplateThatHasKeyOfSpecifiedFullNameTheSuffixOfWhichIsTemplateOfInterfaceImplementedByDataType()
         {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await RunAsync(() =>
             {
                 Application.Current.Resources["Fievus.Windows.Mvc.DataTypeDataTemplateSelectorTest+ITestDataTemplate"] = new DataTemplate();
 
