@@ -109,12 +109,16 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mvc\Converters\BooleanToTextWrappingConverter.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Mvc\Bindings\EditableContentEventArgs.cs" />
     <Compile Include="Mvc\Bindings\EditableContentProperty.cs" />
     <Compile Include="Mvc\Bindings\EditableDisplayContent.cs" />
     <Compile Include="Mvc\Bindings\EditableDisplayContentController.cs" />
     <Compile Include="Mvc\Bindings\EditableEditContent.cs" />
+    <Compile Include="Mvc\Bindings\EditableEditText.cs" />
+    <Compile Include="Mvc\Bindings\EditableEditTextController.cs" />
+    <Compile Include="Mvc\Bindings\EditableTextProperty.cs" />
     <Compile Include="Mvc\Bindings\IEditableContent.cs" />
     <Compile Include="Mvc\Bindings\IEditableDisplayContent.cs" />
     <Compile Include="Mvc\Bindings\IEditableEditContent.cs" />
