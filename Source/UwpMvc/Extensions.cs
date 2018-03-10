@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Fievus.Windows
 {
@@ -18,6 +19,14 @@ namespace Fievus.Windows
         public static void IfAbsent<T>(this T @this, Action action)
         {
             if (@this == null) { action(); }
+        }
+
+        public static void IfTypeOf<T>(this object @this, Action<T> action)
+        {
+            if (@this == null) { return; }
+            if (!typeof(T).IsAssignableFrom(@this.GetType())) { return; }
+
+            action((T)@this);
         }
 
         public static T RequireNonNull<T>(this T @this) => RequireNonNull(@this, null);

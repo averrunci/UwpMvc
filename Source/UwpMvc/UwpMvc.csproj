@@ -109,6 +109,10 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mvc\Bindings\EditableEditSelection.cs" />
+    <Compile Include="Mvc\Bindings\EditableEditSelectionController.cs" />
+    <Compile Include="Mvc\Bindings\EditableSelectionProperty.cs" />
+    <Compile Include="Mvc\Bindings\IEditableEditSelection.cs" />
     <Compile Include="Mvc\Converters\BooleanToTextWrappingConverter.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Mvc\Bindings\EditableContentEventArgs.cs" />

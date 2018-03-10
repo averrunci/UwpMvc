@@ -97,6 +97,7 @@
     <Compile Include="Mvc\Bindings\EditableContentPropertyTest.cs" />
     <Compile Include="Mvc\Bindings\EditableDisplayContentTest.cs" />
     <Compile Include="Mvc\Bindings\EditableEditContentTest.cs" />
+    <Compile Include="Mvc\Bindings\EditableSelectionPropertyTest.cs" />
     <Compile Include="Mvc\Bindings\EditableTextPropertyTest.cs" />
     <Compile Include="Mvc\Bindings\ObservablePropertyTest.cs" />
     <Compile Include="Mvc\DataTriggerTest.cs" />

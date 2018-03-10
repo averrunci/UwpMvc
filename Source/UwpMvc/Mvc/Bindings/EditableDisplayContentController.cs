@@ -11,8 +11,8 @@ namespace Fievus.Windows.Mvc.Bindings
         [DataContext]
         IEditableDisplayContent Content { get; set; }
 
-        [EventHandler(Event = nameof(UIElement.DoubleTapped))]
-        void OnDoubleTapped()
+        [EventHandler(Event = nameof(UIElement.Tapped))]
+        void OnTapped()
         {
             Content.StartEdit();
         }

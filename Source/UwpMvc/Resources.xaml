@@ -62,4 +62,15 @@ of the MIT license.  See the LICENSE file for details.
             </TextBox>
         </UserControl>
     </DataTemplate>
+
+    <DataTemplate x:Key="Fievus.Windows.Mvc.Bindings.EditableEditSelection`1">
+        <ComboBox IsDropDownOpen="{Binding IsSelecting.Value, Mode=TwoWay}"
+                  ItemsSource="{Binding SelectionItems}"
+                  SelectedItem="{Binding Value.Value, Mode=TwoWay}"
+                  ItemTemplateSelector="{StaticResource DataTemplateSelector}">
+            <u:UwpController.Controllers>
+                <u:UwpController ControllerType="Fievus.Windows.Mvc.Bindings.EditableEditSelectionController,UwpMvc"/>
+            </u:UwpController.Controllers>
+        </ComboBox>
+    </DataTemplate>
 </ResourceDictionary>
