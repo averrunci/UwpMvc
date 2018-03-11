@@ -48,14 +48,14 @@ namespace Fievus.Windows.Mvc.Bindings
         public ObservableProperty<IEditableContent<T>> Content { get; } = new ObservableProperty<IEditableContent<T>>();
 
         /// <summary>
-        /// Gets a display content.
+        /// Gets the display content.
         /// </summary>
-        protected IEditableDisplayContent<T> DisplayContent;
+        protected IEditableDisplayContent<T> DisplayContent { get; set; }
 
         /// <summary>
-        /// Gets an edit content.
+        /// Gets the edit content.
         /// </summary>
-        protected IEditableEditContent<T> EditContent;
+        protected IEditableEditContent<T> EditContent { get; set; }
 
         private bool IsEditStarted { get; set; }
         private bool IsEditCompleted { get; set; }
@@ -90,7 +90,7 @@ namespace Fievus.Windows.Mvc.Bindings
         }
 
         /// <summary>
-        /// Changes the current content to edit the content.
+        /// Changes the current content to the edit content.
         /// </summary>
         protected virtual void ToEdit()
         {
@@ -98,7 +98,7 @@ namespace Fievus.Windows.Mvc.Bindings
         }
 
         /// <summary>
-        /// Changes the current content to display the content.
+        /// Changes the current content to the display content.
         /// </summary>
         protected virtual void ToDisplay()
         {

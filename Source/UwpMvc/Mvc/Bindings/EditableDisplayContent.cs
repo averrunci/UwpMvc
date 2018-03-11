@@ -38,7 +38,7 @@ namespace Fievus.Windows.Mvc.Bindings
         /// Initializes a new instance of the <see cref="EditableDisplayContent{T}"/> class
         /// with the specified content value.
         /// </summary>
-        /// <param name="value">The value of the display content</param>
+        /// <param name="value">The value of the display content.</param>
         public EditableDisplayContent(T value)
         {
             Value.Value = value;

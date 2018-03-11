@@ -9,7 +9,7 @@ namespace Fievus.Windows.Mvc.Bindings
     /// <summary>
     /// Represents the method that handles the <see cref="EditableContentProperty{T}.EditStarted"/>,
     /// the <see cref="EditableContentProperty{T}.EditCompleted"/>, and
-    /// the <see cref="EditableContentProperty{T}.EditCanceled"/> events.
+    /// the <see cref="EditableContentProperty{T}.EditCanceled"/> events
     /// raised when an edit is started, completed, or canceled.
     /// </summary>
     /// <typeparam name="T">The type of the content.</typeparam>
