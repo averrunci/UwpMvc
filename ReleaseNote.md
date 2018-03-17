@@ -1,5 +1,27 @@
 # Release note
 
+## V1.3.0
+
+### Add
+
+ - Add BindTwoWay method with converters that convert the value from/to the source value.
+ - Add IElementInjector that injects elements in a target element to the WPF controller.
+ - Add IDataContextInjector that injects a data context to the WPF controller.
+ - Add ElementInjectionException that is thrown when an element injection is failed.
+ - Add DataContextInjectionException that is thrown when a data context injection is failed.
+ - Add EditableContentProperty that represents a property value that can be edited with a dedicated content.
+ - Add EditableTextProperty that represents a property of a text that can be edited with a dedicated content using a text control.
+ - Add EditableSelectionProperty that represents a property value that can be selected with a dedicated content using a selection control.
+
+### Changes
+
+- Change RoutedEventHandlerAction class from a nested class to an independent class.
+- Change the way to select DataTemplate using DataTypeDataTemplateSelector. It searches the implemeted interfaces and generic types. The full name of the generic type can be specified the one with/without the typed parameter name.
+
+### Bug fix
+
+- Fixed the way to get a full name of a data type when selecting DataTemplate using DataTypeDataTemplateSelector.
+
 ## v1.2.2
 
 ### Bug fix

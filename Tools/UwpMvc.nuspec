@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>UwpMvc</id>
-    <version>1.2.2</version>
+    <version>1.3.0</version>
     <title>UWP MVC</title>
     <authors>averrunci</authors>
     <owners>averrunci</owners>
@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The class library for Universal Windows Platform app with Model View Controller</description>
     <language>en-US</language>
-    <copyright>Copyright (C) 2017 Fievus</copyright>
+    <copyright>Copyright (C) 2017-2018 Fievus</copyright>
     <tags>uwp mvc</tags>
   </metadata>
   <files>
@@ -19,5 +19,8 @@
     <file src="..\Binary\Release\UwpMvc.dll" target="lib\uap10.0"/>
     <file src="..\Binary\Release\UwpMvc.pri" target="lib\uap10.0"/>
     <file src="..\Binary\Release\UwpMvc.XML" target="lib\uap10.0"/>
+    <file src="..\Binary\Release\Resources.xbf" target="lib\uap10.0\UwpMvc"/>
+    <file src="..\Binary\Release\UwpMvc.xr.xml" target="lib\uap10.0\UwpMvc"/>
+    <file src="..\Source\UwpMvc\Properties\UwpMvc.rd.xml" target="lib\uap10.0\UwpMvc\Properties"/>
   </files>
 </package>
