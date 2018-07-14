@@ -1,52 +1,50 @@
-﻿// Copyright (C) 2017 Fievus
+﻿// Copyright (C) 2018 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 
-namespace Fievus.Windows
+namespace Charites.Windows
 {
     internal static class Extensions
     {
         public static void IfPresent<T>(this T @this, Action<T> action)
         {
-            if (@this != null) { action(@this); }
+            if (@this == null) return;
+
+            action(@this);
         }
 
         public static void IfAbsent<T>(this T @this, Action action)
         {
-            if (@this == null) { action(); }
+            if (@this != null) return;
+
+            action();
         }
 
         public static void IfTypeOf<T>(this object @this, Action<T> action)
         {
-            if (@this == null) { return; }
-            if (!typeof(T).IsAssignableFrom(@this.GetType())) { return; }
+            if (@this == null) return;
+            if (!(@this is T)) return;
 
             action((T)@this);
         }
 
-        public static T RequireNonNull<T>(this T @this) => RequireNonNull(@this, null);
-
         public static T RequireNonNull<T>(this T @this, string name)
         {
-            if (@this == null) { throw new ArgumentNullException(name); }
+            if (@this == null) throw new ArgumentNullException(name);
             return @this;
         }
 
         public static void ForEach<T>(this IEnumerable<T> @this, Action<T> action)
         {
-            if (@this == null) { return; }
+            if (@this == null) return;
 
             foreach (var item in @this)
             {
                 action(item);
             }
         }
-
-        public static bool IsEmpty<T>(this IEnumerable<T> @this) => !@this.Any();
     }
 }

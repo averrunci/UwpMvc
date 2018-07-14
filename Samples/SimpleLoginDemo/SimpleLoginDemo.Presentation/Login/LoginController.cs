@@ -1,21 +1,23 @@
-﻿// Copyright (C) 2017 Fievus
+﻿// Copyright (C) 2018 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
-using Windows.ApplicationModel.Resources;
+
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Charites.Windows.Mvc;
 
-using Fievus.Windows.Mvc;
-
-namespace Fievus.Windows.Samples.SimpleLoginDemo.Presentation.Login
+namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation.Login
 {
+    [View(Key = nameof(LoginContent))]
     public class LoginController
     {
         [DataContext]
-        public LoginContent Content { get; set; }
+        private LoginContent Content { get; set; }
 
         [Element]
-        public PasswordBox PasswordBox { get; set; }
+        private PasswordBox PasswordBox { get; set; }
 
         private IUserAuthentication UserAuthentication { get; }
 
@@ -24,13 +26,13 @@ namespace Fievus.Windows.Samples.SimpleLoginDemo.Presentation.Login
             UserAuthentication = userAuthentication.RequireNonNull(nameof(userAuthentication));
         }
 
-        [EventHandler(Event = "Loaded")]
+        [EventHandler(Event = nameof(FrameworkElement.Loaded))]
         private void OnLoaded()
         {
             PasswordBox.PasswordChanged += (s, e) => Content.Password.Value = PasswordBox.Password;
         }
 
-        [EventHandler(ElementName = "LoginButton", Event = "Click")]
+        [EventHandler(ElementName = "LoginButton", Event = nameof(ButtonBase.Click))]
         private void OnLoginButtonClick()
         {
             Content.Message.Value = string.Empty;
@@ -43,7 +45,7 @@ namespace Fievus.Windows.Samples.SimpleLoginDemo.Presentation.Login
                     Content.Login();
                     break;
                 case UserAuthenticationResult.Failure:
-                    Content.Message.Value = ResourceLoader.GetForCurrentView("SimpleLoginDemo.Presentation/Resources").GetString("LoginFailure");
+                    Content.Message.Value = Resources.LoginFailure;
                     break;
             }
         }

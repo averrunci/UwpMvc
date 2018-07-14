@@ -1,258 +1,275 @@
-﻿// Copyright (C) 2017-2018 Fievus
+﻿// Copyright (C) 2018 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using Windows.UI.Xaml;
 
-namespace Fievus.Windows.Mvc
+namespace Charites.Windows.Mvc
 {
     /// <summary>
-    /// Provides functions for the UWP controllers; a data context injection, elements injection,
+    /// Provides functions for the controllers; a data context injection, elements injection,
     /// and event handlers injection.
     /// </summary>
     public class UwpController
     {
-        private static readonly DependencyProperty ControllersProperty = DependencyProperty.RegisterAttached(
-            "ShadowControllers", typeof(UwpControllerCollection), typeof(UwpController), new PropertyMetadata(null, OnControllersChanged)
-        );
-
         /// <summary>
-        /// Gets or sets the injector of UWP controllers.
+        /// Gets or sets the finder to find a data context in a view.
         /// </summary>
-        public static IUwpControllerInjector Injector { get; set; }
-
-        /// <summary>
-        /// Gets or sets the factory of UWP controller.
-        /// </summary>
-        public static IUwpControllerFactory Factory
+        public static IUwpDataContextFinder DataContextFinder
         {
-            get { return factory; }
-            set { factory = value.RequireNonNull(nameof(value)); }
+            get => dataContextFinder;
+            set
+            {
+                dataContextFinder = value;
+                EnsureControllerTypeFinder();
+            }
         }
-        private static IUwpControllerFactory factory = new SimpleUwpControllerFactory();
+        private static IUwpDataContextFinder dataContextFinder = new UwpDataContextFinder();
 
         /// <summary>
-        /// Gets or sets the injector of elements.
-        /// </summary>
-        public static IElementInjector ElementInjector { get; set; } = new ElementInjector();
-
-        /// <summary>
-        /// Gets or sets the injector of a data context.
+        /// Gets or sets the injector to inject a data context to a controller.
         /// </summary>
         public static IDataContextInjector DataContextInjector { get; set; } = new DataContextInjector();
 
         /// <summary>
-        /// Gets or sets the type of UWP controller.
+        /// Gets or sets the finder to find a key of an element.
         /// </summary>
-        public string ControllerType { get; set; }
+        public static IUwpElementKeyFinder ElementKeyFinder
+        {
+            get => elementKeyFinder;
+            set
+            {
+                elementKeyFinder = value;
+                EnsureControllerTypeFinder();
+            }
+        }
+        private static IUwpElementKeyFinder elementKeyFinder = new UwpElementKeyFinder();
 
         /// <summary>
-        /// Creates a UWP controller of the specified controller type.
+        /// Gets or sets the injector to inject elements in a view to a controller.
         /// </summary>
-        /// <returns>The new instance of a UWP controller of the specified controller type.</returns>
-        public object Create() => ControllerType == null ? null : Factory.Create(Type.GetType(ControllerType, true));
+        public static IUwpElementInjector ElementInjector { get; set; } = new UwpElementInjector();
 
-        private static IList<IUwpControllerExtension> Extensions { get; } = new List<IUwpControllerExtension>();
+        /// <summary>
+        /// Gets or sets the finder to find a type of a controller that controls a view.
+        /// </summary>
+        public static IUwpControllerTypeFinder ControllerTypeFinder { get; set; }
+
+        /// <summary>
+        /// Gets or sets the factory to create a controller.
+        /// </summary>
+        public static IUwpControllerFactory ControllerFactory
+        {
+            get => controllerFactory;
+            set => controllerFactory = value ?? new SimpleUwpControllerFactory();
+        }
+        private static IUwpControllerFactory controllerFactory = new SimpleUwpControllerFactory();
+
+        /// <summary>
+        /// Gets or sets the container that contains all controllers defined in a project.
+        /// </summary>
+        public static IUwpControllerTypeContainer ControllerTypeContainer
+        {
+            get => ControllerTypeFinder?.ControllerTypeContainer;
+            set
+            {
+                if (ControllerTypeFinder == null) return;
+
+                ControllerTypeFinder.ControllerTypeContainer = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the extension.
+        /// </summary>
+        protected static ICollection<IUwpControllerExtension> Extensions { get; } = new Collection<IUwpControllerExtension>();
+
+        /// <summary>
+        /// Adds an extension of a controller.
+        /// </summary>
+        /// <param name="extension">The extension of a controller.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="extension"/> is <c>null</c>.
+        /// </exception>
+        public static void AddExtension(IUwpControllerExtension extension) => Extensions.Add(extension.RequireNonNull(nameof(extension)));
+
+        /// <summary>
+        /// Removes an extension of a controller.
+        /// </summary>
+        /// <param name="extension">The extension of a controller.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="extension"/> is <c>null</c>.
+        /// </exception>
+        public static void RemoveExtension(IUwpControllerExtension extension) => Extensions.Remove(extension.RequireNonNull(nameof(extension)));
+
+        /// <summary>
+        /// Identifies the <see cref="KeyProperty"/> XAML attached property.
+        /// </summary>
+        public static DependencyProperty KeyProperty { get; } = DependencyProperty.RegisterAttached(
+            "Key", typeof(string), typeof(UwpController), new PropertyMetadata(default(string), OnKeyChanged)
+        );
+
+        /// <summary>
+        /// Sets the value of the <see cref="KeyProperty"/> XAML attached property on the specified <see cref="DependencyObject"/>.
+        /// </summary>
+        /// <param name="element">The element on which to set the <see cref="KeyProperty"/> XAML attached property.</param>
+        /// <param name="value">The property value to set.</param>
+        public static void SetKey(DependencyObject element, string value) => element.SetValue(KeyProperty, value);
+
+        /// <summary>
+        /// Gets the value of the <see cref="KeyProperty"/> XAML attached property from the specified <see cref="DependencyObject"/>.
+        /// </summary>
+        /// <param name="element">The element from which to read the property value.</param>
+        /// <returns>The value of the <see cref="KeyProperty"/> XAML attached property on the target dependency object.</returns>
+        public static string GetKey(DependencyObject element) => (string)element.GetValue(KeyProperty);
+
+        private static void OnKeyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e) => SetIsEnabled(sender, true);
+
+        /// <summary>
+        /// Identifies the <see cref="IsEnabledProperty"/> XAML attached property.
+        /// </summary>
+        public static DependencyProperty IsEnabledProperty { get; } = DependencyProperty.RegisterAttached(
+            "IsEnabled", typeof(bool), typeof(UwpController), new PropertyMetadata(default(bool), OnIsEnabledChanged)
+        );
+
+        /// <summary>
+        /// Sets the value of the <see cref="IsEnabledProperty"/> XAML attached property on the specified <see cref="DependencyObject"/>.
+        /// </summary>
+        /// <param name="element">The element on which to set the <see cref="IsEnabledProperty"/> XAML attached property.</param>
+        /// <param name="value">The property value to set.</param>
+        public static void SetIsEnabled(DependencyObject element, bool value) => element.SetValue(IsEnabledProperty, value);
+
+        /// <summary>
+        /// Gets the value of the <see cref="IsEnabledProperty"/> XAML attached property from the specified <see cref="DependencyObject"/>.
+        /// </summary>
+        /// <param name="element">The element from which to read the property value.</param>
+        /// <returns>The value of the <see cref="IsEnabledProperty"/> XAML attached property on the target dependency object.</returns>
+        public static bool GetIsEnabled(DependencyObject element) => (bool)element.GetValue(IsEnabledProperty);
+
+        private static void OnIsEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(sender is FrameworkElement element)) throw new InvalidOperationException("Dependency object must be FrameworkElement.");
+
+            if ((bool)e.NewValue)
+            {
+                if (element.DataContext == null)
+                {
+                    element.DataContextChanged += OnElementDataContextChanged;
+                }
+                else
+                {
+                    AttachControllers(element);
+                }
+            }
+            else
+            {
+                element.DataContextChanged -= OnElementDataContextChanged;
+
+                DetachControllers(element);
+            }
+        }
+
+        private static DependencyProperty ControllersProperty { get; } = DependencyProperty.RegisterAttached(
+            "ShadowControllers", typeof(UwpControllerCollection), typeof(UwpController), new PropertyMetadata(default(UwpControllerCollection)));
+
+        private static void OnElementDataContextChanged(object sender, DataContextChangedEventArgs e)
+        {
+            if (!(sender is FrameworkElement element)) return;
+
+            element.DataContextChanged -= OnElementDataContextChanged;
+
+            AttachControllers(element);
+        }
+
+        private static void AttachControllers(FrameworkElement element)
+        {
+            var controllers = new UwpControllerCollection(DataContextFinder, DataContextInjector, ElementInjector, Extensions);
+            controllers.AddRange(ControllerTypeFinder?.Find(element).Select(ControllerFactory.Create));
+            controllers.AttachTo(element);
+            element.SetValue(ControllersProperty, controllers);
+        }
+
+        private static void DetachControllers(FrameworkElement element)
+        {
+            var controllers = element.GetValue(ControllersProperty) as UwpControllerCollection;
+            controllers?.Detach();
+            element.SetValue(ControllersProperty, null);
+        }
 
         static UwpController()
         {
-            typeof(UwpController).GetTypeInfo().Assembly.GetTypes()
+            EnsureControllerTypeFinder();
+
+            typeof(UwpController).Assembly.GetTypes()
                 .Where(t => typeof(IUwpControllerExtension).IsAssignableFrom(t))
                 .Where(t => t.GetTypeInfo().IsClass && !t.GetTypeInfo().IsAbstract)
-                .ForEach(t => Add(Activator.CreateInstance(t) as IUwpControllerExtension));
+                .ForEach(t => AddExtension(Activator.CreateInstance(t) as IUwpControllerExtension));
+        }
+
+        private static void EnsureControllerTypeFinder()
+        {
+            ControllerTypeFinder = new UwpControllerTypeFinder(ElementKeyFinder, DataContextFinder);
         }
 
         /// <summary>
-        /// Adds an extension of a UWP controller.
+        /// Gets the collection of the controller associated with the specified <see cref="DependencyObject"/>.
         /// </summary>
-        /// <param name="extensions">The extension of a UWP controller.</param>
-        public static void Add(IUwpControllerExtension extensions)
+        /// <param name="element">The element with which the collection of the controller is associated.</param>
+        /// <returns>The collection of the controller associated with the specified <see cref="DependencyObject"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="element"/> is <c>null</c>.
+        /// </exception>
+        public static UwpControllerCollection GetControllers(DependencyObject element)
         {
-            Extensions.Add(extensions.RequireNonNull(nameof(extensions)));
-        }
-
-        /// <summary>
-        /// Removes an extension of a UWP controller.
-        /// </summary>
-        /// <param name="extensions">The extension of a UWP controller.</param>
-        public static void Remove(IUwpControllerExtension extensions)
-        {
-            Extensions.Remove(extensions.RequireNonNull(nameof(extensions)));
-        }
-
-        /// <summary>
-        /// Gets UWP controllers attached to the specified depencency object.
-        /// </summary>
-        /// <param name="obj">The dependency object to which UWP controllers are attached.</param>
-        /// <returns>
-        /// UWP controllers attached to the specified dependency object.
-        /// </returns>
-        public static UwpControllerCollection GetControllers(DependencyObject obj)
-        {
-            var controllers = obj.RequireNonNull(nameof(obj)).GetValue(ControllersProperty) as UwpControllerCollection;
+            var controllers = element.RequireNonNull(nameof(element)).GetValue(ControllersProperty) as UwpControllerCollection;
             controllers.IfAbsent(() =>
             {
-                controllers = new UwpControllerCollection();
-                obj.SetValue(ControllersProperty, controllers);
+                controllers = new UwpControllerCollection(DataContextFinder, DataContextInjector, ElementInjector, Extensions);
+                element.SetValue(ControllersProperty, controllers);
             });
             return controllers;
         }
 
-        private static void OnControllersChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
-        {
-            var oldControllers = args.OldValue as UwpControllerCollection;
-            var newControllers = args.NewValue as UwpControllerCollection;
-            if (oldControllers == newControllers) { return; }
-
-            oldControllers.IfPresent(controllers =>
-            {
-                if (oldControllers.AssociatedElement == null) { throw new InvalidOperationException("Associated element must not be null."); }
-
-                UnregisterEventHanders(oldControllers.AssociatedElement);
-                controllers.Detach();
-            });
-
-            if (newControllers != null && obj != null)
-            {
-                if (newControllers.AssociatedElement != null) { throw new InvalidOperationException("Associated element must be null."); }
-
-                var element = obj as FrameworkElement;
-                if (element == null) { throw new InvalidOperationException("Dependency object must be FrameworkElement."); }
-
-                newControllers.AttachTo(element);
-                RegisterEventHandlers(element);
-            }
-        }
-
-        private static void RegisterEventHandlers(FrameworkElement element)
-        {
-            element.Loaded += OnElementLoaded;
-            element.Unloaded += OnElementUnloaded;
-            element.DataContextChanged += OnElementDataContextChanged;
-        }
-
-        private static void UnregisterEventHanders(FrameworkElement element)
-        {
-            element.Loaded -= OnElementLoaded;
-            element.Unloaded -= OnElementUnloaded;
-            element.DataContextChanged -= OnElementDataContextChanged;
-        }
+        /// <summary>
+        /// Sets the specified data context to the specified controller.
+        /// </summary>
+        /// <param name="dataContext">The data context that is set to the controller.</param>
+        /// <param name="controller">The controller to which the data context is set.</param>
+        public static void SetDataContext(object dataContext, object controller) => DataContextInjector?.Inject(dataContext, controller);
 
         /// <summary>
-        /// Attaches the specified UWP controller to the specified element.
+        /// Sets the specified element to the specified controller.
         /// </summary>
-        /// <param name="controller">The UWP controller attached to the element.</param>
-        /// <param name="element">The element to which the UWP controllers is attached.</param>
-        public static void Attach(object controller, FrameworkElement element)
-        {
-            if (controller == null || element == null) { return; }
-
-            Injector.IfPresent(injector => injector.Inject(controller));
-
-            SetDataContext(element.DataContext, controller);
-        }
-
-        /// <summary>
-        /// Detaches the specified UWP controller from the specified element.
-        /// </summary>
-        /// <param name="controller">The UWP controller detached from the element.</param>
-        /// <param name="element">The element from which the UWP controller is detached.</param>
-        public static void Detach(object controller, FrameworkElement element)
-        {
-            if (controller == null || element == null) { return; }
-
-            SetElement(null, controller);
-            SetDataContext(null, controller);
-            Extensions.ForEach(extension => extension.Detach(element, controller));
-        }
-
-        /// <summary>
-        /// Gets an extension that the specified UWP controller has.
-        /// </summary>
-        /// <typeparam name="E">The type of the extension.</typeparam>
-        /// <typeparam name="T">The type of the container of the extension.</typeparam>
-        /// <param name="controller">The UWP controller that has the extension.</param>
-        /// <returns>The container of the extension that the specified UWP controller has.</returns>
-        public static T Retrieve<E, T>(object controller) where E : IUwpControllerExtension where T : class, new()
-            => (Extensions.OfType<E>().FirstOrDefault()?.Retrieve(controller) as T) ?? new T();
-
-        /// <summary>
-        /// Gets event handlers that the specified UWP controller has.
-        /// </summary>
-        /// <param name="controller">The UWP controller that has event handlers.</param>
-        /// <returns>
-        /// The event handlers that the specified UWP controller has.
-        /// </returns>
-        public static EventHandlerBase RetrieveEventHandlers(object controller)
-            => Retrieve<EventHandlerExtension, EventHandlerBase>(controller);
-
-        /// <summary>
-        /// Sets the specified data context to the specified UWP controller.
-        /// </summary>
-        /// <param name="dataContext">The data context that is set to the UWP controller.</param>
-        /// <param name="controller">The UWP controller to which the data context is set.</param>
-        public static void SetDataContext(object dataContext, object controller)
-        {
-            DataContextInjector?.Inject(dataContext, controller);
-        }
-
-        /// <summary>
-        /// Sets the specified element to the specified UWP controller.
-        /// </summary>
-        /// <param name="rootElement">The element that is set to the UWP controller.</param>
-        /// <param name="controller">The UWP controller to which the element is set.</param>
+        /// <param name="rootElement">The element that is set to the controller.</param>
+        /// <param name="controller">The controller to which the element is set.</param>
         /// <param name="foundElementOnly">
-        /// If <c>true</c>, an element is not set to the UWP controller when it is not found in the specified element;
+        /// If <c>true</c>, an element is not set to the controller when it is not found in the specified element;
         /// otherwise, <c>null</c> is set.
         /// </param>
         public static void SetElement(FrameworkElement rootElement, object controller, bool foundElementOnly = false)
-        {
-            ElementInjector?.Inject(rootElement, controller, foundElementOnly);
-        }
+            => ElementInjector?.Inject(rootElement, controller, foundElementOnly);
 
-        private static void OnElementLoaded(object sender, RoutedEventArgs e)
-        {
-            var element = sender as FrameworkElement;
-            if (element == null) { return; }
+        /// <summary>
+        /// Gets a container of an extension that the specified controller has.
+        /// </summary>
+        /// <typeparam name="TExtension">The type of the extension.</typeparam>
+        /// <typeparam name="T">The type of the container of the extension.</typeparam>
+        /// <param name="controller">The controller that has the extension.</param>
+        /// <returns>The container of the extension that the specified controller has.</returns>
+        public static T Retrieve<TExtension, T>(object controller) where TExtension : IUwpControllerExtension where T : class, new()
+            => Extensions.OfType<TExtension>().FirstOrDefault()?.Retrieve(controller) as T ?? new T();
 
-            var controllers = element.GetValue(ControllersProperty) as UwpControllerCollection;
-            if (controllers == null) { return; }
-
-            controllers.ForEach(controller =>
-            {
-                SetElement(element, controller);
-                Extensions.ForEach(Extension => Extension.Attach(element, controller));
-            });
-        }
-
-        private static void OnElementUnloaded(object sender, RoutedEventArgs e)
-        {
-            var element = sender as FrameworkElement;
-            if (element == null) { return; }
-
-            var controllers = element.GetValue(ControllersProperty) as UwpControllerCollection;
-            if (controllers == null) { return; }
-
-            controllers.ForEach(controller =>
-            {
-                SetElement(null, controller);
-                Extensions.ForEach(Extension => Extension.Detach(element, controller));
-            });
-        }
-
-        private static void OnElementDataContextChanged(object sender, DataContextChangedEventArgs e)
-        {
-            var dependencyObject = sender as DependencyObject;
-            if (dependencyObject == null) { return; }
-
-            var controllers = dependencyObject.GetValue(ControllersProperty) as UwpControllerCollection;
-            if (controllers == null) { return; }
-
-            controllers.ForEach(controller => SetDataContext(e.NewValue, controller));
-        }
+        /// <summary>
+        /// Gets event handlers that the specified controller has.
+        /// </summary>
+        /// <param name="controller">The controller that has event handlers.</param>
+        /// <returns>The event handlers that the specified controller has.</returns>
+        public static EventHandlerBase<FrameworkElement, UwpEventHandlerItem> EventHandlersOf(object controller)
+            => Retrieve<UwpEventHandlerExtension, EventHandlerBase<FrameworkElement, UwpEventHandlerItem>>(controller);
     }
 }

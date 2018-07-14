@@ -1,17 +1,19 @@
-﻿// Copyright (C) 2017 Fievus
+﻿// Copyright (C) 2018 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
-using Fievus.Windows.Mvc;
+using Windows.UI.Xaml.Controls.Primitives;
+using Charites.Windows.Mvc;
 
-namespace Fievus.Windows.Samples.SimpleLoginDemo.Presentation.Home
+namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation.Home
 {
+    [View(Key = nameof(HomeContent))]
     public class HomeController
     {
         [DataContext]
-        public HomeContent Content { get; set; }
+        private HomeContent Content { get; set; }
 
-        [EventHandler(ElementName = "LogoutButton", Event = "Click")]
+        [EventHandler(ElementName = "LogoutButton", Event = nameof(ButtonBase.Click))]
         private void OnLogoutButtonClick()
         {
             Content.Logout();

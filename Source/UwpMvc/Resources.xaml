@@ -6,8 +6,8 @@ of the MIT license.  See the LICENSE file for details.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:u="using:Fievus.Windows.Mvc"
-                    xmlns:c="using:Fievus.Windows.Mvc.Converters">
+                    xmlns:u="using:Charites.Windows.Mvc"
+                    xmlns:c="using:Charites.Windows.Mvc.Converters">
     <u:DataTypeDataTemplateSelector x:Key="DataTemplateSelector"/>
     <c:BooleanToTextWrappingConverter x:Key="BooleanToTextWrappingConverter"/>
 
@@ -20,36 +20,26 @@ of the MIT license.  See the LICENSE file for details.
 
     <Style TargetType="ContentControl" BasedOn="{StaticResource ContentControlBaseStyle}"/>
 
-    <DataTemplate x:Key="Fievus.Windows.Mvc.Bindings.EditableDisplayContent`1">
-        <ContentControl Content="{Binding Value.Value}">
-            <u:UwpController.Controllers>
-                <u:UwpController ControllerType="Fievus.Windows.Mvc.Bindings.EditableDisplayContentController,UwpMvc"/>
-            </u:UwpController.Controllers>
-        </ContentControl>
+    <DataTemplate x:Key="Charites.Windows.Mvc.Bindings.EditableDisplayContent`1">
+        <ContentControl u:UwpController.IsEnabled="True"
+                        Content="{Binding Value.Value}"/>
     </DataTemplate>
     
-    <DataTemplate x:Key="Fievus.Windows.Mvc.Bindings.EditableDisplayContent`1[System.String]">
-        <TextBlock HorizontalAlignment="Stretch" Text="{Binding Value.Value}">
-            <u:UwpController.Controllers>
-                <u:UwpController ControllerType="Fievus.Windows.Mvc.Bindings.EditableDisplayContentController,UwpMvc"/>
-            </u:UwpController.Controllers>
-        </TextBlock>
+    <DataTemplate x:Key="Charites.Windows.Mvc.Bindings.EditableDisplayContent`1[System.String]">
+        <TextBlock u:UwpController.IsEnabled="True"
+                   HorizontalAlignment="Stretch" Text="{Binding Value.Value}"/>
     </DataTemplate>
 
-    <DataTemplate x:Key="Fievus.Windows.Mvc.Bindings.EditableEditText">
-        <UserControl>
-            <u:UwpController.Controllers>
-                <u:UwpController ControllerType="Fievus.Windows.Mvc.Bindings.EditableEditTextController,UwpMvc"/>
-            </u:UwpController.Controllers>
-
+    <DataTemplate x:Key="Charites.Windows.Mvc.Bindings.EditableEditText">
+        <UserControl u:UwpController.IsEnabled="True">
             <TextBox Name="EditTextBox"
-                     TextWrapping="{Binding IsMultiline.Value, Converter={StaticResource BooleanToTextWrappingConverter}}"
+                     TextWrapping="{Binding IsMultiLine.Value, Converter={StaticResource BooleanToTextWrappingConverter}}"
                      Text="{Binding Value.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup>
                         <VisualState>
                             <VisualState.StateTriggers>
-                                <u:DataTrigger DataValue="{Binding IsMultiline.Value}" TriggerValue="True"/>
+                                <u:DataTrigger DataValue="{Binding IsMultiLine.Value}" TriggerValue="True"/>
                             </VisualState.StateTriggers>
                             <VisualState.Setters>
                                 <Setter Target="EditTextBox.AcceptsReturn" Value="True"/>
@@ -63,14 +53,11 @@ of the MIT license.  See the LICENSE file for details.
         </UserControl>
     </DataTemplate>
 
-    <DataTemplate x:Key="Fievus.Windows.Mvc.Bindings.EditableEditSelection`1">
-        <ComboBox IsDropDownOpen="{Binding IsSelecting.Value, Mode=TwoWay}"
+    <DataTemplate x:Key="Charites.Windows.Mvc.Bindings.EditableEditSelection`1">
+        <ComboBox u:UwpController.IsEnabled="True"
+                  IsDropDownOpen="{Binding IsSelecting.Value, Mode=TwoWay}"
                   ItemsSource="{Binding SelectionItems}"
                   SelectedItem="{Binding Value.Value, Mode=TwoWay}"
-                  ItemTemplateSelector="{StaticResource DataTemplateSelector}">
-            <u:UwpController.Controllers>
-                <u:UwpController ControllerType="Fievus.Windows.Mvc.Bindings.EditableEditSelectionController,UwpMvc"/>
-            </u:UwpController.Controllers>
-        </ComboBox>
+                  ItemTemplateSelector="{StaticResource DataTemplateSelector}"/>
     </DataTemplate>
 </ResourceDictionary>

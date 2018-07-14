@@ -1,22 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{8B94EAC8-6AEA-4002-974D-2F96E68D7D76}</ProjectGuid>
+    <ProjectGuid>{DB686DD5-B35E-47B9-8D82-451B3A96DF92}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Fievus.Windows.Samples.SimpleLoginDemo</RootNamespace>
+    <RootNamespace>Charites.Windows.Samples.SimpleLoginDemo</RootNamespace>
     <AssemblyName>SimpleLoginDemo</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>SimpleLoginDemo_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>69E3D9B4D06F7C1D9BCAE2A752031D5DDE93068D</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -87,10 +89,9 @@
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
-  <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <None Include="project.json" />
-  </ItemGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -124,16 +125,24 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection">
+      <Version>2.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.1.5</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Source\UwpMvc\UwpMvc.csproj">
       <Project>{33be4c48-db53-4cb4-914c-7b79cb4bffc0}</Project>
       <Name>UwpMvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimpleLoginDemo.Adapter\SimpleLoginDemo.Adapter.csproj">
-      <Project>{29db9e27-5db6-455a-a6b9-602c00b8bc14}</Project>
+      <Project>{07928e3e-6cfc-46c4-a1ef-a8636ec3e874}</Project>
       <Name>SimpleLoginDemo.Adapter</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimpleLoginDemo.Presentation\SimpleLoginDemo.Presentation.csproj">
-      <Project>{5428dbc0-a924-4580-ac3a-1c9f2ce62ec1}</Project>
+      <Project>{1c37edae-008e-499d-af87-c8de50d5f2c0}</Project>
       <Name>SimpleLoginDemo.Presentation</Name>
     </ProjectReference>
   </ItemGroup>

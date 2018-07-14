@@ -1,13 +1,12 @@
-﻿// Copyright (C) 2017 Fievus
+﻿// Copyright (C) 2018 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
 using System;
 using System.ComponentModel.DataAnnotations;
+using Charites.Windows.Mvc.Bindings;
 
-using Fievus.Windows.Mvc.Bindings;
-
-namespace Fievus.Windows.Samples.SimpleLoginDemo.Presentation.Login
+namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation.Login
 {
     public class LoginContent
     {

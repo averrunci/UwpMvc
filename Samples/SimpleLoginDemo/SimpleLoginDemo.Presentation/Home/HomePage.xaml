@@ -1,10 +1,10 @@
 ﻿<!--
-Copyright (C) 2017 Fievus
+Copyright (C) 2018 Fievus
 
 This software may be modified and distributed under the terms
 of the MIT license.  See the LICENSE file for details.
 -->
-<Page x:Class="Fievus.Windows.Samples.SimpleLoginDemo.Presentation.Home.HomePage"
+<Page x:Class="Charites.Windows.Samples.SimpleLoginDemo.Presentation.Home.HomePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ContentControl Content="{Binding}"/>

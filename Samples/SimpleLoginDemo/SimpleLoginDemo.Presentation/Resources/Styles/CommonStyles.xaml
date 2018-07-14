@@ -1,21 +1,12 @@
 ﻿<!--
-Copyright (C) 2017 Fievus
+Copyright (C) 2018 Fievus
 
 This software may be modified and distributed under the terms
 of the MIT license.  See the LICENSE file for details.
 -->
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:u="using:Fievus.Windows.Mvc">
-    <u:DataTypeDataTemplateSelector x:Key="DefaultDataTemplateSelector"/>
-
-    <Style TargetType="ContentControl">
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-        <Setter Property="ContentTemplateSelector" Value="{StaticResource DefaultDataTemplateSelector}"/>
-        <Setter Property="IsTabStop" Value="False"/>
-    </Style>
-
+                    xmlns:u="using:Charites.Windows.Mvc">
     <Style x:Key="ControlBorderStyle" TargetType="Control">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0,0,0,2"/>

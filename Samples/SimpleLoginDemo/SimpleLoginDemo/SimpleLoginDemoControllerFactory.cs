@@ -1,16 +1,14 @@
-﻿// Copyright (C) 2017 Fievus
+﻿// Copyright (C) 2018 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
 using System;
+using Charites.Windows.Mvc;
+using Charites.Windows.Samples.SimpleLoginDemo.Presentation;
+using Charites.Windows.SamplesSimpleLoginDemo.Adapter;
 using Microsoft.Extensions.DependencyInjection;
 
-using Fievus.Windows.Mvc;
-
-using Fievus.Windows.Samples.SimpleLoginDemo.Adapter;
-using Fievus.Windows.Samples.SimpleLoginDemo.Presentation;
-
-namespace Fievus.Windows.Samples.SimpleLoginDemo
+namespace Charites.Windows.Samples.SimpleLoginDemo
 {
     public class SimpleLoginDemoControllerFactory : IUwpControllerFactory
     {

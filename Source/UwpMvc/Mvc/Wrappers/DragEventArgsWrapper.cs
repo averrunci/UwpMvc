@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2017 Fievus
+﻿// Copyright (C) 2018 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -6,7 +6,7 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 
-namespace Fievus.Windows.Mvc.Wrappers
+namespace Charites.Windows.Mvc.Wrappers
 {
     /// <summary>
     /// Provides data of the <see cref="DragEventArgs"/>

@@ -6,7 +6,7 @@ using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace Fievus.Windows.Mvc.Converters
+namespace Charites.Windows.Mvc.Converters
 {
     internal sealed class BooleanToTextWrappingConverter : IValueConverter
     {

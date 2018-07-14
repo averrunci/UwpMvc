@@ -1,25 +1,24 @@
-﻿// Copyright (C) 2017 Fievus
+﻿// Copyright (C) 2018 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
+
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Charites.Windows.Mvc;
+using Charites.Windows.Samples.SimpleLoginDemo.Presentation;
 
-using Fievus.Windows.Mvc;
-
-using Fievus.Windows.Samples.SimpleLoginDemo.Presentation;
-
-namespace Fievus.Windows.Samples.SimpleLoginDemo
+namespace Charites.Windows.Samples.SimpleLoginDemo
 {
-    sealed partial class App : Application
+    public sealed partial class App
     {
         public App()
         {
             InitializeComponent();
 
-            UwpController.Factory = new SimpleLoginDemoControllerFactory();
+            UwpController.ControllerFactory = new SimpleLoginDemoControllerFactory();
 
             Suspending += OnSuspending;
         }
