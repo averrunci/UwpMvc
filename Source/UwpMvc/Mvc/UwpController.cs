@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using Charites.Windows.Mvc.Wrappers;
 
 namespace Charites.Windows.Mvc
 {
@@ -271,5 +273,72 @@ namespace Charites.Windows.Mvc
         /// <returns>The event handlers that the specified controller has.</returns>
         public static EventHandlerBase<FrameworkElement, UwpEventHandlerItem> EventHandlersOf(object controller)
             => Retrieve<UwpEventHandlerExtension, EventHandlerBase<FrameworkElement, UwpEventHandlerItem>>(controller);
+
+        /// <summary>
+        /// Specifies that the specified resolver is used to resolve the event data that is defined by the specified
+        /// type of the event args wrapper.
+        /// </summary>
+        /// <typeparam name="T">The type of the resolver.</typeparam>
+        /// <param name="resolver">The resolver to resolve the event data.</param>
+        /// <param name="eventArgsWrapperType">The type of the event args wrapper.</param>
+        /// <param name="resolverPropertyName">The name of the Resolver property of the event args wrapper.</param>
+        /// <returns>The builder to build the event handlers that are invoked in the event args resolver scope.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="eventArgsWrapperType"/> is <c>null</c>.
+        /// </exception>
+        public static EventArgsResolverScopeBuilder<T> Using<T>(T resolver, Type eventArgsWrapperType, string resolverPropertyName = "Resolver")
+            => new EventArgsResolverScopeBuilder<T>(resolver, eventArgsWrapperType, resolverPropertyName);
+
+        /// <summary>
+        /// Builds the event args resolver scope.
+        /// </summary>
+        /// <typeparam name="T">The type of the resolver.</typeparam>
+        public sealed class EventArgsResolverScopeBuilder<T>
+        {
+            private readonly T resolver;
+            private readonly Type eventArgsWrapperType;
+            private readonly string resolverPropertyName;
+            private Action<T> applyResolver;
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="EventArgsResolverScopeBuilder{T}"/> class
+            /// with the specified resolver to resolve the event data, type of the event args wrapper,
+            /// and name of the Resolver property of the event args wrapper.
+            /// </summary>
+            /// <param name="resolver">The resolver to resolve the event data.</param>
+            /// <param name="eventArgsWrapperType">The type of the event args wrapper.</param>
+            /// <param name="resolverPropertyName">The name of the Resolver property of the event args wrapper.</param>
+            /// <exception cref="ArgumentNullException">
+            /// <paramref name="eventArgsWrapperType"/> is <c>null</c>.
+            /// </exception>
+            public EventArgsResolverScopeBuilder(T resolver, Type eventArgsWrapperType, string resolverPropertyName)
+            {
+                this.resolver = resolver;
+                this.eventArgsWrapperType = eventArgsWrapperType.RequireNonNull(nameof(eventArgsWrapperType));
+                this.resolverPropertyName = resolverPropertyName;
+            }
+
+            /// <summary>
+            /// Applies the specified action that performs to resolve the event data with the resolver.
+            /// </summary>
+            /// <param name="action">The action that performs to resolve the event data with the resolver.</param>
+            /// <returns>The instance of the <see cref="EventArgsResolverScopeBuilder{T}"/> class.</returns>
+            public EventArgsResolverScopeBuilder<T> Apply(Action<T> action)
+            {
+                applyResolver = action;
+                return this;
+            }
+
+            /// <summary>
+            /// Gets event handlers that the specified controller has.
+            /// </summary>
+            ///  <param name="controller">The controller that has event handlers.</param>
+            /// <returns>The event handlers that the specified controller has.</returns>
+            public EventArgsResolverScopeEventHandlerBase<T> EventHandlersOf(object controller)
+                => new EventArgsResolverScopeEventHandlerBase<T>(
+                    resolver, eventArgsWrapperType, resolverPropertyName, applyResolver,
+                    Retrieve<UwpEventHandlerExtension, EventHandlerBase<FrameworkElement, UwpEventHandlerItem>>(controller)
+                );
+        }
     }
 }

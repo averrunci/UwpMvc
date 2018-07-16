@@ -6,8 +6,12 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.System;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 using Carna;
+using Charites.Windows.Mvc.Wrappers;
+using NSubstitute;
 
 namespace Charites.Windows.Mvc
 {
@@ -362,6 +366,38 @@ namespace Charites.Windows.Mvc
                     .RaiseAsync("Loaded")
             );
             Then("the Loaded event should be handled", () => loadedEventHandled);
+        }
+
+        [Example("Retrieves event handlers and executes them with the event args resolver scope when an element is not attached")]
+        void Ex10()
+        {
+            var keyDownHandler = Substitute.For<Action<VirtualKey>>();
+            TestUwpControllers.TestUwpController controller = null;
+            Given("a controller", () => controller = new TestUwpControllers.TestUwpController { KeyDownAssertionHandler = keyDownHandler });
+            When("the KeyDown event is raised using the EventHandlerBase", () =>
+                UwpController.Using(Substitute.For<IKeyRoutedEventArgsResolver>(), typeof(KeyRoutedEventArgsWrapper))
+                    .Apply(resolver => resolver.Key(Arg.Any<KeyRoutedEventArgs>()).Returns(VirtualKey.Enter))
+                    .EventHandlersOf(controller)
+                    .GetBy("Element")
+                    .Raise("KeyDown")
+            );
+            Then("the KeyDown event should be handled", () => keyDownHandler.Received(1).Invoke(VirtualKey.Enter));
+        }
+
+        [Example("Retrieves event handlers and executes them with the event args resolver scope asynchronously when an element is not attached")]
+        void Ex11()
+        {
+            var keyDownHandler = Substitute.For<Action<VirtualKey>>();
+            TestUwpControllers.TestUwpControllerAsync controller = null;
+            Given("a controller", () => controller = new TestUwpControllers.TestUwpControllerAsync { KeyDownAssertionHandler = keyDownHandler });
+            When("the KeyDown event is raised asynchronously using the EventHandlerBase", async () =>
+                await UwpController.Using(Substitute.For<IKeyRoutedEventArgsResolver>(), typeof(KeyRoutedEventArgsWrapper))
+                    .Apply(resolver => resolver.Key(Arg.Any<KeyRoutedEventArgs>()).Returns(VirtualKey.Enter))
+                    .EventHandlersOf(controller)
+                    .GetBy("Element")
+                    .RaiseAsync("KeyDown")
+            );
+            Then("the KeyDown event should be handled", () => keyDownHandler.Received(1).Invoke(VirtualKey.Enter));
         }
     }
 }

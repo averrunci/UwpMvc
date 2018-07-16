@@ -18,27 +18,16 @@ using NSubstitute;
 namespace Charites.Windows.Samples.SimpleTodo.Presentation
 {
     [Specification("MainContentController Spec")]
-    class MainContentControllerSpec : FixtureSteppable, IDisposable
+    class MainContentControllerSpec : FixtureSteppable
     {
         MainContentController Controller { get; } = new MainContentController();
         MainContent Content { get; } = new MainContent();
 
         string TodoContent { get; } = "Todo Item";
 
-        IKeyRoutedEventArgsResolver OriginalResolver { get; }
-        IKeyRoutedEventArgsResolver KeyRoutedEventArgsResolver { get; } = Substitute.For<IKeyRoutedEventArgsResolver>();
-
         public MainContentControllerSpec()
         {
             UwpController.SetDataContext(Content, Controller);
-
-            OriginalResolver = KeyRoutedEventArgsWrapper.Resolver;
-            KeyRoutedEventArgsWrapper.Resolver = KeyRoutedEventArgsResolver;
-        }
-
-        public void Dispose()
-        {
-            KeyRoutedEventArgsWrapper.Resolver = OriginalResolver;
         }
 
         [Example("The IsChecked of the AllCompletedCheckBox is set to null when the AllCompleted of the content does not have a value")]
@@ -66,8 +55,9 @@ namespace Charites.Windows.Samples.SimpleTodo.Presentation
             When("the content of the to-do is set", () => Content.TodoContent.Value = TodoContent);
             When("the Enter key is pressed", () =>
             {
-                KeyRoutedEventArgsResolver.Key(Arg.Any<KeyRoutedEventArgs>()).Returns(VirtualKey.Enter);
-                UwpController.EventHandlersOf(Controller)
+                UwpController.Using(Substitute.For<IKeyRoutedEventArgsResolver>(), typeof(KeyRoutedEventArgsWrapper))
+                    .Apply(resolver => resolver.Key(null).Returns(VirtualKey.Enter))
+                    .EventHandlersOf(Controller)
                     .GetBy("TodoContentTextBox")
                     .Raise(nameof(UIElement.KeyDown));
             });
@@ -80,8 +70,9 @@ namespace Charites.Windows.Samples.SimpleTodo.Presentation
             When("the content of the to-do is set", () => Content.TodoContent.Value = TodoContent);
             When("the Tab key is pressed", () =>
             {
-                KeyRoutedEventArgsResolver.Key(Arg.Any<KeyRoutedEventArgs>()).Returns(VirtualKey.Tab);
-                UwpController.EventHandlersOf(Controller)
+                UwpController.Using(Substitute.For<IKeyRoutedEventArgsResolver>(), typeof(KeyRoutedEventArgsWrapper))
+                    .Apply(resolver => resolver.Key(Arg.Any<KeyRoutedEventArgs>()).Returns(VirtualKey.Tab))
+                    .EventHandlersOf(Controller)
                     .GetBy("TodoContentTextBox")
                     .Raise(nameof(UIElement.KeyDown));
             });

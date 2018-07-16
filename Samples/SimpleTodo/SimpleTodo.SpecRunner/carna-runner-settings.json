@@ -1,6 +1,5 @@
 ﻿{
   "assemblies": [
     "SimpleTodo.Presentation.Spec.dll"
-  ],
-  "parallel":  false
+  ]
 }

@@ -106,6 +106,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Mvc\EventArgsResolverScopeEventHandlerBase.cs" />
     <Compile Include="Mvc\IUwpControllerTypeContainer.cs" />
     <Compile Include="Mvc\Converters\BooleanToTextWrappingConverter.cs" />
     <Compile Include="Extensions.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="Mvc\Wrappers\DragUIWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DropCompletedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DynamicOverflowItemsChangingEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\EventArgsResolverScope.cs" />
     <Compile Include="Mvc\Wrappers\ExceptionRoutedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\FocusDisengagedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\FocusEngagedEventArgsWrapper.cs" />

@@ -5,8 +5,10 @@
 using System;
 using System.Threading.Tasks;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
+using Charites.Windows.Mvc.Wrappers;
 
 namespace Charites.Windows.Mvc
 {
@@ -54,10 +56,17 @@ namespace Charites.Windows.Mvc
                 DataContextChangedAssertionHandler?.Invoke();
             }
 
+            [EventHandler(ElementName = "Element", Event = "KeyDown")]
+            protected void OnElementKeyDown(KeyRoutedEventArgs e)
+            {
+                KeyDownAssertionHandler?.Invoke(e.Key());
+            }
+
             public Action TappedAssertionHandler { get; set; }
             public Action LoadedAssertionHandler { get; set; }
             public Action ChangedAssertionHandler { get; set; }
             public Action DataContextChangedAssertionHandler { get; set; }
+            public Action<VirtualKey> KeyDownAssertionHandler { get; set; }
         }
 
         [View(Key = "Charites.Windows.Mvc.TestUwpControllers+TestDataContext")]
@@ -104,10 +113,17 @@ namespace Charites.Windows.Mvc
                 await Task.Run(() => DataContextChangedAssertionHandler?.Invoke());
             }
 
+            [EventHandler(ElementName = "Element", Event = "KeyDown")]
+            private async Task OnElementKeyDown(KeyRoutedEventArgs e)
+            {
+                await Task.Run(() => KeyDownAssertionHandler?.Invoke(e.Key()));
+            }
+
             public Action TappedAssertionHandler { get; set; }
             public Action LoadedAssertionHandler { get; set; }
             public Action ChangedAssertionHandler { get; set; }
             public Action DataContextChangedAssertionHandler { get; set; }
+            public Action<VirtualKey> KeyDownAssertionHandler { get; set; }
         }
 
         public class AttributedToField

@@ -20,7 +20,7 @@ using NSubstitute;
 namespace Charites.Windows.Samples.SimpleTodo.Presentation
 {
     [Specification("TodoItemController Spec")]
-    class TodoItemControllerSpec : FixtureSteppable, IDisposable
+    class TodoItemControllerSpec : FixtureSteppable
     {
         TodoItemController Controller { get; } = new TodoItemController();
         TodoItem TodoItem { get; }
@@ -30,22 +30,11 @@ namespace Charites.Windows.Samples.SimpleTodo.Presentation
 
         bool RemoveRequested { get; set; }
 
-        IKeyRoutedEventArgsResolver KeyRoutedEventArgsResolver { get; } = Substitute.For<IKeyRoutedEventArgsResolver>();
-        IKeyRoutedEventArgsResolver OriginalKeyRoutedEventArgsResolver { get; }
-
         public TodoItemControllerSpec()
         {
             TodoItem = new TodoItem(InitialContent);
             TodoItem.RemoveRequested += (s, e) => RemoveRequested = true;
             UwpController.SetDataContext(TodoItem, Controller);
-            
-            OriginalKeyRoutedEventArgsResolver = KeyRoutedEventArgsWrapper.Resolver;
-            KeyRoutedEventArgsWrapper.Resolver = KeyRoutedEventArgsResolver;
-        }
-
-        public void Dispose()
-        {
-            KeyRoutedEventArgsWrapper.Resolver = OriginalKeyRoutedEventArgsResolver;
         }
 
         [Example("Changes the visual state when the pointer is over an element")]
@@ -113,8 +102,9 @@ namespace Charites.Windows.Samples.SimpleTodo.Presentation
                 When("the content is modified", () => TodoItem.EditContent.Value = ModifiedContent);
                 When("the Enter key is pressed", () =>
                 {
-                    KeyRoutedEventArgsResolver.Key(Arg.Any<KeyRoutedEventArgs>()).Returns(VirtualKey.Enter);
-                    UwpController.EventHandlersOf(Controller)
+                    UwpController.Using(Substitute.For<IKeyRoutedEventArgsResolver>(), typeof(KeyRoutedEventArgsWrapper))
+                        .Apply(resolver => resolver.Key(Arg.Any<KeyRoutedEventArgs>()).Returns(VirtualKey.Enter))
+                        .EventHandlersOf(Controller)
                         .GetBy("TodoContentTextBox")
                         .Raise(nameof(UIElement.KeyDown));
                 });
@@ -159,8 +149,9 @@ namespace Charites.Windows.Samples.SimpleTodo.Presentation
                 When("the content is modified", () => TodoItem.EditContent.Value = ModifiedContent);
                 When("the Esc key is pressed", () =>
                 {
-                    KeyRoutedEventArgsResolver.Key(Arg.Any<KeyRoutedEventArgs>()).Returns(VirtualKey.Escape);
-                    UwpController.EventHandlersOf(Controller)
+                    UwpController.Using(Substitute.For<IKeyRoutedEventArgsResolver>(), typeof(KeyRoutedEventArgsWrapper))
+                        .Apply(resolver => resolver.Key(Arg.Any<KeyRoutedEventArgs>()).Returns(VirtualKey.Escape))
+                        .EventHandlersOf(Controller)
                         .GetBy("TodoContentTextBox")
                         .Raise(nameof(UIElement.KeyDown));
                 });
