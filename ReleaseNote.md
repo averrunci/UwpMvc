@@ -1,17 +1,31 @@
 # Release note
 
+## V2.0.0
+
+### Add
+
+- Add EventArgsResolverScope that makes a code block for a resolver of an event args wrapper. It can be used by calling the Using method of the UwpController.
+
+### Changes
+
+- Move bindings properties to the Charites.Bindings assembly.
+- Move attributes and base implementations to the Charites assembly.
+- Remove the Controllers attached property of the UwpController. The controller is specified using the ViewAttribute.
+- Change the namespace from Fievus to Charites.
+- Change the testing framework from xUnit to Carna.
+
 ## V1.3.0
 
 ### Add
 
- - Add BindTwoWay method with converters that convert the value from/to the source value.
- - Add IElementInjector that injects elements in a target element to the WPF controller.
- - Add IDataContextInjector that injects a data context to the WPF controller.
- - Add ElementInjectionException that is thrown when an element injection is failed.
- - Add DataContextInjectionException that is thrown when a data context injection is failed.
- - Add EditableContentProperty that represents a property value that can be edited with a dedicated content.
- - Add EditableTextProperty that represents a property of a text that can be edited with a dedicated content using a text control.
- - Add EditableSelectionProperty that represents a property value that can be selected with a dedicated content using a selection control.
+- Add BindTwoWay method with converters that convert the value from/to the source value.
+- Add IElementInjector that injects elements in a target element to the WPF controller.
+- Add IDataContextInjector that injects a data context to the WPF controller.
+- Add ElementInjectionException that is thrown when an element injection is failed.
+- Add DataContextInjectionException that is thrown when a data context injection is failed.
+- Add EditableContentProperty that represents a property value that can be edited with a dedicated content.
+- Add EditableTextProperty that represents a property of a text that can be edited with a dedicated content using a text control.
+- Add EditableSelectionProperty that represents a property value that can be selected with a dedicated content using a selection control.
 
 ### Changes
 
