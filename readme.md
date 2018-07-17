@@ -37,7 +37,7 @@ The basic flow is as follows;
 
 This library provides a feature to specify a controller to handle events that occur on the view using the ViewAttribute.
 
-```
+``` csharp
 [View]
 class Controller {...}
 ```
@@ -65,11 +65,11 @@ The condition to search the controller is as follows:
 
 A controller can be created with a factory that implements IUwpControllerFactory. If a factory is not specified, a default factory that creates a controller with Activator.CreateInstance method is used.
 
-```
+``` csharp
 class ControllerFactory : IUwpControllerFactory {...}
 ```
 
-```
+``` csharp
 UwpController.ControllerFactory = new ControllerFactory();
 ```
 
@@ -83,7 +83,8 @@ It is also specified to the property or the field that is defined with a delegat
 The method is declared as follows;
 
 - No argument.
-```
+
+``` csharp
 [EventHandler(ElementName = "ActionButton", Event = "Click")]
 private void OnActionButtonClick()
 {
@@ -92,7 +93,8 @@ private void OnActionButtonClick()
 ```
 
 - One argument that is a second argument of EventHandler.
-```
+
+``` csharp
 [EventHandler(ElementName = "ActionButton", Event = "Click")]
 private void OnActionButtonClick(RoutedEventArgs e)
 {
@@ -101,7 +103,8 @@ private void OnActionButtonClick(RoutedEventArgs e)
 ```
 
 - Two arguments that are a first argument and a second argument of EventHandler.
-```
+
+``` csharp
 [EventHandler(ElementName = "ActionButton", Event = "Click")]
 private void OnActionButtonClick(object sender, RoutedEventArgs e)
 {
@@ -116,19 +119,22 @@ The method has an argument the type of which is the one of a DataContext.
 The implementation is as follows;
 
 - Field
-```
+
+``` csharp
 [DataContext]
 private DataContexType context;
 ```
 
 - Property
-```
+
+``` csharp
 [DataContext]
 public DataContexType Context { get; set; }
 ```
 
 - Method
-```
+
+``` csharp
 [DataContext]
 public void SetContext(DataContexType context)
 {
@@ -148,19 +154,22 @@ the name of the element is specified to the Name property of the ElementAttribut
 The implementation to inject an element the name of which is "Element" is as follows;
 
 - Field
-```
+
+``` csharp
 [Element(Name = "Element")]
 private UIElement element;
 ```
 
 - Property
-```
+
+``` csharp
 [Element]
 public UIElement Element { get; set; }
 ```
 
 - Method
-```
+
+``` csharp
 [Element]
 public void SetElement(UIElement element)
 {
