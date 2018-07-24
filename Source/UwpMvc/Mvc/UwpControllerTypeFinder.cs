@@ -21,7 +21,8 @@ namespace Charites.Windows.Mvc
         protected override IEnumerable<Type> FindControllerTypeCandidates(FrameworkElement view)
             => GetControllerTypes()
                 .Concat(GetType().Assembly.GetTypes().Where(type => type.GetCustomAttributes<ViewAttribute>(true).Any()))
-                .Concat(view.DataContext?.GetType().Assembly.GetTypes() ?? Enumerable.Empty<Type>());
+                .Concat(view.DataContext?.GetType().Assembly.GetTypes() ?? Enumerable.Empty<Type>())
+                .Distinct();
 
         private IEnumerable<Type> GetControllerTypes()
             => ControllerTypeContainer?.GetControllerTypes() ?? Enumerable.Empty<Type>();
