@@ -77,6 +77,9 @@ namespace Charites.Windows.Mvc
         private void OnElementUnloaded(object sender, RoutedEventArgs e)
         {
             Detach();
+
+            if (!(sender is FrameworkElement element)) return;
+            UwpController.ClearControllers(element);
         }
 
         private void OnElementDataContextChanged(object sender, DataContextChangedEventArgs e)

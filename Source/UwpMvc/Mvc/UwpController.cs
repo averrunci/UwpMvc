@@ -7,9 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
-using Charites.Windows.Mvc.Wrappers;
 
 namespace Charites.Windows.Mvc
 {
@@ -182,6 +180,7 @@ namespace Charites.Windows.Mvc
         private static void OnElementDataContextChanged(object sender, DataContextChangedEventArgs e)
         {
             if (!(sender is FrameworkElement element)) return;
+            if (element.DataContext == null) return;
 
             element.DataContextChanged -= OnElementDataContextChanged;
 
@@ -190,6 +189,8 @@ namespace Charites.Windows.Mvc
 
         private static void AttachControllers(FrameworkElement element)
         {
+            if (element.GetValue(ControllersProperty) != null) return;
+
             var controllers = new UwpControllerCollection(DataContextFinder, DataContextInjector, ElementInjector, Extensions);
             controllers.AddRange(ControllerTypeFinder?.Find(element).Select(ControllerFactory.Create));
             controllers.AttachTo(element);
@@ -200,6 +201,12 @@ namespace Charites.Windows.Mvc
         {
             var controllers = element.GetValue(ControllersProperty) as UwpControllerCollection;
             controllers?.Detach();
+            element.SetValue(ControllersProperty, null);
+        }
+
+        internal static void ClearControllers(FrameworkElement element)
+        {
+            element.DataContextChanged += OnElementDataContextChanged;
             element.SetValue(ControllersProperty, null);
         }
 

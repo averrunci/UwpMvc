@@ -224,8 +224,7 @@ namespace Charites.Windows.Mvc
 
             await RunAsync(() =>
             {
-                Then("the data context of the controller should be null", () => GetController<TestUwpControllers.TestUwpController>(Element).DataContext == null);
-                Then("the element of the controller should be null", () => GetController<TestUwpControllers.TestUwpController>(Element).Element == null);
+                Then("the controller associated with the element should be detached from the UwpController", () => GetController<TestUwpControllers.TestUwpController>(Element) == null);
 
                 changedEventHandled = false;
                 When("the Changed event of the element is raised", () => Element.RaiseChanged());
