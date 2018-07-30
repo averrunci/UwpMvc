@@ -1,5 +1,24 @@
 # Release note
 
+## V2.0.1
+
+### Add
+
+- Add wrappers.
+  - TreeViewCollapsedEventArgsWrapper
+  - TreeViewExpandingEventArgsWrapper
+  - TreeViewItemInvokedEvetArgsWrapper
+
+### Changes
+
+- Change the target version to version 1803.
+
+### Bug fix
+
+- Fixed to be able to search the DataTemplate in resources of the container with the DataTypeDataTemplateSelector too.
+- Fixed to attach controllers correctly when the DataTypeDataTemplateSelector is set to the ItemTemplateSelector.
+- Fixed not to find the controller of the same type when to find the type of the controller with the UwpControllerTypeFinder.
+
 ## V2.0.0
 
 ### Add

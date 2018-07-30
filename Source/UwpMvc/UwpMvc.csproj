@@ -242,7 +242,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Charites">
-      <Version>1.0.0</Version>
+      <Version>1.0.1</Version>
     </PackageReference>
     <PackageReference Include="Charites.Bindings">
       <Version>1.0.0</Version>
