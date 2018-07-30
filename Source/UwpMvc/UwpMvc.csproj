@@ -215,6 +215,9 @@
     <Compile Include="Mvc\Wrappers\TextControlPasteEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\TimelineMarkerRoutedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\TimePickerValueChangedEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\TreeViewCollapsedEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\TreeViewExpandingEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\TreeViewItemInvokedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\WebViewNavigationFailedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\WebViewContentLoadingEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\WebViewDOMContentLoadedEventArgsWrapper.cs" />
