@@ -102,5 +102,36 @@ namespace Charites.Windows.Mvc
                 yield return new { Description = "When the key is the data type, does not contain generic parameters, and has a suffix 'Template'", Key = "GenericTestDataTemplate", Item = new GenericTestData<string>() };
             }
         }
+
+        [Example("Selects the DataTemplate from resources of the container using a naming convention")]
+        [Sample(Source = typeof(DataTemplateSelectionSampleDataSource))]
+        async Task Ex04(string key, object item)
+        {
+            TestElement element = null;
+            TestElement container = null;
+
+            await RunAsync(() =>
+            {
+                element = new TestElement();
+                container = new TestElement { Content = element };
+
+                Given("a data template in a container resource", () => container.Resources[key] = ExpectedTemplate = new DataTemplate());
+            });
+
+            await SetWindowContent(container);
+
+            await RunAsync(() =>
+            {
+                When("to select a template by specifying the data and the container", () => ActualTemplate = new DataTypeDataTemplateSelector().SelectTemplate(item, container));
+                Then("the template should be selected", () => ActualTemplate == ExpectedTemplate);
+            });
+
+            await RunAsync(() =>
+            {
+                When("to select a template by specifying the data and the element whose parent is the container", () => ActualTemplate = new DataTypeDataTemplateSelector().SelectTemplate(item, element));
+                Then("the template should be selected", () => ActualTemplate == ExpectedTemplate);
+            });
+
+        }
     }
 }

@@ -35,24 +35,39 @@ namespace Charites.Windows.Mvc
         /// <param name="container">The parent container for the template item.</param>
         /// <returns>The template to use for the given item and/or container.</returns>
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container) =>
-            item == null ? base.SelectTemplateCore(null, container) : FindDataTemplate(item) ?? base.SelectTemplateCore(item, container);
+            item == null ? base.SelectTemplateCore(null, container) : FindDataTemplate(item, container as FrameworkElement) ?? base.SelectTemplateCore(item, container);
 
-        private DataTemplate FindDataTemplate(object item) => FindDataTemplate(item.GetType());
+        private DataTemplate FindDataTemplate(object item, FrameworkElement container = null)
+        {
+            var targetContainer = container;
 
-        private DataTemplate FindDataTemplate(Type dataType) =>
-            dataType == null ? null : FindDataTemplate(dataType.Name) ??
-                FindDataTemplate(dataType.ToString()) ??
-                (dataType.IsConstructedGenericType ? FindDataTemplate(GetFullNameWithoutParameters(dataType)) : null) ??
-                FindDataTemplate(dataType.BaseType) ??
+            while (targetContainer != null)
+            {
+                var dataTemplate = FindDataTemplate(item, targetContainer.Resources);
+                if (dataTemplate != null) return dataTemplate;
+                targetContainer = targetContainer.Parent as FrameworkElement;
+            }
+
+            return FindDataTemplate(item, Application.Current.Resources);
+        }
+
+        private DataTemplate FindDataTemplate(object item, ResourceDictionary resources) =>
+            resources == null ? null : FindDataTemplate(item.GetType(), resources);
+
+        private DataTemplate FindDataTemplate(Type dataType, ResourceDictionary resources) =>
+            dataType == null ? null : FindDataTemplate(dataType.Name, resources) ??
+                FindDataTemplate(dataType.ToString(), resources) ??
+                (dataType.IsConstructedGenericType ? FindDataTemplate(GetFullNameWithoutParameters(dataType), resources) : null) ??
+                FindDataTemplate(dataType.BaseType, resources) ??
                 dataType.GetInterfaces()
-                    .Select(FindDataTemplate)
+                    .Select(type => FindDataTemplate(type, resources))
                     .FirstOrDefault(type => type != null);
 
-        private DataTemplate FindDataTemplate(string dataTypeName) =>
-            FindDataTemplateByResourceKey(dataTypeName) ?? FindDataTemplateByResourceKey($"{dataTypeName}Template");
+        private DataTemplate FindDataTemplate(string dataTypeName, ResourceDictionary resources) =>
+            FindDataTemplateByResourceKey(dataTypeName, resources) ?? FindDataTemplateByResourceKey($"{dataTypeName}Template", resources);
 
-        private DataTemplate FindDataTemplateByResourceKey(string key) =>
-            Application.Current.Resources.ContainsKey(key) ? Application.Current.Resources[key] as DataTemplate : null;
+        private DataTemplate FindDataTemplateByResourceKey(string key, ResourceDictionary resources) =>
+            resources.ContainsKey(key) ? resources[key] as DataTemplate : null;
 
         private static string GetFullNameWithoutParameters(Type type)
         {
