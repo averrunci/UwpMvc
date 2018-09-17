@@ -6,6 +6,7 @@ using System;
 using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 
 namespace Charites.Windows.Mvc
 {
@@ -59,7 +60,7 @@ namespace Charites.Windows.Mvc
         {
             if (element == null || handler == null || isEventHandlerAdded) return;
 
-            if (routedEvent != null)
+            if (IsRoutedEventHandler(handler))
             {
                 element.AddHandler(routedEvent, handler, handledEventsToo);
             }
@@ -89,5 +90,19 @@ namespace Charites.Windows.Mvc
             }
             isEventHandlerAdded = false;
         }
+
+        private bool IsRoutedEventHandler(Delegate handler) =>
+            handler is DoubleTappedEventHandler ||
+            handler is DragEventHandler ||
+            handler is HoldingEventHandler ||
+            handler is KeyEventHandler ||
+            handler is ManipulationCompletedEventHandler ||
+            handler is ManipulationDeltaEventHandler ||
+            handler is ManipulationInertiaStartingEventHandler ||
+            handler is ManipulationStartedEventHandler ||
+            handler is ManipulationStartingEventHandler ||
+            handler is PointerEventHandler ||
+            handler is RightTappedEventHandler ||
+            handler is TappedEventHandler;
     }
 }
