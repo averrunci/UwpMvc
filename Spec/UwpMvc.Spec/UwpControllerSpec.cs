@@ -17,5 +17,8 @@ namespace Charites.Windows.Mvc
 
         [Context]
         UwpControllerSpec_UwpControllerExtension UwpControllerSpecUwpControllerExtension { get; set; }
+
+        [Context]
+        UwpControllerSpec_UnhandledException UnhandledException { get; set; }
     }
 }

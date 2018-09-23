@@ -41,6 +41,8 @@ namespace Charites.Windows.Mvc
             ));
         }
 
+        protected override EventHandlerAction CreateEventHandlerAction(MethodInfo method, object target) => new UwpEventHandlerAction(method, target);
+
         protected override void OnEventHandlerAdded(EventHandlerBase<FrameworkElement, UwpEventHandlerItem> eventHandlers, FrameworkElement element)
         {
             base.OnEventHandlerAdded(eventHandlers, element);

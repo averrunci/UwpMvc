@@ -126,6 +126,15 @@ namespace Charites.Windows.Mvc
             public Action<VirtualKey> KeyDownAssertionHandler { get; set; }
         }
 
+        public class ExceptionTestUwpController
+        {
+            [EventHandler(Event = "Changed")]
+            private void OnChanged()
+            {
+                throw new Exception();
+            }
+        }
+
         public class AttributedToField
         {
             public class NoArgumentHandlerController : ITestUwpController

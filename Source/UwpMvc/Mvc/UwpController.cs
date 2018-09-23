@@ -18,6 +18,11 @@ namespace Charites.Windows.Mvc
     public class UwpController
     {
         /// <summary>
+        /// Occurs when an exception is not handled in event handlers.
+        /// </summary>
+        public static event UnhandledExceptionEventHandler UnhandledException;
+
+        /// <summary>
         /// Gets or sets the finder to find a data context in a view.
         /// </summary>
         public static IUwpDataContextFinder DataContextFinder
@@ -295,6 +300,15 @@ namespace Charites.Windows.Mvc
         /// </exception>
         public static EventArgsResolverScopeBuilder<T> Using<T>(T resolver, Type eventArgsWrapperType, string resolverPropertyName = "Resolver")
             => new EventArgsResolverScopeBuilder<T>(resolver, eventArgsWrapperType, resolverPropertyName);
+
+        internal static bool HandleUnhandledException(Exception exc)
+        {
+            var e = new UnhandledExceptionEventArgs(exc);
+            OnUnhandledException(e);
+            return e.Handled;
+        }
+
+        private static void OnUnhandledException(UnhandledExceptionEventArgs e) => UnhandledException?.Invoke(null, e);
 
         /// <summary>
         /// Builds the event args resolver scope.
