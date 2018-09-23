@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>UwpMvc</id>
-    <version>2.0.1</version>
+    <version>2.1.0</version>
     <title>UWP MVC</title>
     <authors>averrunci</authors>
     <owners>averrunci</owners>
@@ -14,8 +14,8 @@
     <copyright>Copyright (C) 2018 Fievus</copyright>
     <tags>uwp mvc charites</tags>
     <dependencies>
-      <dependency id="Charites" version="1.0.1"/>
-      <dependency id="Charites.Bindings" version="1.0.0"/>
+      <dependency id="Charites" version="1.1.0"/>
+      <dependency id="Charites.Bindings" version="1.1.0"/>
     </dependencies>
   </metadata>
   <files>

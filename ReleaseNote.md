@@ -1,5 +1,15 @@
 # Release note
 
+## V2.1.0
+
+### Add
+
+- Add the UnhandledException event to the UwpController.
+
+### Bug fix
+
+- Fixed how to decide whether an event handler is the routed event handler.
+
 ## V2.0.1
 
 ### Add
