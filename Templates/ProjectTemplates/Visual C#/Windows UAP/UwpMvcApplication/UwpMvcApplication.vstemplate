@@ -25,6 +25,8 @@
       <ProjectItem ReplaceParameters="true" TargetFileName="App.xaml.cs">App.xaml.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="ApplicationHost.cs">ApplicationHost.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="ApplicationHostController.cs">ApplicationHostController.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="BlankPage.xaml">BlankPage.xaml</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="BlankPage.xaml.cs">BlankPage.xaml.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="Resources\Resources.xaml">Resources.xaml</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="Resources\Styles.xaml">Styles.xaml</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="Resources\Templates.xaml">Templates.xaml</ProjectItem>

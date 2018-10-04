@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace $safeprojectname$
 {
-    sealed partial class App : Application
+    public sealed partial class App
     {
         public App()
         {
@@ -16,11 +16,9 @@ namespace $safeprojectname$
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            var applicationHost = Window.Current.Content as ContentControl;
-
-            if (applicationHost == null)
+            if (!(Window.Current.Content is ContentControl))
             {
-                applicationHost = new ContentControl
+                var host = new ContentControl
                 {
                     Content = new ApplicationHost()
                 };
@@ -30,13 +28,12 @@ namespace $safeprojectname$
                     //TODO: Load state from previously suspended application
                 }
 
-                Window.Current.Content = applicationHost;
+                Window.Current.Content = host;
             }
 
-            if (!e.PrelaunchActivated)
-            {
-                Window.Current.Activate();
-            }
+            if (e.PrelaunchActivated) return;
+
+            Window.Current.Activate();
         }
 
         private void OnEnteredBackground(object sender, EnteredBackgroundEventArgs e)
