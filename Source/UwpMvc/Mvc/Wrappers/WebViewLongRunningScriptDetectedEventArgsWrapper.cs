@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -20,7 +20,7 @@ namespace Charites.Windows.Mvc.Wrappers
         public static IWebViewLongRunningScriptDetectedEventArgsResolver Resolver { get; set; } = new DefaultWebViewLongRunningScriptDetectedEventArgsResolver();
 
         /// <summary>
-        /// Gets the number of milliseconds that the <see cref="WebView"/> control has benn executing a long-running script.
+        /// Gets the number of milliseconds that the <see cref="WebView"/> control has been executing a long-running script.
         /// </summary>
         /// <param name="e">The requested <see cref="WebViewLongRunningScriptDetectedEventArgs"/>.</param>
         /// <returns>The number of milliseconds the script has been running.</returns>
@@ -48,7 +48,7 @@ namespace Charites.Windows.Mvc.Wrappers
     public interface IWebViewLongRunningScriptDetectedEventArgsResolver
     {
         /// <summary>
-        /// Gets the number of milliseconds that the <see cref="WebView"/> control has benn executing a long-running script.
+        /// Gets the number of milliseconds that the <see cref="WebView"/> control has been executing a long-running script.
         /// </summary>
         /// <param name="e">The requested <see cref="WebViewLongRunningScriptDetectedEventArgs"/>.</param>
         /// <returns>The number of milliseconds the script has been running.</returns>

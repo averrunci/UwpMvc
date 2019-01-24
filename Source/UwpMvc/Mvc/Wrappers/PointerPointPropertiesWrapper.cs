@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -152,7 +152,7 @@ namespace Charites.Windows.Mvc.Wrappers
         public static bool IsXButton2Pressed(this PointerPointProperties properties) => Resolver.IsXButton2Pressed(properties);
 
         /// <summary>
-        /// Gets a value (the raw value reported by the deivce) that indicates the change in wheel button
+        /// Gets a value (the raw value reported by the device) that indicates the change in wheel button
         /// input from the last pointer event.
         /// </summary>
         /// <param name="properties">The requested <see cref="PointerPointProperties"/>.</param>
@@ -443,7 +443,7 @@ namespace Charites.Windows.Mvc.Wrappers
         bool IsXButton2Pressed(PointerPointProperties properties);
 
         /// <summary>
-        /// Gets a value (the raw value reported by the deivce) that indicates the change in wheel button
+        /// Gets a value (the raw value reported by the device) that indicates the change in wheel button
         /// input from the last pointer event.
         /// </summary>
         /// <param name="properties">The requested <see cref="PointerPointProperties"/>.</param>

@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -23,7 +23,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// </summary>
         /// <param name="e">The requested <see cref="ScrollViewerViewChangedEventArgs"/>.</param>
         /// <returns>
-        /// <c>true</c> if the manipulation is at an intermediate staga and not yet final;
+        /// <c>true</c> if the manipulation is at an intermediate stage and not yet final;
         /// <c>false</c> if the manipulation is final.
         /// </returns>
         public static bool IsIntermediate(this ScrollViewerViewChangedEventArgs e) => Resolver.IsIntermediate(e);
@@ -44,7 +44,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// </summary>
         /// <param name="e">The requested <see cref="ScrollViewerViewChangedEventArgs"/>.</param>
         /// <returns>
-        /// <c>true</c> if the manipulation is at an intermediate staga and not yet final;
+        /// <c>true</c> if the manipulation is at an intermediate stage and not yet final;
         /// <c>false</c> if the manipulation is final.
         /// </returns>
         bool IsIntermediate(ScrollViewerViewChangedEventArgs e);

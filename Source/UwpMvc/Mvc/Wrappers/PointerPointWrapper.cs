@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -61,14 +61,14 @@ namespace Charites.Windows.Mvc.Wrappers
         /// <summary>
         /// Gets extended information about the input pointer.
         /// </summary>
-        /// <param name="poitnerPoint">The requested <see cref="PointerPoint"/>.</param>
+        /// <param name="pointerPoint">The requested <see cref="PointerPoint"/>.</param>
         /// <returns>The extended properties exposed by the input device.</returns>
-        public static PointerPointProperties Properties(this PointerPoint poitnerPoint) => Resolver.Properties(poitnerPoint);
+        public static PointerPointProperties Properties(this PointerPoint pointerPoint) => Resolver.Properties(pointerPoint);
 
         /// <summary>
         /// Gets the raw location of the pointer input in client coordinates.
         /// </summary>
-        /// <param name="pointerPoint">The requeste <see cref="PointerPoint"/>.</param>
+        /// <param name="pointerPoint">The request <see cref="PointerPoint"/>.</param>
         /// <returns>The client coordinates, in device-independent pixels (DIPs).</returns>
         public static Point RawPosition(this PointerPoint pointerPoint) => Resolver.RawPosition(pointerPoint);
 
@@ -86,7 +86,7 @@ namespace Charites.Windows.Mvc.Wrappers
             PointerDevice IPointerPointResolver.PointerDevice(PointerPoint pointerPoint) => pointerPoint.PointerDevice;
             uint IPointerPointResolver.PointerId(PointerPoint pointerPoint) => pointerPoint.PointerId;
             Point IPointerPointResolver.Position(PointerPoint pointerPoint) => pointerPoint.Position;
-            PointerPointProperties IPointerPointResolver.Properties(PointerPoint poitnerPoint) => poitnerPoint.Properties;
+            PointerPointProperties IPointerPointResolver.Properties(PointerPoint pointerPoint) => pointerPoint.Properties;
             Point IPointerPointResolver.RawPosition(PointerPoint pointerPoint) => pointerPoint.RawPosition;
             ulong IPointerPointResolver.Timestamp(PointerPoint pointerPoint) => pointerPoint.Timestamp;
         }
@@ -138,14 +138,14 @@ namespace Charites.Windows.Mvc.Wrappers
         /// <summary>
         /// Gets extended information about the input pointer.
         /// </summary>
-        /// <param name="poitnerPoint">The requested <see cref="PointerPoint"/>.</param>
+        /// <param name="pointerPoint">The requested <see cref="PointerPoint"/>.</param>
         /// <returns>The extended properties exposed by the input device.</returns>
-        PointerPointProperties Properties(PointerPoint poitnerPoint);
+        PointerPointProperties Properties(PointerPoint pointerPoint);
 
         /// <summary>
         /// Gets the raw location of the pointer input in client coordinates.
         /// </summary>
-        /// <param name="pointerPoint">The requeste <see cref="PointerPoint"/>.</param>
+        /// <param name="pointerPoint">The request <see cref="PointerPoint"/>.</param>
         /// <returns>The client coordinates, in device-independent pixels (DIPs).</returns>
         Point RawPosition(PointerPoint pointerPoint);
 

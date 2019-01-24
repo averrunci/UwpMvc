@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -22,7 +22,7 @@ namespace Charites.Windows.Mvc.Wrappers
         public static IDragUIResolver Resolver { get; set; } = new DefaultDragUIResolver();
 
         /// <summary>
-        /// Creates a visula element from a provided <see cref="BitmapImage"/> to represent
+        /// Creates a visual element from a provided <see cref="BitmapImage"/> to represent
         /// the dragged data in a drag-and-drop operation.
         /// </summary>
         /// <param name="dragUI">The requested <see cref="DragUI"/>.</param>
@@ -79,7 +79,7 @@ namespace Charites.Windows.Mvc.Wrappers
     public interface IDragUIResolver
     {
         /// <summary>
-        /// Creates a visula element from a provided <see cref="BitmapImage"/> to represent
+        /// Creates a visual element from a provided <see cref="BitmapImage"/> to represent
         /// the dragged data in a drag-and-drop operation.
         /// </summary>
         /// <param name="dragUI">The requested <see cref="DragUI"/>.</param>

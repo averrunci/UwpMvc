@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -23,7 +23,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// </summary>
         /// <param name="e">The requested <see cref="SplitViewPaneClosingEventArgs"/>.</param>
         /// <returns>
-        /// <c>true</c> to cancel the pane closing acction; otherwise, <c>false</c>.
+        /// <c>true</c> to cancel the pane closing action; otherwise, <c>false</c>.
         /// </returns>
         public static bool CancelWrapped(this SplitViewPaneClosingEventArgs e) => Resolver.Cancel(e);
 
@@ -32,7 +32,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// </summary>
         /// <param name="e">The requested <see cref="SplitViewPaneClosingEventArgs"/>.</param>
         /// <param name="cancel">
-        /// <c>true</c> to cancel the pane closing acction; otherwise, <c>false</c>.
+        /// <c>true</c> to cancel the pane closing action; otherwise, <c>false</c>.
         /// </param>
         public static void CancelWrapped(this SplitViewPaneClosingEventArgs e, bool cancel) => Resolver.Cancel(e, cancel);
 
@@ -53,7 +53,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// </summary>
         /// <param name="e">The requested <see cref="SplitViewPaneClosingEventArgs"/>.</param>
         /// <returns>
-        /// <c>true</c> to cancel the pane closing acction; otherwise, <c>false</c>.
+        /// <c>true</c> to cancel the pane closing action; otherwise, <c>false</c>.
         /// </returns>
         bool Cancel(SplitViewPaneClosingEventArgs e);
 
@@ -62,7 +62,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// </summary>
         /// <param name="e">The requested <see cref="SplitViewPaneClosingEventArgs"/>.</param>
         /// <param name="cancel">
-        /// <c>true</c> to cancel the pane closing acction; otherwise, <c>false</c>.
+        /// <c>true</c> to cancel the pane closing action; otherwise, <c>false</c>.
         /// </param>
         void Cancel(SplitViewPaneClosingEventArgs e, bool cancel);
     }

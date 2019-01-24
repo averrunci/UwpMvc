@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -22,7 +22,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// Gets the length of the portion of the text that the user is composing with an Input Method Editor (IME).
         /// </summary>
         /// <param name="e">The requested <see cref="TextCompositionEndedEventArgs"/>.</param>
-        /// <returns>The length of the protion of the text that the user is composing with an IME.</returns>
+        /// <returns>The length of the portion of the text that the user is composing with an IME.</returns>
         public static int Length(this TextCompositionEndedEventArgs e) => Resolver.Length(e);
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// Gets the length of the portion of the text that the user is composing with an Input Method Editor (IME).
         /// </summary>
         /// <param name="e">The requested <see cref="TextCompositionEndedEventArgs"/>.</param>
-        /// <returns>The length of the protion of the text that the user is composing with an IME.</returns>
+        /// <returns>The length of the portion of the text that the user is composing with an IME.</returns>
         int Length(TextCompositionEndedEventArgs e);
 
         /// <summary>

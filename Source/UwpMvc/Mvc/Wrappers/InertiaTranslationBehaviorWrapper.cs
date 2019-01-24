@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -16,7 +16,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// Gets or sets the <see cref="IInertiaTranslationBehaviorResolver"/>
         /// that resolves data of the <see cref="InertiaTranslationBehavior"/>.
         /// </summary>
-        public static IInertiaTranslationBehaviorResolver Resolver { get; set; } = new DefaultInertiaTrnaslationBehaviorResolver();
+        public static IInertiaTranslationBehaviorResolver Resolver { get; set; } = new DefaultInertiaTranslationBehaviorResolver();
 
         /// <summary>
         /// Gets the rate the linear movement slows in device-independent units (1/96th inch per unit)
@@ -51,15 +51,15 @@ namespace Charites.Windows.Mvc.Wrappers
         /// Sets the linear movement of the manipulation at the end of inertia.
         /// </summary>
         /// <param name="translationBehavior">The requested <see cref="InertiaTranslationBehavior"/>.</param>
-        /// <param name="desiredDeisplacement">The linear movement of the manipulation at the end of inertia.</param>
-        public static void DesiredDisplacement(this InertiaTranslationBehavior translationBehavior, double desiredDeisplacement) => Resolver.DesiredDisplacement(translationBehavior, desiredDeisplacement);
+        /// <param name="desiredDisplacement">The linear movement of the manipulation at the end of inertia.</param>
+        public static void DesiredDisplacement(this InertiaTranslationBehavior translationBehavior, double desiredDisplacement) => Resolver.DesiredDisplacement(translationBehavior, desiredDisplacement);
 
-        private sealed class DefaultInertiaTrnaslationBehaviorResolver : IInertiaTranslationBehaviorResolver
+        private sealed class DefaultInertiaTranslationBehaviorResolver : IInertiaTranslationBehaviorResolver
         {
             double IInertiaTranslationBehaviorResolver.DesiredDeceleration(InertiaTranslationBehavior translationBehavior) => translationBehavior.DesiredDeceleration;
             void IInertiaTranslationBehaviorResolver.DesiredDeceleration(InertiaTranslationBehavior translationBehavior, double desiredDeceleration) => translationBehavior.DesiredDeceleration = desiredDeceleration;
             double IInertiaTranslationBehaviorResolver.DesiredDisplacement(InertiaTranslationBehavior translationBehavior) => translationBehavior.DesiredDisplacement;
-            void IInertiaTranslationBehaviorResolver.DesiredDisplacement(InertiaTranslationBehavior translationBehavior, double desiredDeisplacement) => translationBehavior.DesiredDisplacement = desiredDeisplacement;
+            void IInertiaTranslationBehaviorResolver.DesiredDisplacement(InertiaTranslationBehavior translationBehavior, double desiredDisplacement) => translationBehavior.DesiredDisplacement = desiredDisplacement;
         }
     }
 
@@ -101,7 +101,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// Sets the linear movement of the manipulation at the end of inertia.
         /// </summary>
         /// <param name="translationBehavior">The requested <see cref="InertiaTranslationBehavior"/>.</param>
-        /// <param name="desiredDeisplacement">The linear movement of the manipulation at the end of inertia.</param>
-        void DesiredDisplacement(InertiaTranslationBehavior translationBehavior, double desiredDeisplacement);
+        /// <param name="desiredDisplacement">The linear movement of the manipulation at the end of inertia.</param>
+        void DesiredDisplacement(InertiaTranslationBehavior translationBehavior, double desiredDisplacement);
     }
 }
