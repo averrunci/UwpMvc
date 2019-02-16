@@ -27,7 +27,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// </summary>
         /// <param name="dragUI">The requested <see cref="DragUI"/>.</param>
         /// <param name="bitmapImage">The source image used to create the drag visual.</param>
-        public static void SetContentFromBitmapImage(this DragUI dragUI, BitmapImage bitmapImage) => Resolver.SetContentFromBitmapImage(dragUI, bitmapImage);
+        public static void SetContentFromBitmapImageWrapped(this DragUI dragUI, BitmapImage bitmapImage) => Resolver.SetContentFromBitmapImage(dragUI, bitmapImage);
 
         /// <summary>
         /// Creates a visual element from a provided <see cref="BitmapImage"/> to represent
@@ -37,14 +37,14 @@ namespace Charites.Windows.Mvc.Wrappers
         /// <param name="dragUI">The requested <see cref="DragUI"/>.</param>
         /// <param name="bitmapImage">The source image used to create the drag visual.</param>
         /// <param name="anchorPoint">The relative position of the drag visual from the pointer.</param>
-        public static void SetContentFromBitmapImage(this DragUI dragUI, BitmapImage bitmapImage, Point anchorPoint) => Resolver.SetContentFromBitmapImage(dragUI, bitmapImage, anchorPoint);
+        public static void SetContentFromBitmapImageWrapped(this DragUI dragUI, BitmapImage bitmapImage, Point anchorPoint) => Resolver.SetContentFromBitmapImage(dragUI, bitmapImage, anchorPoint);
 
         /// <summary>
         /// Creates a system provided visual element that represents the format of the dragged data
         /// in a drag-and-drop operation, typically the icon of the default handler for the file format.
         /// </summary>
         /// <param name="dragUI">The requested <see cref="DragUI"/>.</param>
-        public static void SetContentFromDataPackage(this DragUI dragUI) => Resolver.SetContentFromDataPackage(dragUI);
+        public static void SetContentFromDataPackageWrapped(this DragUI dragUI) => Resolver.SetContentFromDataPackage(dragUI);
 
         /// <summary>
         /// Creates a visual element from a provided <see cref="SoftwareBitmap"/> to represent the dragged data
@@ -52,7 +52,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// </summary>
         /// <param name="dragUI">The requested <see cref="DragUI"/>.</param>
         /// <param name="softwareBitmap">The source image used to create the drag visual.</param>
-        public static void SetContentFromSoftwareBitmap(this DragUI dragUI, SoftwareBitmap softwareBitmap) => Resolver.SetContentFromSoftwareBitmap(dragUI, softwareBitmap);
+        public static void SetContentFromSoftwareBitmapWrapped(this DragUI dragUI, SoftwareBitmap softwareBitmap) => Resolver.SetContentFromSoftwareBitmap(dragUI, softwareBitmap);
 
         /// <summary>
         /// Creates a visual element from a provided <see cref="SoftwareBitmap"/> to represent the dragged data
@@ -61,7 +61,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// <param name="dragUI">The requested <see cref="DragUI"/>.</param>
         /// <param name="softwareBitmap">The source image used to create the drag visual.</param>
         /// <param name="anchorPoint">The relative position of the drag visual from the pointer.</param>
-        public static void SetContentFromSoftwareBitmap(this DragUI dragUI, SoftwareBitmap softwareBitmap, Point anchorPoint) => Resolver.SetContentFromSoftwareBitmap(dragUI, softwareBitmap, anchorPoint);
+        public static void SetContentFromSoftwareBitmapWrapped(this DragUI dragUI, SoftwareBitmap softwareBitmap, Point anchorPoint) => Resolver.SetContentFromSoftwareBitmap(dragUI, softwareBitmap, anchorPoint);
 
         private sealed class DefaultDragUIResolver : IDragUIResolver
         {

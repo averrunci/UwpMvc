@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -95,7 +95,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// </summary>
         /// <param name="e">The requested <see cref="ContainerContentChangingEventArgs"/>.</param>
         /// <param name="callback">The event handler function.</param>
-        public static void RegisterUpdateCallback(this ContainerContentChangingEventArgs e, TypedEventHandler<ListViewBase, ContainerContentChangingEventArgs> callback) => Resolver.RegisterUpdateCallback(e, callback);
+        public static void RegisterUpdateCallbackWrapped(this ContainerContentChangingEventArgs e, TypedEventHandler<ListViewBase, ContainerContentChangingEventArgs> callback) => Resolver.RegisterUpdateCallback(e, callback);
 
         /// <summary>
         /// Registers the event handler to be called again during the specified phase.
@@ -103,7 +103,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// <param name="e">The requested <see cref="ContainerContentChangingEventArgs"/>.</param>
         /// <param name="callbackPhase">The phase during which the callback should occur.</param>
         /// <param name="callback">The event handler function.</param>
-        public static void RegisterUpdateCallback(this ContainerContentChangingEventArgs e, uint callbackPhase, TypedEventHandler<ListViewBase, ContainerContentChangingEventArgs> callback) => Resolver.RegisterUpdateCallback(e, callbackPhase, callback);
+        public static void RegisterUpdateCallbackWrapped(this ContainerContentChangingEventArgs e, uint callbackPhase, TypedEventHandler<ListViewBase, ContainerContentChangingEventArgs> callback) => Resolver.RegisterUpdateCallback(e, callbackPhase, callback);
 
         private sealed class DefaultContainerContentChangingEventArgsResolver : IContainerContentChangingEventArgsResolver
         {

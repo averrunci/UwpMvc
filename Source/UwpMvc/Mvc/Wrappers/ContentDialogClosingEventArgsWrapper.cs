@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -54,7 +54,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// A <see cref="ContentDialogClosingDeferral"/> that the app can use to respond asynchronously
         /// to the the closing event.
         /// </returns>
-        public static ContentDialogClosingDeferral GetDeferral(this ContentDialogClosingEventArgs e) => Resolver.GetDeferral(e);
+        public static ContentDialogClosingDeferral GetDeferralWrapped(this ContentDialogClosingEventArgs e) => Resolver.GetDeferral(e);
 
         private sealed class DefaultContentDialogClosingEventArgsResolver : IContentDialogClosingEventArgsResolver
         {

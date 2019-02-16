@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -81,7 +81,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// the overall window. If a <paramref name="relativeTo"/> value other than <c>null</c> was
         /// passed, this coordinate is relative to the object referenced by <paramref name="relativeTo"/>.
         /// </returns>
-        public static Point GetPosition(this DoubleTappedRoutedEventArgs e, UIElement relativeTo) => Resolver.GetPosition(e, relativeTo);
+        public static Point GetPositionWrapped(this DoubleTappedRoutedEventArgs e, UIElement relativeTo) => Resolver.GetPosition(e, relativeTo);
 
         private sealed class DefaultDoubleTappedRoutedEventArgsResolver : IDoubleTappedRoutedEventArgsResolver
         {

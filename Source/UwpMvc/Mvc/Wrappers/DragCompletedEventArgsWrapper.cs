@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -47,7 +47,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// </summary>
         /// <param name="e">The requested <see cref="DragCompletedEventArgs"/>.</param>
         /// <returns>The vertical distance between the current mouse position and the thumb coordinates.</returns>
-        public static double VerticalChange(this DragCompletedEventArgs e) => VerticalChange(e);
+        public static double VerticalChange(this DragCompletedEventArgs e) => Resolver.VerticalChange(e);
 
         private sealed class DefaultDragCompletedEventArgsResolver : IDragCompletedEventArgsResolver
         {

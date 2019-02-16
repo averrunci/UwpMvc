@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -22,7 +22,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// Notifies the system that the app has finished processing the closing event.
         /// </summary>
         /// <param name="deferral">The requested <see cref="ContentDialogClosingDeferral"/>.</param>
-        public static void Complete(this ContentDialogClosingDeferral deferral) => Resolver.Complete(deferral);
+        public static void CompleteWrapped(this ContentDialogClosingDeferral deferral) => Resolver.Complete(deferral);
 
         private sealed class DefaultContentDialogClosingDeferralResolver : IContentDialogClosingDeferralResolver
         {

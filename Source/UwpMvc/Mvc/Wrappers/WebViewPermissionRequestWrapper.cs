@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -51,19 +51,19 @@ namespace Charites.Windows.Mvc.Wrappers
         /// Grants the requested permission.
         /// </summary>
         /// <param name="permissionRequest">The requested <see cref="WebViewPermissionRequest"/>.</param>
-        public static void Allow(this WebViewPermissionRequest permissionRequest) => Resolver.Allow(permissionRequest);
+        public static void AllowWrapped(this WebViewPermissionRequest permissionRequest) => Resolver.Allow(permissionRequest);
 
         /// <summary>
         /// Defers the permission request to be allowed or denied at a later time.
         /// </summary>
         /// <param name="permissionRequest">The requested <see cref="WebViewPermissionRequest"/>.</param>
-        public static void Defer(this WebViewPermissionRequest permissionRequest) => Resolver.Defer(permissionRequest);
+        public static void DeferWrapped(this WebViewPermissionRequest permissionRequest) => Resolver.Defer(permissionRequest);
 
         /// <summary>
         /// Denies the requested permission.
         /// </summary>
         /// <param name="permissionRequest">The requested <see cref="WebViewPermissionRequest"/>.</param>
-        public static void Deny(this WebViewPermissionRequest permissionRequest) => Resolver.Deny(permissionRequest);
+        public static void DenyWrapped(this WebViewPermissionRequest permissionRequest) => Resolver.Deny(permissionRequest);
 
         private sealed class DefaultWebViewPermissionRequestResolver : IWebViewPermissionRequestResolver
         {

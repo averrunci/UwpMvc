@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -59,7 +59,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// <param name="e">The requested <see cref="CalendarViewDayItemChangingEventArgs"/>.</param>
         /// <param name="callbackPhase">The phase during which the callback should occur.</param>
         /// <param name="callback">The event handler function.</param>
-        public static void RegisterUpdateCallback(this CalendarViewDayItemChangingEventArgs e, uint callbackPhase, TypedEventHandler<CalendarView, CalendarViewDayItemChangingEventArgs> callback) => Resolver.RegisterUpdateCallback(e, callbackPhase, callback);
+        public static void RegisterUpdateCallbackWrapped(this CalendarViewDayItemChangingEventArgs e, uint callbackPhase, TypedEventHandler<CalendarView, CalendarViewDayItemChangingEventArgs> callback) => Resolver.RegisterUpdateCallback(e, callbackPhase, callback);
 
         private sealed class DefaultCalendarViewDayItemChangingEventArgsResolver : ICalendarViewDayItemChangingEventArgsResolver
         {

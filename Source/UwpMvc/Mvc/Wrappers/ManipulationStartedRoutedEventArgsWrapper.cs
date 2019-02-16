@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -91,7 +91,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// Completes the manipulation without inertia.
         /// </summary>
         /// <param name="e">The requested <see cref="ManipulationStartedRoutedEventArgs"/>.</param>
-        public static void Complete(this ManipulationStartedRoutedEventArgs e) => Resolver.Complete(e);
+        public static void CompleteWrapped(this ManipulationStartedRoutedEventArgs e) => Resolver.Complete(e);
 
         private sealed class DefaultManipulationStartedRoutedEventArgsResolver : IManipulationStartedRoutedEventArgsResolver
         {

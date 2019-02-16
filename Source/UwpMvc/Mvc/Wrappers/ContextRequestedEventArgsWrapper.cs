@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -18,7 +18,7 @@ namespace Charites.Windows.Mvc.Wrappers
         /// Gets or sets the <see cref="IContextRequestedEventArgsResolver"/>
         /// that resolves data of the <see cref="ContextRequestedEventArgs"/>.
         /// </summary>
-        public static IContextRequestedEventArgsResolver Resolver { get; set; }
+        public static IContextRequestedEventArgsResolver Resolver { get; set; } = new DefaultContextRequestedEventArgsResolver();
 
         /// <summary>
         /// Gets a value that marks the routed event as handled.
