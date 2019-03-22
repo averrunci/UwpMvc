@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -62,6 +62,13 @@ namespace Charites.Windows.Mvc.Wrappers
         /// <returns>A value that represents the URI.</returns>
         public static Uri Uri(this NavigationEventArgs e) => Resolver.Uri(e);
 
+        /// <summary>
+        /// Sets the Uniform Resource Identifier (URI) of the target.
+        /// </summary>
+        /// <param name="e">The requested <see cref="NavigationEventArgs"/>.</param>
+        /// <param name="uri">A value that represents the URI.</param>
+        public static void Uri(this NavigationEventArgs e, Uri uri) => Resolver.Uri(e, uri);
+
         private sealed class DefaultNavigationEventArgsResolver : INavigationEventArgsResolver
         {
             object INavigationEventArgsResolver.Content(NavigationEventArgs e) => e.Content;
@@ -70,6 +77,7 @@ namespace Charites.Windows.Mvc.Wrappers
             object INavigationEventArgsResolver.Parameter(NavigationEventArgs e) => e.Parameter;
             Type INavigationEventArgsResolver.SourcePageType(NavigationEventArgs e) => e.SourcePageType;
             Uri INavigationEventArgsResolver.Uri(NavigationEventArgs e) => e.Uri;
+            void INavigationEventArgsResolver.Uri(NavigationEventArgs e, Uri uri) => e.Uri = uri;
         }
     }
 
@@ -119,5 +127,12 @@ namespace Charites.Windows.Mvc.Wrappers
         /// <param name="e">The requested <see cref="NavigationEventArgs"/>.</param>
         /// <returns>A value that represents the URI.</returns>
         Uri Uri(NavigationEventArgs e);
+
+        /// <summary>
+        /// Sets the Uniform Resource Identifier (URI) of the target.
+        /// </summary>
+        /// <param name="e">The requested <see cref="NavigationEventArgs"/>.</param>
+        /// <param name="uri">A value that represents the URI.</param>
+        void Uri(NavigationEventArgs e, Uri uri);
     }
 }

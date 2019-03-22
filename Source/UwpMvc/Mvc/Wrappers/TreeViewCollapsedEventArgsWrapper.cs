@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -25,9 +25,17 @@ namespace Charites.Windows.Mvc.Wrappers
         /// <returns>The tree view node that is collapsed.</returns>
         public static TreeViewNode Node(this TreeViewCollapsedEventArgs e) => Resolver.Node(e);
 
+        /// <summary>
+        /// Gets the TreeView item that is collapsed.
+        /// </summary>
+        /// <param name="e">The requested <see cref="TreeViewCollapsedEventArgs"/>.</param>
+        /// <returns>The TreeView item that is collapsed.</returns>
+        public static object Item(this TreeViewCollapsedEventArgs e) => Resolver.Item(e);
+
         private sealed class DefaultTreeViewCollapsedEventArgsResolver : ITreeViewCollapsedEventArgsResolver
         {
             TreeViewNode ITreeViewCollapsedEventArgsResolver.Node(TreeViewCollapsedEventArgs e) => e.Node;
+            object ITreeViewCollapsedEventArgsResolver.Item(TreeViewCollapsedEventArgs e) => e.Item;
         }
     }
 
@@ -42,5 +50,12 @@ namespace Charites.Windows.Mvc.Wrappers
         /// <param name="e">The requested <see cref="TreeViewCollapsedEventArgs"/>.</param>
         /// <returns>The tree view node that is collapsed.</returns>
         TreeViewNode Node(TreeViewCollapsedEventArgs e);
+
+        /// <summary>
+        /// Gets the TreeView item that is collapsed.
+        /// </summary>
+        /// <param name="e">The requested <see cref="TreeViewCollapsedEventArgs"/>.</param>
+        /// <returns>The TreeView item that is collapsed.</returns>
+        object Item(TreeViewCollapsedEventArgs e);
     }
 }

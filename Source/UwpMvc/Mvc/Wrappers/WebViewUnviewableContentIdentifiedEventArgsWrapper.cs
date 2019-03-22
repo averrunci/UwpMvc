@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -33,10 +33,18 @@ namespace Charites.Windows.Mvc.Wrappers
         /// <returns>The URI of the content.</returns>
         public static Uri Uri(this WebViewUnviewableContentIdentifiedEventArgs e) => Resolver.Uri(e);
 
+        /// <summary>
+        /// Gets the media type of content that can't be viewed.
+        /// </summary>
+        /// <param name="e">The requested <see cref="WebViewUnviewableContentIdentifiedEventArgs"/>.</param>
+        /// <returns>The media type of content that can't be viewed.</returns>
+        public static string MediaType(this WebViewUnviewableContentIdentifiedEventArgs e) => Resolver.MediaType(e);
+
         private sealed class DefaultWebViewUnviewableContentIdentifiedEventArgsResolver : IWebViewUnviewableContentIdentifiedEventArgsResolver
         {
             Uri IWebViewUnviewableContentIdentifiedEventArgsResolver.Referrer(WebViewUnviewableContentIdentifiedEventArgs e) => e.Referrer;
             Uri IWebViewUnviewableContentIdentifiedEventArgsResolver.Uri(WebViewUnviewableContentIdentifiedEventArgs e) => e.Uri;
+            string IWebViewUnviewableContentIdentifiedEventArgsResolver.MediaType(WebViewUnviewableContentIdentifiedEventArgs e) => e.MediaType;
         }
     }
 
@@ -58,5 +66,12 @@ namespace Charites.Windows.Mvc.Wrappers
         /// <param name="e">The requested <see cref="WebViewUnviewableContentIdentifiedEventArgs"/>.</param>
         /// <returns>The URI of the content.</returns>
         Uri Uri(WebViewUnviewableContentIdentifiedEventArgs e);
+
+        /// <summary>
+        /// Gets the media type of content that can't be viewed.
+        /// </summary>
+        /// <param name="e">The requested <see cref="WebViewUnviewableContentIdentifiedEventArgs"/>.</param>
+        /// <returns>The media type of content that can't be viewed.</returns>
+        string MediaType(WebViewUnviewableContentIdentifiedEventArgs e);
     }
 }

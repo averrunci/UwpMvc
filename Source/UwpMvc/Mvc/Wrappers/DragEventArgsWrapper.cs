@@ -1,8 +1,9 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
 using Windows.ApplicationModel.DataTransfer;
+using Windows.ApplicationModel.DataTransfer.DragDrop;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 
@@ -90,6 +91,66 @@ namespace Charites.Windows.Mvc.Wrappers
         /// </returns>
         public static Point GetPositionWrapped(this DragEventArgs e, UIElement relativeTo) => Resolver.GetPosition(e, relativeTo);
 
+        /// <summary>
+        /// Gets a read-only copy of the Data object.
+        /// </summary>
+        /// <param name="e">The requested <see cref="DragEventArgs"/>.</param>
+        /// <returns>A read-only copy of the Data object.</returns>
+        public static DataPackageView DataView(this DragEventArgs e) => Resolver.DataView(e);
+
+        /// <summary>
+        /// Gets the visual representation of the data being dragged.
+        /// </summary>
+        /// <param name="e">The requested <see cref="DragEventArgs"/>.</param>
+        /// <returns>
+        /// The visual representation of the data being dragged. The default is <c>null</c>.
+        /// </returns>
+        public static DragUIOverride DragUIOverride(this DragEventArgs e) => Resolver.DragUIOverride(e);
+
+        /// <summary>
+        /// Gets a flag enumeration indicating the current state of the SHIFT, CTRL, and ALT keys,
+        /// as well as the state of the mouse buttons.
+        /// </summary>
+        /// <param name="e">The requested <see cref="DragEventArgs"/>.</param>
+        /// <returns>One or more members of the DragDropModifiers flag enumeration.</returns>
+        public static DragDropModifiers Modifiers(this DragEventArgs e) => Resolver.Modifiers(e);
+
+        /// <summary>
+        /// Gets a value that specifies which operations are allowed by the originator of the drag event.
+        /// </summary>
+        /// <param name="e">The requested <see cref="DragEventArgs"/>.</param>
+        /// <returns>
+        /// A member of the DataPackageOperation enumeration that specifies which operations are allowed
+        /// by the originator of the drag event.
+        /// </returns>
+        public static DataPackageOperation AcceptedOperation(this DragEventArgs e) => Resolver.AcceptedOperation(e);
+
+        /// <summary>
+        /// Sets a value that specifies which operations are allowed by the originator of the drag event.
+        /// </summary>
+        /// <param name="e">The requested <see cref="DragEventArgs"/>.</param>
+        /// <param name="acceptedOperation">
+        /// A member of the DataPackageOperation enumeration that specifies which operations are allowed
+        /// by the originator of the drag event.
+        /// </param>
+        public static void AcceptedOperation(this DragEventArgs e, DataPackageOperation acceptedOperation) => Resolver.AcceptedOperation(e, acceptedOperation);
+
+        /// <summary>
+        /// Supports asynchronous drag-and-drop operations by creating and returning a DragOperationDeferral object.
+        /// </summary>
+        /// <param name="e">The requested <see cref="DragEventArgs"/>.</param>
+        /// <returns>
+        /// A deferral object that you can use to identify when the generation of the data package is complete.
+        /// </returns>
+        public static DragOperationDeferral GetDeferralWrapped(this DragEventArgs e) => Resolver.GetDeferral(e);
+
+        /// <summary>
+        /// Gets the allowed data package operations (none, move, copy, and/or link) for the drag and drop operation.
+        /// </summary>
+        /// <param name="e">The requested <see cref="DragEventArgs"/>.</param>
+        /// <returns>The allowed data operations.</returns>
+        public static DataPackageOperation AllowedOperations(this DragEventArgs e) => Resolver.AllowedOperations(e);
+
         private sealed class DefaultDragEventArgsResolver : IDragEventArgsResolver
         {
             DataPackage IDragEventArgsResolver.Data(DragEventArgs e) => e.Data;
@@ -98,6 +159,13 @@ namespace Charites.Windows.Mvc.Wrappers
             void IDragEventArgsResolver.Handled(DragEventArgs e, bool handled) => e.Handled = handled;
             object IDragEventArgsResolver.OriginalSource(DragEventArgs e) => e.OriginalSource;
             Point IDragEventArgsResolver.GetPosition(DragEventArgs e, UIElement relativeTo) => e.GetPosition(relativeTo);
+            DataPackageView IDragEventArgsResolver.DataView(DragEventArgs e) => e.DataView;
+            DragUIOverride IDragEventArgsResolver.DragUIOverride(DragEventArgs e) => e.DragUIOverride;
+            DragDropModifiers IDragEventArgsResolver.Modifiers(DragEventArgs e) => e.Modifiers;
+            DataPackageOperation IDragEventArgsResolver.AcceptedOperation(DragEventArgs e) => e.AcceptedOperation;
+            void IDragEventArgsResolver.AcceptedOperation(DragEventArgs e, DataPackageOperation acceptedOperation) => e.AcceptedOperation = acceptedOperation;
+            DragOperationDeferral IDragEventArgsResolver.GetDeferral(DragEventArgs e) => e.GetDeferral();
+            DataPackageOperation IDragEventArgsResolver.AllowedOperations(DragEventArgs e) => e.AllowedOperations;
         }
     }
 
@@ -175,5 +243,65 @@ namespace Charites.Windows.Mvc.Wrappers
         /// A point in the coordinate system that is relative to the element specified in <paramref name="relativeTo"/>.
         /// </returns>
         Point GetPosition(DragEventArgs e, UIElement relativeTo);
+
+        /// <summary>
+        /// Gets a read-only copy of the Data object.
+        /// </summary>
+        /// <param name="e">The requested <see cref="DragEventArgs"/>.</param>
+        /// <returns>A read-only copy of the Data object.</returns>
+        DataPackageView DataView(DragEventArgs e);
+
+        /// <summary>
+        /// Gets the visual representation of the data being dragged.
+        /// </summary>
+        /// <param name="e">The requested <see cref="DragEventArgs"/>.</param>
+        /// <returns>
+        /// The visual representation of the data being dragged. The default is <c>null</c>.
+        /// </returns>
+        DragUIOverride DragUIOverride(DragEventArgs e);
+
+        /// <summary>
+        /// Gets a flag enumeration indicating the current state of the SHIFT, CTRL, and ALT keys,
+        /// as well as the state of the mouse buttons.
+        /// </summary>
+        /// <param name="e">The requested <see cref="DragEventArgs"/>.</param>
+        /// <returns>One or more members of the DragDropModifiers flag enumeration.</returns>
+        DragDropModifiers Modifiers(DragEventArgs e);
+
+        /// <summary>
+        /// Gets a value that specifies which operations are allowed by the originator of the drag event.
+        /// </summary>
+        /// <param name="e">The requested <see cref="DragEventArgs"/>.</param>
+        /// <returns>
+        /// A member of the DataPackageOperation enumeration that specifies which operations are allowed
+        /// by the originator of the drag event.
+        /// </returns>
+        DataPackageOperation AcceptedOperation(DragEventArgs e);
+
+        /// <summary>
+        /// Sets a value that specifies which operations are allowed by the originator of the drag event.
+        /// </summary>
+        /// <param name="e">The requested <see cref="DragEventArgs"/>.</param>
+        /// <param name="acceptedOperation">
+        /// A member of the DataPackageOperation enumeration that specifies which operations are allowed
+        /// by the originator of the drag event.
+        /// </param>
+        void AcceptedOperation(DragEventArgs e, DataPackageOperation acceptedOperation);
+
+        /// <summary>
+        /// Supports asynchronous drag-and-drop operations by creating and returning a DragOperationDeferral object.
+        /// </summary>
+        /// <param name="e">The requested <see cref="DragEventArgs"/>.</param>
+        /// <returns>
+        /// A deferral object that you can use to identify when the generation of the data package is complete.
+        /// </returns>
+        DragOperationDeferral GetDeferral(DragEventArgs e);
+
+        /// <summary>
+        /// Gets the allowed data package operations (none, move, copy, and/or link) for the drag and drop operation.
+        /// </summary>
+        /// <param name="e">The requested <see cref="DragEventArgs"/>.</param>
+        /// <returns>The allowed data operations.</returns>
+        DataPackageOperation AllowedOperations(DragEventArgs e);
     }
 }
