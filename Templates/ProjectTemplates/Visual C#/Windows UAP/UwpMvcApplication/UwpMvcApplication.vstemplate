@@ -59,10 +59,10 @@
   </WizardExtension>
   <WizardData>
     <packages repository="registry" keyName="NETCoreSDK" isPreunzipped="true">
-      <package id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.1.7" skipAssemblyReferences="false" />
+      <package id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.8" skipAssemblyReferences="false" />
     </packages>
     <packages>
-      <package id="UwpMvc" version="2.1.0"/>
+      <package id="UwpMvc" version="2.2.0"/>
     </packages>
   </WizardData>
 </VSTemplate>

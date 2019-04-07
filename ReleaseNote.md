@@ -1,5 +1,65 @@
 # Release note
 
+## V2.2.0
+
+### Add
+
+- Add the following event args wrappers.
+  - AnchorRequestedEventArgsWrapper
+  - AutoSuggestBoxTextChangedEventArgsWrapper
+  - BackClickEventArgsWrapper
+  - BringIntoViewRequestedEventArgsWrapper
+  - CharacterReeivedRoutedEventArgsWrapper
+  - CleanUpVirtualizedItemEventArgsWrapper
+  - ColorChangedEventArgsWrapper
+  - ComboBoxTextSubmittedEventArgsWrapper
+  - ContentDialogButtonClickEventArgsWrapper
+  - ContentLinkChangedEventArgsWrapper
+  - ContentLinkInvokedEventArgsWrapper
+  - EffectiveViewportChangedEventArgsWrapper
+  - InkToolBarIsStencilButtonCheckedChangedEventArgsWrapper
+  - LosingFocusEventArgsWrapper
+  - MapContentRequestedEventArgsWrapper
+  - NavigationViewDisplayModeChangedEventArgsWrapper
+  - NavigationViewItemInvokedEventArgsWrapper
+  - NavigationViewPaneClosingEventArgsWrapper
+  - NoFocusCandidateFoundEventArgsWrapper
+  - PasswordBoxPasswordChangingEventArgsWrapper
+  - PivotItemEventArgsWrapper
+  - ProcessKeyboardAcceleratorEventArgsWrapper
+  - RefreshRequestedEventArgsWrapper
+  - RefreshStateChangedEventArgsWrapper
+  - RichEditBoxSelectionChangingEventArgsWrapper
+  - RichEditBoxTextChangingEventArgsWrapper
+  - SemanticZoomViewChangedEventArgsWrapper
+  - TextBoxBeforeTextChangingEventArgsWrapper
+  - TextBoxSelectionChangingEventArgsWrapper
+  - TextControlCopyingToClipboardEventArgsWrapper
+  - TextControlCuttingtoClipboardEventArgsWrapper
+  - TimePickerSelectedValueChangedEventArgsWrapper
+  - TreeViewDragItemsCompletedEventArgsWrapper
+  - TreeViewDragItemsStartingEventArgsWrapper
+  - WebViewWebResourceRequestedEventArgsWrapper
+- Add the method to the following event args wrappers.
+  - DragEventArgsWrapper
+  - FocusEngagedEventArgsWrapper
+  - NavigationEventArgsWrapper
+  - PointerRoutedEventArgsWrapper
+  - TreeViewCollapsedEventArgsWrapper
+  - TreeViewExpandingEventArgsWrapper
+  - WebViewUnviewableContentIdentifiedEventArgsWrapper
+
+### Changes
+
+- Change the target version to version 1809.
+- Change Charites version to 1.2.0.
+- Change Charites.Bindings version to 1.2.0.
+- Change to be able to specify multiple EventArgsResolver.
+
+### Bux fix
+
+- Fixed the method name of the wrapper class to add the suffix "Wrapped".
+
 ## V2.1.0
 
 ### Add
