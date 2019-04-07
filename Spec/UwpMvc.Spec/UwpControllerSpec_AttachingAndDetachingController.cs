@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Devices.Input;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
@@ -397,6 +398,42 @@ namespace Charites.Windows.Mvc
                     .RaiseAsync("KeyDown")
             );
             Then("the KeyDown event should be handled", () => keyDownHandler.Received(1).Invoke(VirtualKey.Enter));
+        }
+
+        [Example("Retrieves event handlers and executes them with the event args resolver scope that has multiple event args resolver when an element is not attached")]
+        void Ex12()
+        {
+            var pointerPressedHandler = Substitute.For<Action<PointerDeviceType>>();
+            TestUwpControllers.TestUwpController controller = null;
+            Given("a controller", () => controller = new TestUwpControllers.TestUwpController { PointerPressedHandler = pointerPressedHandler });
+            When("the PointerPressed event is raised using the EventHandlerBase", () =>
+                UwpController.Using(Substitute.For<IPointerRoutedEventArgsResolver>(), typeof(PointerRoutedEventArgsWrapper))
+                    .Apply(resolver => resolver.Pointer(Arg.Any<PointerRoutedEventArgs>()).Returns((Pointer)null))
+                    .Using(Substitute.For<IPointerResolver>(), typeof(PointerWrapper))
+                    .Apply(resolver => resolver.PointerDeviceType(Arg.Any<Pointer>()).Returns(PointerDeviceType.Mouse))
+                    .EventHandlersOf(controller)
+                    .GetBy("Element")
+                    .Raise("PointerPressed")
+            );
+            Then("the PointerPressed event should be handled", () => pointerPressedHandler.Received(1).Invoke(PointerDeviceType.Mouse));
+        }
+
+        [Example("Retrieves event handlers and executes them with the event args resolver scope that has multiple event args resolver asynchronously when an element is not attached")]
+        void Ex13()
+        {
+            var pointerPressedHandler = Substitute.For<Action<PointerDeviceType>>();
+            TestUwpControllers.TestUwpController controller = null;
+            Given("a controller", () => controller = new TestUwpControllers.TestUwpController { PointerPressedHandler = pointerPressedHandler });
+            When("the PointerPressed event is raised asynchronously using the EventHandlerBase", async () =>
+                await UwpController.Using(Substitute.For<IPointerRoutedEventArgsResolver>(), typeof(PointerRoutedEventArgsWrapper))
+                    .Apply(resolver => resolver.Pointer(Arg.Any<PointerRoutedEventArgs>()).Returns((Pointer)null))
+                    .Using(Substitute.For<IPointerResolver>(), typeof(PointerWrapper))
+                    .Apply(resolver => resolver.PointerDeviceType(Arg.Any<Pointer>()).Returns(PointerDeviceType.Mouse))
+                    .EventHandlersOf(controller)
+                    .GetBy("Element")
+                    .RaiseAsync("PointerPressed")
+            );
+            Then("the PointerPressed event should be handled", () => pointerPressedHandler.Received(1).Invoke(PointerDeviceType.Mouse));
         }
     }
 }

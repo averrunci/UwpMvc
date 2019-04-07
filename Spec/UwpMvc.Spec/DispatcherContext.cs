@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -27,13 +27,13 @@ namespace Charites.Windows.Mvc
         protected async Task SetWindowContent(UIElement element)
         {
             await RunAsync(() => Window.Current.Content = element);
-            await Task.Delay(100);
+            await Task.Delay(200);
         }
 
         protected async Task ClearWindowContent()
         {
             await RunAsync(() => Window.Current.Content = null);
-            await Task.Delay(100);
+            await Task.Delay(200);
         }
     }
 }

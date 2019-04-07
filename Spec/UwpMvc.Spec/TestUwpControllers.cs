@@ -1,9 +1,10 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
 using System;
 using System.Threading.Tasks;
+using Windows.Devices.Input;
 using Windows.Foundation;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -62,11 +63,18 @@ namespace Charites.Windows.Mvc
                 KeyDownAssertionHandler?.Invoke(e.Key());
             }
 
+            [EventHandler(ElementName = "Element", Event = "PointerPressed")]
+            protected void OnElementPointerPressed(PointerRoutedEventArgs e)
+            {
+                PointerPressedHandler?.Invoke(e.Pointer().PointerDeviceType());
+            }
+
             public Action TappedAssertionHandler { get; set; }
             public Action LoadedAssertionHandler { get; set; }
             public Action ChangedAssertionHandler { get; set; }
             public Action DataContextChangedAssertionHandler { get; set; }
             public Action<VirtualKey> KeyDownAssertionHandler { get; set; }
+            public Action<PointerDeviceType> PointerPressedHandler { get; set; }
         }
 
         [View(Key = "Charites.Windows.Mvc.TestUwpControllers+TestDataContext")]
