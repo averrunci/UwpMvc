@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2019 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -99,6 +99,9 @@ namespace Charites.Windows.Mvc
                 yield return new { Description = "When the contents are attributed to methods and the event handler has no argument.", Controller = new TestUwpControllers.AttributedToMethod.NoArgumentHandlerController(NoArgumentAssertionHandler) };
                 yield return new { Description = "When the contents are attributed to methods and the event handler has one argument.", Controller = new TestUwpControllers.AttributedToMethod.OneArgumentHandlerController(OneArgumentAssertionHandler) };
                 yield return new { Description = "When the contents are attributed to methods and the event handler has two arguments.", Controller = new TestUwpControllers.AttributedToMethod.TwoArgumentsEventHandlerController(TwoArgumentsAssertionHandler) };
+                yield return new { Description = "When the contents are attributed to methods and the event handler has no argument using a naming convention.", Controller = new TestUwpControllers.AttributedToMethodUsingNamingConvention.NoArgumentHandlerController(NoArgumentAssertionHandler) };
+                yield return new { Description = "When the contents are attributed to methods and the event handler has one argument using a naming convention.", Controller = new TestUwpControllers.AttributedToMethodUsingNamingConvention.OneArgumentHandlerController(OneArgumentAssertionHandler) };
+                yield return new { Description = "When the contents are attributed to methods and the event handler has two arguments using a naming convention.", Controller = new TestUwpControllers.AttributedToMethodUsingNamingConvention.TwoArgumentsEventHandlerController(TwoArgumentsAssertionHandler) };
             }
         }
     }

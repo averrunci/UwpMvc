@@ -508,5 +508,146 @@ namespace Charites.Windows.Mvc
                 }
             }
         }
+
+        public class AttributedToMethodUsingNamingConvention
+        {
+            public class NoArgumentHandlerController : ITestUwpController
+            {
+                public void SetDataContext(object dataContext) => DataContext = dataContext;
+                public object DataContext { get; private set; }
+
+                [Element(Name = "element")]
+                public void SetElement(FrameworkElement element) => Element = element;
+                public FrameworkElement Element { get; private set; }
+
+                [Element(Name = "childElement")]
+                public void SetChildElement(FrameworkElement childElement) => ChildElement = childElement;
+                public FrameworkElement ChildElement { get; private set; }
+
+                public void childElement_Tapped()
+                {
+                    tappedHandler();
+                }
+                private readonly Action tappedHandler;
+
+                public void childElement_Loaded()
+                {
+                    loadedHandler();
+                }
+                private readonly Action loadedHandler;
+
+                public void childElement_Changed()
+                {
+                    changedHandler();
+                }
+                private readonly Action changedHandler;
+
+                public void childElement_DataContextChanged()
+                {
+                    dataContextChangedHandler();
+                }
+                private readonly Action dataContextChangedHandler;
+
+                public NoArgumentHandlerController(Action assertionHandler)
+                {
+                    tappedHandler = assertionHandler;
+                    loadedHandler = assertionHandler;
+                    changedHandler = assertionHandler;
+                    dataContextChangedHandler = assertionHandler;
+                }
+            }
+
+            public class OneArgumentHandlerController : ITestUwpController
+            {
+                public void SetDataContext(object dataContext) => DataContext = dataContext;
+                public object DataContext { get; private set; }
+
+                [Element(Name = "element")]
+                public void SetElement(FrameworkElement element) => Element = element;
+                public FrameworkElement Element { get; private set; }
+
+                [Element(Name = "childElement")]
+                public void SetChildElement(FrameworkElement childElement) => ChildElement = childElement;
+                public FrameworkElement ChildElement { get; private set; }
+
+                public void childElement_Tapped(TappedRoutedEventArgs e)
+                {
+                    tappedHandler(e);
+                }
+                private readonly Action<TappedRoutedEventArgs> tappedHandler;
+
+                public void childElement_Loaded(RoutedEventArgs e)
+                {
+                    loadedHandler(e);
+                }
+                private readonly Action<RoutedEventArgs> loadedHandler;
+
+                public void childElement_Changed(RoutedEventArgs e)
+                {
+                    changedHandler(e);
+                }
+                private readonly Action<RoutedEventArgs> changedHandler;
+
+                public void childElement_DataContextChanged(DataContextChangedEventArgs e)
+                {
+                    dataContextChangedHandler(e);
+                }
+                private readonly Action<DataContextChangedEventArgs> dataContextChangedHandler;
+
+                public OneArgumentHandlerController(Action<object> assertionHandler)
+                {
+                    tappedHandler = assertionHandler;
+                    loadedHandler = assertionHandler;
+                    changedHandler = assertionHandler;
+                    dataContextChangedHandler = assertionHandler;
+                }
+            }
+
+            public class TwoArgumentsEventHandlerController : ITestUwpController
+            {
+                public void SetDataContext(object dataContext) => DataContext = dataContext;
+                public object DataContext { get; private set; }
+
+                [Element(Name = "element")]
+                public void SetElement(FrameworkElement element) => Element = element;
+                public FrameworkElement Element { get; private set; }
+
+                [Element(Name = "childElement")]
+                public void SetChildElement(FrameworkElement childElement) => ChildElement = childElement;
+                public FrameworkElement ChildElement { get; private set; }
+
+                public void childElement_Tapped(object sender, TappedRoutedEventArgs e)
+                {
+                    tappedHandler(sender, e);
+                }
+                private readonly TappedEventHandler tappedHandler;
+
+                public void childElement_Loaded(object sender, RoutedEventArgs e)
+                {
+                    loadedHandler(sender, e);
+                }
+                private readonly RoutedEventHandler loadedHandler;
+
+                public void childElement_Changed(object sender, RoutedEventArgs e)
+                {
+                    changedHandler(sender, e);
+                }
+                private readonly RoutedEventHandler changedHandler;
+
+                public void childElement_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs e)
+                {
+                    dataContextChangedHandler(sender, e);
+                }
+                private readonly TypedEventHandler<FrameworkElement, DataContextChangedEventArgs> dataContextChangedHandler;
+
+                public TwoArgumentsEventHandlerController(Action<object, object> assertionHandler)
+                {
+                    tappedHandler = (s, e) => assertionHandler(s, e);
+                    loadedHandler = (s, e) => assertionHandler(s, e);
+                    changedHandler = (s, e) => assertionHandler(s, e);
+                    dataContextChangedHandler = (s, e) => assertionHandler(s, e);
+                }
+            }
+        }
     }
 }
