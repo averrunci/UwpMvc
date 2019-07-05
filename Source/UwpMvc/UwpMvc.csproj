@@ -159,6 +159,7 @@
     <Compile Include="Mvc\Wrappers\ContextMenuEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\ContextRequestedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DataContextChangedEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\DataPackageViewWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DatePickerValueChangedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DeferralWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DependencyPropertyChangedEventArgsWrapper.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Mvc\Wrappers\DragItemsStartingEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DragStartedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DragStartingEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\DragUIOverrideWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DragUIWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DropCompletedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DynamicOverflowItemsChangingEventArgsWrapper.cs" />
