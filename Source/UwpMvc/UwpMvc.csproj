@@ -132,6 +132,7 @@
     <Compile Include="Mvc\UwpEventHandlerAction.cs" />
     <Compile Include="Mvc\UwpEventHandlerExtension.cs" />
     <Compile Include="Mvc\UwpEventHandlerItem.cs" />
+    <Compile Include="Mvc\UwpParameterDependencyResolver.cs" />
     <Compile Include="Mvc\Wrappers\AccessKeyDisplayRequestedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\AnchorRequestedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\AutoSuggestBoxQuerySubmittedEventArgsWrapper.cs" />
