@@ -11,14 +11,14 @@ namespace Charites.Windows.Mvc
 {
     internal sealed class EventArgsResolverScope : IDisposable
     {
-        private readonly SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
+        private static readonly SemaphoreSlim Semaphore = new SemaphoreSlim(1, 1);
         private readonly IEnumerable<IEventArgsResolver> eventArgsResolvers;
 
         public EventArgsResolverScope(IEnumerable<IEventArgsResolver> eventArgsResolvers)
         {
             this.eventArgsResolvers = eventArgsResolvers ?? Enumerable.Empty<IEventArgsResolver>();
 
-            semaphore.Wait();
+            Semaphore.Wait();
 
             this.eventArgsResolvers.ForEach(context => context.Configure());
         }
@@ -32,7 +32,7 @@ namespace Charites.Windows.Mvc
         {
             eventArgsResolvers.ForEach(context => context.Dispose());
 
-            semaphore.Release();
+            Semaphore.Release();
         }
     }
 }
