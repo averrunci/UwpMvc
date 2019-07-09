@@ -1,6 +1,24 @@
 # Release note
 
-## V2.2.0
+## v2.3.0
+
+### Add
+
+- Add wrappers.
+  - DataPackageViewWrapper
+  - DragUIOverrideWrapper
+- Add the function to inject dependencies of parameters based on teh FromDIAttribute attribute.
+
+### Changes
+
+- Change the target version to version 1903.
+- Change Charites version to 1.3.0.
+
+### Bug fix
+
+- Fixed the exclusive control of the EventArgsResolver.
+
+## v2.2.0
 
 ### Add
 
@@ -60,7 +78,7 @@
 
 - Fixed the method name of the wrapper class to add the suffix "Wrapped".
 
-## V2.1.0
+## v2.1.0
 
 ### Add
 
@@ -70,7 +88,7 @@
 
 - Fixed how to decide whether an event handler is the routed event handler.
 
-## V2.0.1
+## v2.0.1
 
 ### Add
 
@@ -89,7 +107,7 @@
 - Fixed to attach controllers correctly when the DataTypeDataTemplateSelector is set to the ItemTemplateSelector.
 - Fixed not to find the controller of the same type when to find the type of the controller with the UwpControllerTypeFinder.
 
-## V2.0.0
+## v2.0.0
 
 ### Add
 
@@ -103,7 +121,7 @@
 - Change the namespace from Fievus to Charites.
 - Change the testing framework from xUnit to Carna.
 
-## V1.3.0
+## v1.3.0
 
 ### Add
 
