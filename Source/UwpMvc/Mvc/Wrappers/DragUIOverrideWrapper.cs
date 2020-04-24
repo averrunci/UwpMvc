@@ -134,6 +134,9 @@ namespace Charites.Windows.Mvc.Wrappers
         }
     }
 
+    /// <summary>
+    /// Resolves data of the <see cref="DragUIOverride"/>.
+    /// </summary>
     public interface IDragUIOverrideResolver
     {
         /// <summary>
