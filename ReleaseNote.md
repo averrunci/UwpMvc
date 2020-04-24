@@ -1,5 +1,11 @@
 # Release note
 
+## v2.3.1
+
+### Changes
+
+- Change the Microsoft.NETCore.UniversalWindowsPlatform version to 6.0.6.
+
 ## v2.3.0
 
 ### Add
