@@ -113,6 +113,7 @@
     <Compile Include="UwpControllerSpec_EventHandlerDataContextElementInjection.cs" />
     <Compile Include="UwpControllerSpec.cs" />
     <Compile Include="UwpControllerSpec_AttachingAndDetachingController.cs" />
+    <Compile Include="UwpControllerSpec_ExecuteHandler.cs" />
     <Compile Include="UwpControllerSpec_UnhandledException.cs" />
     <Compile Include="UwpControllerSpec_UwpControllerExtension.cs" />
   </ItemGroup>

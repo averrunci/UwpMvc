@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2021 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -14,6 +14,9 @@ namespace Charites.Windows.Mvc
 
         [Context]
         UwpControllerSpec_AttachingAndDetachingController AttachingAndDetachingController { get; set; }
+
+        [Context]
+        UwpControllerSpec_ExecuteHandler ExecuteHandler { get; set; }
 
         [Context]
         UwpControllerSpec_UwpControllerExtension UwpControllerSpecUwpControllerExtension { get; set; }
