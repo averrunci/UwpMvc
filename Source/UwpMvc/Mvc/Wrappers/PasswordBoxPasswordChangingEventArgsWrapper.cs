@@ -19,7 +19,7 @@ namespace Charites.Windows.Mvc.Wrappers
         public static IPasswordBoxPasswordChangingEventArgsResolver Resolver { get; set; } = new DefaultPasswordBoxPasswordChangingEventArgsResolver();
 
         /// <summary>
-        /// Gets a value that indicates whether the event occured due to a change in the text content.
+        /// Gets a value that indicates whether the event occurred due to a change in the text content.
         /// </summary>
         /// <param name="e">The requested <see cref="PasswordBoxPasswordChangingEventArgs"/>.</param>
         /// <returns><c>true</c> if a change to the text content caused the event; otherwise, <c>false</c>.</returns>
@@ -37,7 +37,7 @@ namespace Charites.Windows.Mvc.Wrappers
     public interface IPasswordBoxPasswordChangingEventArgsResolver
     {
         /// <summary>
-        /// Gets a value that indicates whether the event occured due to a change in the text content.
+        /// Gets a value that indicates whether the event occurred due to a change in the text content.
         /// </summary>
         /// <param name="e">The requested <see cref="PasswordBoxPasswordChangingEventArgs"/>.</param>
         /// <returns><c>true</c> if a change to the text content caused the event; otherwise, <c>false</c>.</returns>
