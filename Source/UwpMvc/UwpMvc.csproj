@@ -272,6 +272,7 @@
     <Compile Include="Mvc\Wrappers\WebViewUnsupportedUriSchemeIdentifiedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\WebViewUnviewableContentIdentifiedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\WebViewWebResourceRequestedEventArgsWrapper.cs" />
+    <Compile Include="Mvc\XamlControlsResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Mvc\UwpControllerTypeFinder.cs" />
     <Compile Include="Mvc\UnhandledExceptionEventArgs.cs" />
