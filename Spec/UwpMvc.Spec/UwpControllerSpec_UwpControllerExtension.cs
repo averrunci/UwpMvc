@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2021 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -21,7 +21,7 @@ namespace Charites.Windows.Mvc
             public object Retrieve(object controller) => TestExtensionContainer;
         }
 
-        IUwpControllerExtension Extension { get; } = Substitute.For<IUwpControllerExtension>();
+        IUwpControllerExtension Extension { get; set; }
 
         TestUwpControllers.TestDataContext DataContext { get; } = new TestUwpControllers.TestDataContext();
         TestElement Element { get; set; }
@@ -37,6 +37,7 @@ namespace Charites.Windows.Mvc
         [Example("Attaches an extension when the element is loaded and detaches it when the element is unloaded")]
         async Task Ex01()
         {
+            Extension = Substitute.For<IUwpControllerExtension>();
             await RunAsync(() =>
             {
                 Given("an element that contains a data context", () => Element = new TestElement { DataContext = DataContext });
@@ -57,8 +58,9 @@ namespace Charites.Windows.Mvc
         [Example("Retrieves a container of an extension")]
         void Ex02()
         {
+            Extension = new TestExtension();
             Given("a controller", () => Controller = new TestUwpControllers.TestUwpController());
-            When("an extension is added", () => UwpController.AddExtension(new TestExtension()));
+            When("an extension is added", () => UwpController.AddExtension(Extension));
             Then("the container of the extension should be retrieved", () => UwpController.Retrieve<TestExtension, object>(Controller) == TestExtension.TestExtensionContainer);
         }
     }
