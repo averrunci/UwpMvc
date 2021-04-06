@@ -286,13 +286,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Charites">
-      <Version>1.3.0</Version>
+      <Version>1.3.1</Version>
     </PackageReference>
     <PackageReference Include="Charites.Bindings">
-      <Version>1.2.0</Version>
+      <Version>1.2.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.6</Version>
+      <Version>6.2.12</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
