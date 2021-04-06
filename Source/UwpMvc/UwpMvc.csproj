@@ -158,15 +158,18 @@
     <Compile Include="Mvc\Wrappers\ContentLinkInvokedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\ContextMenuEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\ContextRequestedEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\CrossSlidingEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DataContextChangedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DataPackageViewWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DatePickerValueChangedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DeferralWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DependencyPropertyChangedEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\DetectionConfigurationAvailabilityChangedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DoubleTappedRoutedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DragCompletedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DragDeltaEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DragEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\DraggingEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DragItemsCompletedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DragItemsStartingEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\DragStartedEventArgsWrapper.cs" />
@@ -182,6 +185,7 @@
     <Compile Include="Mvc\Wrappers\FocusDisengagedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\FocusEngagedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\GettingFocusEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\HoldingEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\HoldingRoutedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\HubSectionHeaderClickEventArgsWrapper.cs" />
     <Compile Include="Mvc\IEventArgsResolver.cs" />
@@ -192,11 +196,15 @@
     <Compile Include="Mvc\Wrappers\ItemClickEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\KeyRoutedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\LosingFocusEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\ManipulationCompletedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\ManipulationCompletedRoutedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\ManipulationDeltaRoutedEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\ManipulationInertiaStartingEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\ManipulationInertiaStartingRoutedEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\ManipulationStartedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\ManipulationStartedRoutedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\ManipulationStartingRoutedEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\ManipulationUpdatedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\MapActualCameraChangedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\MapActualCameraChangingEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\MapContextRequestedEventArgsWrapper.cs" />
@@ -229,6 +237,7 @@
     <Compile Include="Mvc\Wrappers\RefreshStateChangedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\RichEditBoxSelectionChangingEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\RichEditBoxTextChangingEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\RightTappedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\RightTappedRoutedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\RoutedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\ScrollEventArgsWrapper.cs" />
@@ -243,6 +252,7 @@
     <Compile Include="Mvc\Wrappers\SemanticZoomViewChangedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\SizeChangedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\SplitViewPaneClosingEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\TappedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\TappedRoutedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\TextBoxBeforeTextChangingEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\TextBoxSelectionChangingEventArgsWrapper.cs" />
@@ -260,6 +270,7 @@
     <Compile Include="Mvc\Wrappers\TreeViewDragItemsStartingEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\TreeViewExpandingEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\TreeViewItemInvokedEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\UserChangedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\WebViewNavigationFailedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\WebViewContentLoadingEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\WebViewDOMContentLoadedEventArgsWrapper.cs" />
