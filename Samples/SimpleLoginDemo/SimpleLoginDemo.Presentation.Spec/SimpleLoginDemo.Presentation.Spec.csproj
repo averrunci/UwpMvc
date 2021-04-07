@@ -106,7 +106,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Home\HomeContentSpec.cs" />
+    <Compile Include="ApplicationHostControllerSpec.cs" />
     <Compile Include="Home\HomeControllerSpec.cs" />
     <Compile Include="Login\LoginContentSpec.cs" />
     <Compile Include="Login\LoginControllerSpec.cs" />

@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018 Fievus
+﻿// Copyright (C) 2018-2021 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -10,13 +10,6 @@ namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation.Login
     class LoginContentSpec : FixtureSteppable
     {
         LoginContent LoginContent { get; } = new LoginContent();
-
-        bool LoginRequested { get; set; }
-
-        public LoginContentSpec()
-        {
-            LoginContent.LoginRequested += (s, e) => LoginRequested = true;
-        }
 
         [Example("Validates the user id and the password")]
         [Sample(null, null, false, Description = "When the user id is null and the password is null")]
@@ -31,17 +24,6 @@ namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation.Login
             When("the user id is set", () => LoginContent.UserId.Value = userId);
             When("the password is set", () => LoginContent.Password.Value = password);
             Then($"the result should be {expected}", () => LoginContent.IsValid.Value == expected);
-        }
-
-        [Example("Raises the LoginRequested event")]
-        [Sample("user", "password", true, Description = "When the content is valid")]
-        [Sample(null, null, false, Description = "When the content is invalid")]
-        void Ex02(string userId, string password, bool expected)
-        {
-            When("the user id is set", () => LoginContent.UserId.Value = userId);
-            When("the password is set", () => LoginContent.Password.Value = password);
-            When("to log in", () => LoginContent.Login());
-            Then($"the LoginRequested event should{(expected ? " " : " not ")} be raised", () => LoginRequested == expected);
         }
     }
 }
