@@ -1,5 +1,30 @@
 # Release note
 
+## v2.4.0
+
+### Add
+
+- Add the XamlControlsResources class that defines default styles for the controls in the UwpMvc.
+- Add the following event args wrappers.
+  - DetectionConfigurationAvailabilityChangedEventArgsWrapper
+  - UserChangedEventArgsWrapper
+  - CrossSlidingEventArgsWrapper
+  - DraggingEventArgsWrapper
+  - HoldingEventArgsWrapper
+  - ManipulationCompletedEventArgsWrapper
+  - ManipulationInertiaStartingEventArgsWrapper
+  - ManipulationStartedEventArgsWrapper
+  - ManipulationUpdatedEventArgsWrapper
+  - RightTappedEventArgsWrapper
+  - TappedEventArgsWrapper
+
+### Changes
+
+- Change the target platform version to 2004.
+- Change the target platform min version to 1803.
+- Change Charites version to 1.3.1.
+- Change Charites.Bindings version to 1.2.1.
+
 ## v2.3.1
 
 ### Changes
@@ -13,7 +38,7 @@
 - Add wrappers.
   - DataPackageViewWrapper
   - DragUIOverrideWrapper
-- Add the function to inject dependencies of parameters based on teh FromDIAttribute attribute.
+- Add the function to inject dependencies of parameters based on the FromDIAttribute attribute.
 
 ### Changes
 

@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="ms-appx:///UwpMvc/Resources.xaml"/>
+        <XamlControlsResources xmlns="using:Charites.Windows.Mvc"/>
         <ResourceDictionary Source="Styles.xaml"/>
         <ResourceDictionary Source="Templates.xaml"/>
     </ResourceDictionary.MergedDictionaries>
