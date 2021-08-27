@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018-2019 Fievus
+﻿// Copyright (C) 2018-2021 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -102,6 +102,9 @@ namespace Charites.Windows.Mvc
                 yield return new { Description = "When the contents are attributed to methods and the event handler has no argument using a naming convention.", Controller = new TestUwpControllers.AttributedToMethodUsingNamingConvention.NoArgumentHandlerController(NoArgumentAssertionHandler) };
                 yield return new { Description = "When the contents are attributed to methods and the event handler has one argument using a naming convention.", Controller = new TestUwpControllers.AttributedToMethodUsingNamingConvention.OneArgumentHandlerController(OneArgumentAssertionHandler) };
                 yield return new { Description = "When the contents are attributed to methods and the event handler has two arguments using a naming convention.", Controller = new TestUwpControllers.AttributedToMethodUsingNamingConvention.TwoArgumentsEventHandlerController(TwoArgumentsAssertionHandler) };
+                yield return new { Description = "When the contents are attributed to async methods and the event handler has no argument using a naming convention.", Controller = new TestUwpControllers.AttributedToAsyncMethodUsingNamingConvention.NoArgumentHandlerController(NoArgumentAssertionHandler) };
+                yield return new { Description = "When the contents are attributed to async methods and the event handler has one argument using a naming convention.", Controller = new TestUwpControllers.AttributedToAsyncMethodUsingNamingConvention.OneArgumentHandlerController(OneArgumentAssertionHandler) };
+                yield return new { Description = "When the contents are attributed to async methods and the event handler has two arguments using a naming convention.", Controller = new TestUwpControllers.AttributedToAsyncMethodUsingNamingConvention.TwoArgumentsEventHandlerController(TwoArgumentsAssertionHandler) };
             }
         }
     }

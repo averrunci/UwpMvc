@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018-2019 Fievus
+﻿// Copyright (C) 2018-2021 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -637,6 +637,159 @@ namespace Charites.Windows.Mvc
                 public void childElement_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs e)
                 {
                     dataContextChangedHandler(sender, e);
+                }
+                private readonly TypedEventHandler<FrameworkElement, DataContextChangedEventArgs> dataContextChangedHandler;
+
+                public TwoArgumentsEventHandlerController(Action<object, object> assertionHandler)
+                {
+                    tappedHandler = (s, e) => assertionHandler(s, e);
+                    loadedHandler = (s, e) => assertionHandler(s, e);
+                    changedHandler = (s, e) => assertionHandler(s, e);
+                    dataContextChangedHandler = (s, e) => assertionHandler(s, e);
+                }
+            }
+        }
+
+        public class AttributedToAsyncMethodUsingNamingConvention
+        {
+            public class NoArgumentHandlerController : ITestUwpController
+            {
+                public void SetDataContext(object dataContext) => DataContext = dataContext;
+                public object DataContext { get; private set; }
+
+                [Element(Name = "element")]
+                public void SetElement(FrameworkElement element) => Element = element;
+                public FrameworkElement Element { get; private set; }
+
+                [Element(Name = "childElement")]
+                public void SetChildElement(FrameworkElement childElement) => ChildElement = childElement;
+                public FrameworkElement ChildElement { get; private set; }
+
+                public Task childElement_TappedAsync()
+                {
+                    tappedHandler();
+                    return Task.CompletedTask;
+                }
+                private readonly Action tappedHandler;
+
+                public Task childElement_LoadedAsync()
+                {
+                    loadedHandler();
+                    return Task.CompletedTask;
+                }
+                private readonly Action loadedHandler;
+
+                public Task childElement_ChangedAsync()
+                {
+                    changedHandler();
+                    return Task.CompletedTask;
+                }
+                private readonly Action changedHandler;
+
+                public Task childElement_DataContextChangedAsync()
+                {
+                    dataContextChangedHandler();
+                    return Task.CompletedTask;
+                }
+                private readonly Action dataContextChangedHandler;
+
+                public NoArgumentHandlerController(Action assertionHandler)
+                {
+                    tappedHandler = assertionHandler;
+                    loadedHandler = assertionHandler;
+                    changedHandler = assertionHandler;
+                    dataContextChangedHandler = assertionHandler;
+                }
+            }
+
+            public class OneArgumentHandlerController : ITestUwpController
+            {
+                public void SetDataContext(object dataContext) => DataContext = dataContext;
+                public object DataContext { get; private set; }
+
+                [Element(Name = "element")]
+                public void SetElement(FrameworkElement element) => Element = element;
+                public FrameworkElement Element { get; private set; }
+
+                [Element(Name = "childElement")]
+                public void SetChildElement(FrameworkElement childElement) => ChildElement = childElement;
+                public FrameworkElement ChildElement { get; private set; }
+
+                public Task childElement_TappedAsync(TappedRoutedEventArgs e)
+                {
+                    tappedHandler(e);
+                    return Task.CompletedTask;
+                }
+                private readonly Action<TappedRoutedEventArgs> tappedHandler;
+
+                public Task childElement_LoadedAsync(RoutedEventArgs e)
+                {
+                    loadedHandler(e);
+                    return Task.CompletedTask;
+                }
+                private readonly Action<RoutedEventArgs> loadedHandler;
+
+                public Task childElement_ChangedAsync(RoutedEventArgs e)
+                {
+                    changedHandler(e);
+                    return Task.CompletedTask;
+                }
+                private readonly Action<RoutedEventArgs> changedHandler;
+
+                public Task childElement_DataContextChangedAsync(DataContextChangedEventArgs e)
+                {
+                    dataContextChangedHandler(e);
+                    return Task.CompletedTask;
+                }
+                private readonly Action<DataContextChangedEventArgs> dataContextChangedHandler;
+
+                public OneArgumentHandlerController(Action<object> assertionHandler)
+                {
+                    tappedHandler = assertionHandler;
+                    loadedHandler = assertionHandler;
+                    changedHandler = assertionHandler;
+                    dataContextChangedHandler = assertionHandler;
+                }
+            }
+
+            public class TwoArgumentsEventHandlerController : ITestUwpController
+            {
+                public void SetDataContext(object dataContext) => DataContext = dataContext;
+                public object DataContext { get; private set; }
+
+                [Element(Name = "element")]
+                public void SetElement(FrameworkElement element) => Element = element;
+                public FrameworkElement Element { get; private set; }
+
+                [Element(Name = "childElement")]
+                public void SetChildElement(FrameworkElement childElement) => ChildElement = childElement;
+                public FrameworkElement ChildElement { get; private set; }
+
+                public Task childElement_TappedAsync(object sender, TappedRoutedEventArgs e)
+                {
+                    tappedHandler(sender, e);
+                    return Task.CompletedTask;
+                }
+                private readonly TappedEventHandler tappedHandler;
+
+                public Task childElement_LoadedAsync(object sender, RoutedEventArgs e)
+                {
+                    loadedHandler(sender, e);
+                    return Task.CompletedTask;
+                }
+                private readonly RoutedEventHandler loadedHandler;
+
+                public Task childElement_ChangedAsync(object sender, RoutedEventArgs e)
+                {
+                    changedHandler(sender, e);
+                    return Task.CompletedTask;
+                }
+                private readonly RoutedEventHandler changedHandler;
+
+                public Task childElement_DataContextChangedAsync(FrameworkElement sender, DataContextChangedEventArgs e)
+                {
+                    dataContextChangedHandler(sender, e);
+                    return Task.CompletedTask;
                 }
                 private readonly TypedEventHandler<FrameworkElement, DataContextChangedEventArgs> dataContextChangedHandler;
 
