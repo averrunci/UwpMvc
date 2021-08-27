@@ -151,6 +151,7 @@
     <Compile Include="Mvc\Wrappers\ColorChangedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\ComboBoxTextSubmittedEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\ContainerContentChangingEventArgsWrapper.cs" />
+    <Compile Include="Mvc\Wrappers\ContentDialogButtonClickDeferralWrapper.cs" />
     <Compile Include="Mvc\Wrappers\ContentDialogButtonClickEventArgsWrapper.cs" />
     <Compile Include="Mvc\Wrappers\ContentDialogClosingDeferralWrapper.cs" />
     <Compile Include="Mvc\Wrappers\ContentDialogClosingEventArgsWrapper.cs" />
