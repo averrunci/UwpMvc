@@ -1,5 +1,16 @@
 # Release note
 
+## v2.4.1
+
+### Add
+
+- Add the ContentDialogButtonClickDeferralWrapper.
+
+### Changes
+
+- Change Charites version to 1.3.2.
+- Modify how to retrieve an event name from a method that represents an event handler using naming convention. If its name ends with "Async", it is ignored.
+
 ## v2.4.0
 
 ### Add
