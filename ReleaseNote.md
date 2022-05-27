@@ -1,5 +1,11 @@
 # Release note
 
+## v2.4.2
+
+### Add
+
+- Add the Resolve method to the EventArgsResolverScopeEventHandlerBase class.
+
 ## v2.4.1
 
 ### Add

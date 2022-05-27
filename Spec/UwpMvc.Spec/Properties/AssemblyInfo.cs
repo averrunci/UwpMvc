@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018-2021 Fievus
+﻿// Copyright (C) 2018-2022 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -27,6 +27,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.4.1")]
-[assembly: AssemblyFileVersion("2.4.1")]
+[assembly: AssemblyVersion("2.4.2")]
+[assembly: AssemblyFileVersion("2.4.2")]
 [assembly: ComVisible(false)]

@@ -64,7 +64,7 @@
       <package id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.12" skipAssemblyReferences="false" />
     </packages>
     <packages>
-      <package id="UwpMvc" version="2.4.1"/>
+      <package id="UwpMvc" version="2.4.2"/>
     </packages>
   </WizardData>
 </VSTemplate>
