@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018-2021 Fievus
+﻿// Copyright (C) 2018-2022 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -127,11 +127,18 @@ namespace Charites.Windows.Mvc
                 await Task.Run(() => KeyDownAssertionHandler?.Invoke(e.Key()));
             }
 
+            [EventHandler(ElementName = "Element", Event = "PointerPressed")]
+            protected async Task OnElementPointerPressed(PointerRoutedEventArgs e)
+            {
+                await Task.Run(() => PointerPressedHandler?.Invoke(e.Pointer().PointerDeviceType()));
+            }
+
             public Action TappedAssertionHandler { get; set; }
             public Action LoadedAssertionHandler { get; set; }
             public Action ChangedAssertionHandler { get; set; }
             public Action DataContextChangedAssertionHandler { get; set; }
             public Action<VirtualKey> KeyDownAssertionHandler { get; set; }
+            public Action<PointerDeviceType> PointerPressedHandler { get; set; }
         }
 
         public class ExceptionTestUwpController
@@ -142,6 +149,74 @@ namespace Charites.Windows.Mvc
                 throw new Exception();
             }
         }
+
+        public class DependencyParameterController
+        {
+            [DataContext]
+            public object DataContext { get; set; }
+
+            [Element]
+            public FrameworkElement Element { get; set; }
+
+            [EventHandler(ElementName = "Element", Event = "KeyDown")]
+            protected void OnElementKeyDown(KeyRoutedEventArgs e, [FromDI] IDependency1 dependency1, [FromDI] IDependency2 dependency2, [FromDI] IDependency3 dependency3)
+            {
+                KeyDownAssertionHandler?.Invoke(e.Key());
+                DependencyArgumentsHandler?.Invoke(dependency1, dependency2, dependency3);
+            }
+
+            [EventHandler(ElementName = "Element", Event = "PointerPressed")]
+            protected void OnElementPointerPressed(PointerRoutedEventArgs e, [FromDI] IDependency1 dependency1, [FromDI] IDependency2 dependency2, [FromDI] IDependency3 dependency3)
+            {
+                PointerPressedHandler?.Invoke(e.Pointer().PointerDeviceType());
+                DependencyArgumentsHandler?.Invoke(dependency1, dependency2, dependency3);
+            }
+
+            public Action<VirtualKey> KeyDownAssertionHandler { get; set; }
+            public Action<PointerDeviceType> PointerPressedHandler { get; set; }
+            public Action<IDependency1, IDependency2, IDependency3> DependencyArgumentsHandler { get; set; }
+        }
+
+        public class DependencyParameterControllerAsync
+        {
+            [DataContext]
+            public object DataContext { get; set; }
+
+            [Element]
+            public FrameworkElement Element { get; set; }
+
+            [EventHandler(ElementName = "Element", Event = "KeyDown")]
+            private async Task OnElementKeyDownAsync(KeyRoutedEventArgs e, [FromDI] IDependency1 dependency1, [FromDI] IDependency2 dependency2, [FromDI] IDependency3 dependency3)
+            {
+                await Task.Run(() =>
+                {
+                    KeyDownAssertionHandler?.Invoke(e.Key());
+                    DependencyArgumentsHandler?.Invoke(dependency1, dependency2, dependency3);
+                });
+            }
+
+
+            [EventHandler(ElementName = "Element", Event = "PointerPressed")]
+            protected async Task OnElementPointerPressedAsync(PointerRoutedEventArgs e, [FromDI] IDependency1 dependency1, [FromDI] IDependency2 dependency2, [FromDI] IDependency3 dependency3)
+            {
+                await Task.Run(() =>
+                {
+                    PointerPressedHandler?.Invoke(e.Pointer().PointerDeviceType());
+                    DependencyArgumentsHandler?.Invoke(dependency1, dependency2, dependency3);
+                });
+            }
+
+            public Action<VirtualKey> KeyDownAssertionHandler { get; set; }
+            public Action<PointerDeviceType> PointerPressedHandler { get; set; }
+            public Action<IDependency1, IDependency2, IDependency3> DependencyArgumentsHandler { get; set; }
+        }
+
+        public interface IDependency1 { }
+        public interface IDependency2 { }
+        public interface IDependency3 { }
+        public class Dependency1 : IDependency1 { }
+        public class Dependency2 : IDependency2 { }
+        public class Dependency3 : IDependency3 { }
 
         public class AttributedToField
         {

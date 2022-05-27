@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2018-2019 Fievus
+﻿// Copyright (C) 2018-2022 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -80,6 +80,19 @@ namespace Charites.Windows.Mvc
                 executor.With(args);
                 return this;
             }
+
+            /// <summary>
+            /// Resolve a parameter of the specified type using the specified resolver.
+            /// </summary>
+            /// <typeparam name="TParameter">The type of the parameter to inject to.</typeparam>
+            /// <param name="resolver">The function to resolve the parameter of the specified type.</param>
+            /// <returns>The instance of the <see cref="Executor" /> class.</returns>
+            public Executor Resolve<TParameter>(Func<object> resolver)
+            {
+                executor.Resolve<TParameter>(resolver);
+                return this;
+            }
+
 
             /// <summary>Raises the event of the specified name.</summary>
             /// <param name="eventName">The name of the event to raise.</param>

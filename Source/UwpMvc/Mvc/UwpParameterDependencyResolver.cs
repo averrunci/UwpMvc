@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2019 Fievus
+﻿// Copyright (C) 2019-2022 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -16,7 +16,7 @@ namespace Charites.Windows.Mvc
 
         protected override object ResolveParameterFromDependency(ParameterInfo parameter)
         {
-            return UwpController.ControllerFactory?.Create(parameter.ParameterType) ?? base.ResolveParameterFromDependency(parameter);
+            return base.ResolveParameterFromDependency(parameter) ?? UwpController.ControllerFactory?.Create(parameter.ParameterType);
         }
     }
 }
